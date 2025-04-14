@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Planado | Manage</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Allura&family=Archivo:ital,wght@0,100..900;1,100..900&family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playwrite+TZ+Guides&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik+Vinyl&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Allura&family=Archivo:ital,wght@0,100..900;1,100..900&family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playwrite+TZ+Guides&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik+Vinyl&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link rel="stylesheet" href="/header.css" />
+    <link rel="stylesheet" href="/manage.css" />
+  </head>
+  <body>
+    <!---
+    
+    <p style="display: none" class="page">manage</p>
+ 
+    <main>
+      <div class="container animated animatedFadeInUp fadeInUp">
+        <div class="manageSessions">
+          <form id="submitsched-form">
+            <p>Add Session</p>
+            <div class="session-inputs">
+              <div class="roomss-div">
+                <select name="room" class="rooms-select">
+                  <% for(let i = 0 ; i < roomsAvail.length; i++){ %>
+                  <option value="<%= roomsAvail[i] %>">
+                    <%= roomsAvail[i]%>
+                  </option>
+                  <%} %>
+                </select>
+              </div>
+              <div class="dayy-div">
+                <select name="day" id="day">
+                  <option value="MONDAY">monday</option>
+                  <option value="TUESDAY">tuesday</option>
+                  <option value="WEDNESDAY">wednesday</option>
+                  <option value="THURSDAY">thursday</option>
+                  <option value="FRIDAY">friday</option>
+                  <option value="SATURDAY">saturday</option>
+                </select>
+              </div>
+            </div>
+            <div class="session-inputs">
+              <div class="startt">
+                <select name="start" id="start">
+                  <option value="07:00:00">07:00 AM</option>
+                  <option value="07:30:00">07:30 AM</option>
+                  <option value="08:00:00">08:00 AM</option>
+                  <option value="08:30:00">08:30 AM</option>
+                  <option value="09:00:00">09:00 AM</option>
+                  <option value="09:30:00">09:30 AM</option>
+                  <option value="10:00:00">10:00 AM</option>
+                  <option value="10:30:00">10:30 AM</option>
+                  <option value="11:00:00">11:00 AM</option>
+                  <option value="11:30:00">11:30 AM</option>
+                  <option value="12:00:00">12:00 PM</option>
+                  <option value="12:30:00">12:30 PM</option>
+                  <option value="13:00:00">01:00 PM</option>
+                  <option value="13:30:00">01:30 PM</option>
+                  <option value="14:00:00">02:00 PM</option>
+                  <option value="14:30:00">02:30 PM</option>
+                  <option value="15:00:00">03:00 PM</option>
+                  <option value="15:30:00">03:30 PM</option>
+                  <option value="16:00:00">04:00 PM</option>
+                  <option value="16:30:00">04:30 PM</option>
+                  <option value="17:00:00">05:00 PM</option>
+                  <option value="17:30:00">05:30 PM</option>
+                  <option value="18:00:00">06:00 PM</option>
+                  <option value="18:30:00">06:30 PM</option>
+                  <option value="19:00:00">07:00 PM</option>
+                </select>
+              </div>
+              <div class="endd">
+                <select name="end" id="end">
+                  <option value="07:00:00">07:00 AM</option>
+                  <option value="07:30:00">07:30 AM</option>
+                  <option value="08:00:00">08:00 AM</option>
+                  <option value="08:30:00">08:30 AM</option>
+                  <option value="09:00:00">09:00 AM</option>
+                  <option value="09:30:00">09:30 AM</option>
+                  <option value="10:00:00">10:00 AM</option>
+                  <option value="10:30:00">10:30 AM</option>
+                  <option value="11:00:00">11:00 AM</option>
+                  <option value="11:30:00">11:30 AM</option>
+                  <option value="12:00:00">12:00 PM</option>
+                  <option value="12:30:00">12:30 PM</option>
+                  <option value="13:00:00">01:00 PM</option>
+                  <option value="13:30:00">01:30 PM</option>
+                  <option value="14:00:00">02:00 PM</option>
+                  <option value="14:30:00">02:30 PM</option>
+                  <option value="15:00:00">03:00 PM</option>
+                  <option value="15:30:00">03:30 PM</option>
+                  <option value="16:00:00">04:00 PM</option>
+                  <option value="16:30:00">04:30 PM</option>
+                  <option value="17:00:00">05:00 PM</option>
+                  <option value="17:30:00">05:30 PM</option>
+                  <option value="18:00:00">06:00 PM</option>
+                  <option value="18:30:00">06:30 PM</option>
+                  <option value="19:00:00">07:00 PM</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="session-inputs">
+              <div class="subject-inpp">
+                <select
+                  type="text"
+                  placeholder="FEC1"
+                  name="subject"
+                  class="subjectSelect"
+                  required
+                >
+                  <script>
+
+                    function facultysub() {
+
+                      let faculties = <%- JSON.stringify(groupedfaculty) %>;
+                      let prof = document.querySelector(".facultySelect").value;
+                      let subjectSe = document.querySelector(".subjectSelect")
+                       subjectSe.innerHTML = ""
+                      console.log(faculties[prof]);
+                      console.log(prof);
+
+                    faculties[prof].forEach(element => {
+                        subjectSe.innerHTML += `<option value="${element.subject}">${element.subject}</option>`
+
+                     });
+                    }
+                  </script>
+                </select>
+              </div>
+              <div class="section-inpp">
+                <input
+                  type="text"
+                  placeholder="BSCPE2A"
+                  name="section"
+                  required
+                />
+              </div>
+            </div>
+            <div class="session-inputs">
+              <div class="faculty-inpp">
+                <select
+                  type="text"
+                  class="facultySelect"
+                  name="faculty"
+                  onchange="facultysub()"
+                  required
+                >
+                  <% Object.keys(groupedfaculty).forEach(dat =>{%>
+
+                  <option value="<%= dat %>"><%= dat %></option>
+                  <%}) %>
+                </select>
+              </div>
+            </div>
+            <button class="submitSched" type="submit">Add Schedule</button>
+          </form>
+          <form id="addroom-form" style="margin-top: 10%;">
+            <p class="addroom-button" name="addroom" style="padding-top: 30px;">Add Room</p>
+            <div class="session-inputs" style="margin-top: 10px" id="roominp">
+              <input
+                type="text"
+                name="roomName"
+                placeholder="Enter name"
+                id="room-input-name"
+              />
+              <input
+                type="number"
+                name="roomNumber"
+                placeholder="Enter Room Number"
+                id="room-input-name"
+                
+              />
+            </div>
+
+            <button class="submitRoom" type="submit">Add Room</button>
+          </form>
+          <form id="addprof" style="margin-top: 10%; display: flex; flex-direction: column; align-items: center;" class="addprof">
+            <p style="border-top: 1px solid black; width: 90%; padding-top: 30px;">Add Faculty</p>
+            <div class="faculty-inputs" style="margin-top: 2px" id="roominp">
+              <input
+                type="text"
+                name="prof"
+                placeholder="Enter name"
+                id="prof-name"
+              />
+              <input
+                type="text"
+                name="subject"
+                placeholder="Enter Subject"
+                id="subject"
+                
+              />
+              <input
+              type="number"
+              name="units"
+              placeholder="Enter units"
+              id="units"
+              
+            />
+
+            </div>
+
+            <button style="margin-top: 0;" class="submitfaculty" type="submit">Add Room</button>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <script>
+
+     const addprofform = document.querySelector("#addprof");
+
+     addprofform.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      let newform = new FormData(addprofform);
+      let data = Object.fromEntries(newform);
+
+      fetch("/addprof", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+
+      })
+      .then((res) => res.json())
+          .then((dat) => {
+            if (dat.success) {
+              popthis(dat.message);
+              location.reload();
+            } else {
+              popthis(dat.message);
+            }
+          });
+
+     })
+
+
+      const addroomForm = document.querySelector("#addroom-form");
+
+      addroomForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        let Newform = new FormData(addroomForm);
+        let data = Object.fromEntries(Newform);
+
+        fetch("/addroom", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        })
+          .then((res) => res.json())
+          .then((dat) => {
+            if (dat.success) {
+              popthis(dat.message);
+              location.reload();
+            } else {
+              popthis(dat.message);
+            }
+          });
+      });
+
+      let addsched = document.querySelector("#submitsched-form");
+      addsched.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        let Newform = new FormData(addsched);
+        let data = Object.fromEntries(Newform);
+
+        fetch("/addsched", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        })
+          .then((res) => res.json())
+          .then((dat) => {
+            popthis(dat.message);
+          }); 
+      });
+    </script>
+  -->
+
+    <%- include("partials/header") %> <%- include("partials/main") %>
+    <main>
+      <div class="container">
+        <div>
+          <p>Add Faculty</p>
+          <form id="addprof">
+            <input
+              type="text"
+              name="prof"
+              placeholder="Enter name"
+              id="prof-name"
+            />
+            <input
+              type="text"
+              name="subject"
+              placeholder="Enter Subject"
+              id="subject"
+            />
+            <input
+              type="number"
+              name="units"
+              placeholder="Enter units"
+              id="units"
+            />
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+        <div>
+          <p>Add Session</p>
+          <form id="submitsched-form">
+            <select name="room" class="rooms-select">
+              <% for(let i = 0 ; i < roomsAvail.length; i++){ %>
+              <option value="<%= roomsAvail[i] %>"><%= roomsAvail[i]%></option>
+              <%} %>
+            </select>
+            <select name="day" id="day">
+              <option value="MONDAY">monday</option>
+              <option value="TUESDAY">tuesday</option>
+              <option value="WEDNESDAY">wednesday</option>
+              <option value="THURSDAY">thursday</option>
+              <option value="FRIDAY">friday</option>
+              <option value="SATURDAY">saturday</option>
+            </select>
+            <select name="start" id="start">
+              <option value="07:00:00">07:00 AM</option>
+              <option value="07:30:00">07:30 AM</option>
+              <option value="08:00:00">08:00 AM</option>
+              <option value="08:30:00">08:30 AM</option>
+              <option value="09:00:00">09:00 AM</option>
+              <option value="09:30:00">09:30 AM</option>
+              <option value="10:00:00">10:00 AM</option>
+              <option value="10:30:00">10:30 AM</option>
+              <option value="11:00:00">11:00 AM</option>
+              <option value="11:30:00">11:30 AM</option>
+              <option value="12:00:00">12:00 PM</option>
+              <option value="12:30:00">12:30 PM</option>
+              <option value="13:00:00">01:00 PM</option>
+              <option value="13:30:00">01:30 PM</option>
+              <option value="14:00:00">02:00 PM</option>
+              <option value="14:30:00">02:30 PM</option>
+              <option value="15:00:00">03:00 PM</option>
+              <option value="15:30:00">03:30 PM</option>
+              <option value="16:00:00">04:00 PM</option>
+              <option value="16:30:00">04:30 PM</option>
+              <option value="17:00:00">05:00 PM</option>
+              <option value="17:30:00">05:30 PM</option>
+              <option value="18:00:00">06:00 PM</option>
+              <option value="18:30:00">06:30 PM</option>
+              <option value="19:00:00">07:00 PM</option>
+            </select>
+            <select name="end" id="end">
+              <option value="07:00:00">07:00 AM</option>
+              <option value="07:30:00">07:30 AM</option>
+              <option value="08:00:00">08:00 AM</option>
+              <option value="08:30:00">08:30 AM</option>
+              <option value="09:00:00">09:00 AM</option>
+              <option value="09:30:00">09:30 AM</option>
+              <option value="10:00:00">10:00 AM</option>
+              <option value="10:30:00">10:30 AM</option>
+              <option value="11:00:00">11:00 AM</option>
+              <option value="11:30:00">11:30 AM</option>
+              <option value="12:00:00">12:00 PM</option>
+              <option value="12:30:00">12:30 PM</option>
+              <option value="13:00:00">01:00 PM</option>
+              <option value="13:30:00">01:30 PM</option>
+              <option value="14:00:00">02:00 PM</option>
+              <option value="14:30:00">02:30 PM</option>
+              <option value="15:00:00">03:00 PM</option>
+              <option value="15:30:00">03:30 PM</option>
+              <option value="16:00:00">04:00 PM</option>
+              <option value="16:30:00">04:30 PM</option>
+              <option value="17:00:00">05:00 PM</option>
+              <option value="17:30:00">05:30 PM</option>
+              <option value="18:00:00">06:00 PM</option>
+              <option value="18:30:00">06:30 PM</option>
+              <option value="19:00:00">07:00 PM</option>
+            </select>
+            <select
+              type="text"
+              placeholder="FEC1"
+              name="subject"
+              class="subjectSelect"
+              required
+            >
+              <script>
+
+             
+                function facultysub() {
+
+                  let faculties = <%- JSON.stringify(groupedfaculty) %>;
+                  let prof = document.querySelector(".facultySelect").value;
+                  let subjectSe = document.querySelector(".subjectSelect")
+                   subjectSe.innerHTML = ""
+                  console.log(faculties[prof]);
+                  console.log(prof);
+
+                faculties[prof].forEach(element => {
+                    subjectSe.innerHTML += `<option value="${element.subject}">${element.subject}</option>`
+
+                 });
+                }
+              </script>
+            </select>
+            <select
+              type="text"
+              class="facultySelect"
+              name="faculty"
+              onchange="facultysub()"
+              required
+            >
+              <% Object.keys(groupedfaculty).forEach(dat =>{%>
+
+              <option value="<%= dat %>"><%= dat %></option>
+              <%}) %>
+            </select>
+            <input type="text" placeholder="BSCPE2A" name="section" required />
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+        <div>
+          <p>Add Room</p>
+          <form id="addroom-form">
+            <input
+            type="text"
+            name="roomName"
+            placeholder="Enter name"
+            id="room-input-name"
+          />
+          <input
+            type="number"
+            name="roomNumber"
+            placeholder="Enter Room Number"
+            id="room-input-name"
+            
+          />
+          <button type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

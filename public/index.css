@@ -1,0 +1,746 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    width: 100%;
+    height: 100vh;
+    background-color: rgb(0, 0, 0);
+    overflow-x: hidden;
+    overflow-y: hidden;
+
+}
+.cont{
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    border: none;
+}
+
+
+.index-head {
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    width: 30%;
+    max-width: 600px;
+    min-width: 200px;
+    height: 10%;
+    max-height: 50px;
+    border-radius: 0 0 28px 28px;
+    transform: translateX(-50%);
+   /* top: -1%;*/
+   border-radius: 20px;
+   
+  
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -7 * 1px;
+      width: 7 * 2px;
+      height: 7 * 1px;
+      background-size: 50% 100%;
+      background-repeat: no-repeat;
+      background-image: radial-gradient(
+        circle at 0 100%,
+        transparent 7 - 1px,
+        #000000 7 * 1px
+      );
+    }
+  
+    &::after {
+      left: 100%;
+      margin-right: 7px;
+      background-image: radial-gradient(
+        circle at 100% 100%,
+        transparent 7 - 1px,
+        #000000 7* 1px
+      );
+    }
+  }
+
+
+  
+
+
+
+.index-head{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5%;
+    box-shadow: 3px 3px 1px 0px rgb(0, 0, 0);
+    border-radius: 10px;
+    border: solid 1px black;
+
+
+    
+}
+.index-head > a{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    opacity: 1;
+    
+}
+
+
+.index-header2{
+   width: 100%;
+   height: 90px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   position: absolute;
+   left: 50%;
+   transform: translateX(-50%);
+   gap: 60%;
+
+
+
+}
+.index-header2 > a:nth-child(1){
+  width: 150px;
+  height: 100%;
+  background-image: url(logo/DSADSADA-removebg-preview.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-left:2%;
+
+
+}
+.index-header2 > a:nth-child(2){
+  width: 10%;
+  max-width: 100px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  margin-right: 5%;
+  
+}
+.index-header2 > a:nth-child(2) > button{
+  width: 100%;
+  height: 30px;
+  border: none;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  color: rgba(0, 0, 0, 0.8);
+  font-family: "Archivo";
+  font-size: 8px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid 1px black;
+  box-shadow: 2px 2px 1px 0px rgb(0, 0, 0);
+  background-color: white;
+  
+  
+}
+i:hover,input,button:hover{
+  opacity: 0.8;
+}
+.index-header2 > a:nth-child(2) > button:active{
+  box-shadow: none;
+}
+
+.home-content{
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  max-width: 1000px;
+  width: 80%;
+  min-width: 50px;
+  height: 70%;
+ 
+}
+.home-content > p:nth-child(1){
+  font-family: "poppins";
+  font-weight: bold;
+  font-size: 4rem;
+  letter-spacing: 6px;
+  background-color: rgba(255, 253, 253,0.5);
+}
+.home-content > p:nth-of-type(2){
+  font-family: sans-serif;
+  letter-spacing: 2px;
+  width: 85%;
+  font-size: 1.2em;
+}
+@keyframes allanimation {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+   
+  }
+  100% {
+    opacity: 1;
+  }
+}
+header,footer{
+  animation: allanimation 1s ease;
+  
+}
+
+
+.home-content{
+  display: none;
+}
+
+.login-content{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 50%;
+  max-width: 500px;
+  min-width: 350px;
+  height: 50%;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  row-gap: 5%;
+  border: solid 1px black;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 2px 2px 1px 0px rgb(0, 0, 0);
+  font-family: "archivo";
+  animation: allanimation 0.5s ease;
+}
+.login-content > p:nth-child(1),
+.signup-content > p:nth-child(1){
+  font-size: 25px;
+  margin-bottom: 40px;
+}
+.login-content > div,.signup-content > div{
+  width: 60%;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 2px 2px 1px 0px rgb(0, 0, 0);
+  border: 1px solid black;
+}
+.login-content > div > i,
+.signup-content > div > i
+{
+  width: 25px;
+  height: 20px;
+ 
+}
+
+.for-check,
+.terms{
+  display: flex;
+  justify-content: space-between;
+  width: 60%;
+  align-items: center;
+}
+.login-content  input[type="email"],
+.login-content  input[type="password"],
+.signup-content input[type="email"],
+.login-content  input[type="text"],
+.signup-content input[type="text"],
+.signup-content  input[type="password"]
+{
+  width: 78%;
+  height: 40px;
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+  outline: none;
+}
+.login-content button,
+.signup-content button{
+  width: 50%;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid black;
+  background-color: white;
+  box-shadow: 2px 2px 1px 0px rgb(0, 0, 0);
+}
+.login-content span,
+.signup-content span{
+  font-size: 12px;
+}
+.login-content span:nth-child(2),
+.signup-content span:nth-child(2){
+  color: palevioletred;
+}
+
+a{
+  outline: none;
+}
+.login-content{
+  display: none;
+}
+.signup-content{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 50%;
+  max-width: 500px;
+  min-width: 350px;
+  height: 50%;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  row-gap: 5%;
+  border: solid 1px black;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 2px 2px 1px 0px rgb(0, 0, 0);
+  font-family: "archivo";
+  animation: allanimation 0.5s ease;
+}
+.signup-content{
+  display: none;
+}
+
+.info-content{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 50%;
+  max-width: 500px;
+  min-width: 350px;
+  height: 50%;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  row-gap: 10%;
+  border-radius: 10px;
+  font-family: "archivo";
+  animation: allanimation 0.5s ease;
+}
+.info-content > p:nth-child(2){
+  text-align: center;
+  width: 100%;
+  font-size: 1.2rem;
+}
+.info-content ul{
+  display: flex;
+  flex-direction: column;
+  gap: 5%;
+  height: 500px;
+}
+.info-content > p:nth-child(1)>i{
+  font-size: 50px;
+}
+.info-content li{
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.info-content{
+  display: none;
+}
+.help-content{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 50%;
+  max-width: 500px;
+  min-width: 350px;
+  height: 50%;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  row-gap: 5%;
+  border: solid 1px black;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 2px 2px 1px 0px rgb(0, 0, 0);
+  font-family: "archivo";
+  animation: allanimation 0.5s ease;
+}
+.from-bot,
+.from-user{
+  width: 80%;
+  min-height: 40px;
+  max-height: 100px;
+  border-radius:5px;
+  display: flex;
+  align-items: center;
+}
+.chat-log  i{
+  font-size: 30px;
+  margin: 5px;
+  width: 10%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.chat-log p:nth-child(odd){
+  width: 90%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 220, 21, 1);
+  border-radius:5px;
+  padding-left: 10px;
+}
+.chat-log p:nth-child(even){
+  width: 90%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  background-color: #d87093;
+  border-radius:5px;
+  padding-left: 10px;
+}
+.chat-log{
+  width:90%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  row-gap: 5%;
+  flex-grow: 1;
+  margin-top: 10px;
+  
+  
+}
+.from-bot{
+  align-self: flex-start;
+  min-height: 60px;
+  max-height: 100px;
+}
+.from-bot:first-of-type{
+  margin-top: 50%;
+}
+.from-user{
+  align-self: flex-end;
+}
+.chat-log i:nth-child(1){
+  background-color:black;
+  width: 30px;
+  height: 30px;
+  border-radius: 50px;
+  background-image: url(images/Illustration3.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.send-message{
+  width: 90%;
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 5%;
+  margin-bottom: 10px;
+}
+.send-message > select{
+  width: 60%;
+  height: 90%;
+  border-radius: 2px;
+  border: none;
+  outline: none;
+  font-family: "Archivo";
+  font-size: 15px;
+}
+.send-message > button{
+  width: 20%;
+  height: 90%;
+  border-radius: 3px;
+  border: 1px solid black;
+  box-shadow: 2px 2px 1px 0px rgb(0, 0, 0);
+  font-family: "archivo";
+}
+button:active{
+  box-shadow: none;
+}
+.chat-log::-webkit-scrollbar{
+  width: 0;
+}
+.help-content{
+  display: none;
+}
+.home-content{
+  display: block;
+}
+a,i,span{
+  cursor: pointer;
+}
+
+.index-head{
+  background-color: rgba(255, 220, 21,1);
+}
+
+.login-content > button,
+.signup-content > button,
+.help-content button{
+    background-color: rgba(255, 220, 21,1);
+}
+.index-header2 > a:nth-child(2) > button{
+  background-color: palevioletred;
+}
+.login-content > p:nth-child(1),
+.signup-content > p:nth-child(1),
+.info-content > p:nth-child(1){
+    color: palevioletred;
+}
+
+.home-content > p:nth-child(2),
+.info-content li
+{
+  background-color: white;
+}
+
+.index-header2 > a:nth-child(1){
+  background-color: rgba(255, 255, 255,0.5)
+ 
+}
+
+@media only screen and ( max-width: 500px){
+  
+  .home-content{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    max-width: 1000px;
+    width: 80%;
+    min-width: 50px;
+    height: 70%;
+  }
+  
+
+  .index-head{
+    max-height: 40px;
+  }
+  .index-head  i{
+    font-size: 20px;
+  }
+  .index-header2 > a:nth-child(1){
+    width:90px;
+    height: 90px;
+    background-image: url(logo/DSADSADA-removebg-preview.png);;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-left: 2%;
+    margin-top: 10px;
+   
+  }
+
+
+ .index-header2{
+  gap: 50%;
+ }
+ 
+ .home-content > p:nth-child(1){
+  font-family: "Alfa Slab One";
+  font-weight: bold;
+  font-size: 33px;
+  letter-spacing: 4px;
+  text-wrap-mode: wrap;
+}
+.home-content > p:nth-of-type(2){
+  font-family: sans-serif;
+  width: 85%;
+  font-size: 18px;
+}
+.login-content  input[type="email"],
+.login-content  input[type="password"],
+.signup-content input[type="email"],
+.login-content  input[type="text"],
+.signup-content input[type="text"],
+.signup-content  input[type="password"]
+{
+  width: 78%;
+  height: 40px;
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+  outline: none;
+}
+.login-content > div,.signup-content > div{
+  width: 80%;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 2px 2px 1px 0px rgb(0, 0, 0);
+  border: 1px solid black;
+}
+.for-check,
+.terms{
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  align-items: center;
+}
+}
+
+@media only screen and (min-width: 1000px) {
+  .index-head{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12%;
+    
+    
+}
+ .index-header2 > a:nth-child(2) > button::after{
+   content: "HOME";
+   font-size: 16px;
+   font-family: "archivo";
+  
+}
+ 
+  .index-head > a:nth-child(1)::after{
+    content: " LOGIN";
+    font-size: 16px;
+    font-family: "archivo";
+  }
+  .index-head > a:nth-child(2)::after{
+    content: " JOIN";
+    font-size: 16px;
+    font-family: "archivo";
+  }
+  .index-head > a:nth-child(3)::after{
+    content: " ABOUT";
+    font-size: 16px;
+    font-family: "archivo";
+  }
+  .index-head > a:nth-child(4)::after{
+    content: " HELP";
+    font-size: 16px;
+    font-family: "archivo";
+  }
+
+  .index-header2 > a:nth-child(1){
+    width: 100px;
+    height: 100px;
+    background-image: url(logo/DSADSADA-removebg-preview.png);;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-left: 5%;
+    margin-top: 10px;
+  }
+
+  .index-header2 > a:nth-child(2) > button{
+    width: 100%;
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 50px;
+    margin-bottom: 10px;
+    color: rgba(0, 0, 0, 0.8);
+    font-family: "Archivo";
+    font-size: 16px;
+    box-shadow: 2px 2px 1px 0px rgb(0, 0, 0);
+    
+  }
+}
+@media  only screen and (max-width:768px) {
+  .index-header2 > a:nth-child(1){
+    width:90px;
+    height: 90px;
+    background-image: url(logo/DSADSADA-removebg-preview.png);;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-left: 2%;
+    margin-top: 10px;
+    
+   
+  }
+  .login-content  input[type="email"],
+.login-content  input[type="password"],
+.signup-content input[type="email"],
+.login-content  input[type="text"],
+.signup-content input[type="text"],
+.signup-content  input[type="password"]
+{
+  width: 78%;
+  height: 40px;
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+  outline: none;
+}
+.login-content > div,.signup-content > div{
+  width: 80%;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 2px 2px 1px 0px rgb(0, 0, 0);
+  border: 1px solid black;
+}
+.for-check,
+.terms{
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  align-items: center;
+}
+}
+input[type="text"]:active{
+  background-color: transparent;
+}
+.terms-content{
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  right: 50%;
+  top: 50%;
+}
+.terms-download{
+  text-decoration: none;
+  color: black;
+}
+.terms-download:hover{
+  color: palevioletred ;
+}
+.alertthis{
+  background-color: rgba(216, 112, 147, 0.5);
+  width: 300px;
+  height: 50px;
+  position: absolute;
+  left: 55%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  top: 30px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "archivo";
+  animation: opa 0.2s ease;
+  display: none;
+  
+}

@@ -1,0 +1,354 @@
+const { log } = require("console");
+const express = require("express");
+const mysql = require("mysql2");
+const path = require("path");
+
+const app = express();
+app.set("view engine", "ejs");
+
+app.set("views", path.join(__dirname, "views"));
+app.use(express.static(path.join(__dirname, "public")));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+const connection = mysql
+  .createPool({
+    host: "localhost",
+    user: "root",
+    password: "",
+    database: "rq1.0",
+  })
+  .promise();
+
+let wrongpass = "";
+let useremail = "";
+
+app.post("/submitlogin", async (req, res) => {
+  const { email, password } = req.body;
+
+  const [verify] = await connection.query(
+    "SELECT * FROM users WHERE email = ? AND password = ?",
+    [email, password]
+  );
+  if (verify.length === 0) {
+    return res.json({
+      success: false,
+      url: "/landing",
+    });
+  } else {
+    useremail = verify[0].email.split("@")[0];
+    return res.json({
+      success: true,
+      url: "/landing",
+      useremail: useremail,
+    });
+  }
+});
+
+let emailcreated = "";
+app.post("/submitsignp", async (req, res) => {
+  const { emailSignup, passwordSignup } = req.body;
+  const [verify] = await connection.query(
+    "SELECT * FROM users WHERE email =?",
+    [emailSignup]
+  );
+
+  if (verify.length > 0) {
+    return res.json({ emailtaken: "email is already exist" });
+  } else {
+    await connection.query(
+      `INSERT INTO users (email, password) VALUES (?, ?)`,
+      [emailSignup, passwordSignup]
+    );
+    useremail = emailSignup.split("@")[0];
+    return res.json({
+      success: true,
+      url: "/landing",
+      emailcreated: "Account Created",
+    });
+  }
+});
+app.get("/", (req, res) => {
+  res.render("index");
+});
+
+app.get("/landing", async (req, res) => {
+  const listrooms = [];
+  const listsubject = [];
+  const listsection = [];
+  const listuser = [];
+  async function getnumber(colname, table, Type) {
+    const [results] = await connection.query(
+      `SELECT ${Type} ${colname} FROM ${table}`
+    );
+
+    return results.map((row) => row[colname]);
+  }
+
+  listrooms.push(await getnumber("room_name", "rooms", "DISTINCT"));
+  listsubject.push(await getnumber("subject_code", "rooms", "DISTINCT"));
+  listsection.push(await getnumber("section", "rooms", "DISTINCT"));
+  listuser.push(await getnumber("email", "users", ""));
+
+  res.render("landing", {
+    usermail: useremail,
+    listrooms,
+    listsubject,
+    listsection,
+    listuser,
+    emailcreated,
+  });
+});
+
+app.get("/rooms", async (req, res) => {
+  let [alldata] =
+    await connection.query(`SELECT * FROM rooms ORDER BY CASE day WHEN 'Sunday' THEN 1
+    WHEN 'Monday' THEN 2
+    WHEN 'Tuesday' THEN 3
+    WHEN 'Wednesday' THEN 4
+    WHEN 'Thursday' THEN 5
+    WHEN 'Friday' THEN 6
+    WHEN 'Saturday' THEN 7 END`);
+
+  arrayform = alldata.map((dat) => dat);
+
+  let objectform = Object.groupBy(arrayform, (dat) => dat.room_name);
+
+  let [roomsAvailable] = await connection.query(
+    "SELECT DISTINCT room_name From rooms"
+  );
+
+  const [faculty] = await connection.query("SELECT prof, subject FROM faculty");
+
+  let groupedfaculty = Object.groupBy(faculty, (dat) => dat.prof);
+  console.log(Array.isArray(faculty));
+
+  let roomsAvail = roomsAvailable.map((row) => row.room_name);
+
+  res.render("rooms", { usermail: useremail, objectform, roomsAvail,
+    groupedfaculty, });
+
+});
+
+app.get("/manage", async (req, res) => {
+  let [roomsAvailable] = await connection.query(
+    "SELECT DISTINCT room_name From rooms"
+  );
+
+  const [faculty] = await connection.query("SELECT prof, subject FROM faculty");
+
+  let groupedfaculty = Object.groupBy(faculty, (dat) => dat.prof);
+  console.log(Array.isArray(faculty));
+
+  let roomsAvail = roomsAvailable.map((row) => row.room_name);
+  return res.render("manage", {
+    usermail: useremail,
+    roomsAvail,
+    groupedfaculty,
+  });
+});
+app.post("/addroom", async (req, res) => {
+  let { roomName, roomNumber } = req.body;
+
+  let uroomName = roomName.toUpperCase() + " " + roomNumber.toString();
+  console.log(uroomName);
+
+  let [verify] = await connection.query(
+    "SELECT * FROM rooms WHERE room_name = ?",
+    [uroomName]
+  );
+
+  if (roomName === "") {
+    return res.json({
+      success: false,
+      message: "Room name connot be empty",
+    });
+  }
+
+  if (verify.length > 0) {
+    return res.json({
+      success: false,
+      message: "rooms is already existed",
+    });
+  } else {
+    await connection.query(`INSERT INTO rooms (room_name) VALUES (?)`, [
+      uroomName,
+    ]);
+    return res.json({
+      success: true,
+      message: "room created",
+    });
+  }
+});
+app.post("/addsched", async (req, res) => {
+  let { room, start, end, subject, section, day, faculty } = req.body;
+
+  let [verifytime] = await connection.query(
+    `SELECT * FROM rooms WHERE room_name = ?
+     AND day = ?
+     AND NOT (? >= end_time OR ? <= start_time)`,
+    [room, day, start, end]
+  );
+
+  if (end === start) {
+    return res.json({
+      message: "Start and End should not be the same",
+      success: false,
+    });
+  } else if (end < start) {
+    return res.json({
+      message: "Start time should be earlier than end time",
+      success: false,
+    });
+  }
+
+  if (verifytime.length > 0) {
+    return res.json({
+      success: false,
+      message: "spot taken",
+    });
+  } else {
+    await connection.query(
+      "INSERT INTO rooms (room_name, start_time, end_time, subject_code, section, day, prof) VALUES (?, ?, ?, ?, ?, ?, ?)",
+      [room, start, end, subject, section, day, faculty]
+    );
+    return res.json({
+      success: true,
+      message: "schedule added",
+    });
+  }
+});
+app.get("/sections", async (req, res) => {
+  const [data] =
+    await connection.query(`SELECT * FROM rooms ORDER BY CASE day WHEN 'Sunday' THEN 1
+    WHEN 'Monday' THEN 2
+    WHEN 'Tuesday' THEN 3
+    WHEN 'Wednesday' THEN 4
+    WHEN 'Thursday' THEN 5
+    WHEN 'Friday' THEN 6
+    WHEN 'Saturday' THEN 7 END`);
+  arrayformm = data.map((dat) => dat);
+  objectformsecttion = Object.groupBy(
+    arrayformm.filter((dat) => dat.section),
+    (dat) => dat.section
+  );
+
+  
+  let [roomsAvailable] = await connection.query(
+    "SELECT DISTINCT room_name From rooms"
+  );
+
+  const [faculty] = await connection.query("SELECT prof, subject FROM faculty");
+
+  let groupedfaculty = Object.groupBy(faculty, (dat) => dat.prof);
+  console.log(Array.isArray(faculty));
+
+  let roomsAvail = roomsAvailable.map((row) => row.room_name);
+  res.render("sections", { usermail: useremail, objectformsecttion, groupedfaculty, roomsAvail});
+});
+
+app.get("/faculty", async (req, res) => {
+  let [facultyarr] = await connection.query("SELECT * FROM faculty");
+  let facultyarrobj = Object.groupBy(facultyarr, (dat) => dat.prof);
+
+  let [facultysched] = await connection.query("SELECT * FROM rooms");
+  let facultyschedobj = Object.groupBy(facultysched, (dat) => dat.prof);
+
+  const [faculty] = await connection.query("SELECT prof, subject FROM faculty");
+
+  let groupedfaculty = Object.groupBy(faculty, (dat) => dat.prof);
+  console.log(Array.isArray(faculty));
+
+  return res.render("faculty", {
+    usermail: useremail,
+    facultyarrobj,
+    facultyschedobj,
+    groupedfaculty
+  });
+});
+app.get("/feedback", async (req, res) => {
+  return res.render("feedback", { usermail: useremail });
+});
+app.post("/addfeed", async (req, res) => {
+  let { usermail, feedbackcont } = req.body;
+  if (feedbackcont === "") {
+    return res.json({
+      message: "pls say something before submiting",
+    });
+  } else {
+    await connection.query(
+      "INSERT INTO feedback (email, feedback_cont) VALUES (?, ?)",
+      [usermail, feedbackcont]
+    );
+    return res.json({
+      message: "thank you for the feedback",
+    });
+  }
+});
+app.post("/deletesched", async (req, res) => {
+  let { deleteS } = req.body;
+
+  const result = await connection.query("DELETE FROM rooms WHERE id = ?", [
+    deleteS,
+  ]);
+
+  if (result) {
+    res.json({
+      success: true,
+      message: "Schedule successfully deleted",
+    });
+  } else {
+    res.json({
+      success: false,
+      message: "No schedule found with that ID",
+    });
+  }
+});
+app.post("/deleteschedf", async (req, res) => {
+  let { deleteS, prof, subject } = req.body;
+
+  const result = await connection.query("DELETE FROM faculty WHERE ID = ?", [
+    deleteS,
+  ]);
+  const results = await connection.query(
+    "DELETE FROM rooms WHERE subject_code = ? AND prof = ?",
+    [subject, prof]
+  );
+
+  if (result || results) {
+    res.json({
+      success: true,
+      message: "Schedule successfully deleted",
+    });
+  } else {
+    res.json({
+      success: false,
+      message: "No schedule found with that ID",
+    });
+  }
+});
+
+app.post("/addprof", async (req, res) => {
+  let {prof, units, subject} = req.body
+  let unitstring = units.toString()
+  let [verify] = await connection.query("SELECT * FROM faculty WHERE  prof = ? AND subject = ?",[prof, subject])
+  if(verify.length > 0){
+    res.json({
+      success:false,
+      message:"proffesor " + prof + " already have this subject"
+    })
+  }else{
+    await connection.query("INSERT INTO faculty (prof, subject, units) VALUES (?, ?, ?)",[prof, subject, unitstring])
+    res.json({
+      success:true,
+      message:"Added Successfully"
+    })
+  }
+})
+app.post("/logout", async (req, res) => {
+  useremail = "";
+  return res.redirect("index");
+});
+
+//fix faculty index
+module.exports = app;

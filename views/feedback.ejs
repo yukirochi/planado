@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Planado | Feedback</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Allura&family=Archivo:ital,wght@0,100..900;1,100..900&family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playwrite+TZ+Guides&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik+Vinyl&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Allura&family=Archivo:ital,wght@0,100..900;1,100..900&family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playwrite+TZ+Guides&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik+Vinyl&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link rel="stylesheet" href="/header.css" />
+    <link rel="stylesheet" href="/feedback.css" />
+  </head>
+  <body>
+    <p style="display: none" class="feedback">feedback</p>
+    <%- include("partials/header") %> <%- include("partials/main") %>
+    <main>
+      <div class="feedback-main-div">
+        <form method="post" id="form-feedback">
+          <div class="feedback-content">
+            <input
+              type="hidden"
+              name="usermail"
+              style="display: none"
+              value="<% usermail %>"
+            />
+            <textarea
+              name="feedbackcont"
+              id="saysome"
+              placeholder="Say something............."
+            ></textarea>
+          </div>
+          <button type="submit">SUBMIT</button>
+        </form>
+      </div>
+    </main>
+
+    <script>
+      let feedcont = document.querySelector("#form-feedback");
+      feedcont.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        let Newform = new FormData(feedcont);
+        let data = Object.fromEntries(Newform);
+
+        fetch("/addfeed", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        })
+          .then((res) => res.json())
+          .then((dat) => {
+            popthis(dat.message);
+          });
+      });
+    </script>
+  </body>
+</html>

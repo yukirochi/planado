@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Planado | Sections</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Allura&family=Archivo:ital,wght@0,100..900;1,100..900&family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playwrite+TZ+Guides&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik+Vinyl&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Allura&family=Archivo:ital,wght@0,100..900;1,100..900&family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playwrite+TZ+Guides&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik+Vinyl&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link rel="stylesheet" href="/header.css" />
+    <link rel="stylesheet" href="/sections.css" />
+  </head>
+  <body>
+    <%- include("partials/header") %> <%- include("partials/main") %>
+    <p style="display: none" class="page">rooms</p>
+    <div class="container">
+      <% function converTime(time){ let [hours, minutes] = time.split(':');
+      hours = parseInt(hours, 10); let period = hours >= 12? "PM" : "AM"; hours
+      = hours % 12 || 12; return `${hours}:${minutes}${period}`; } %>
+      <div>
+        <% for(const ObjectKey in objectformsecttion) {%>
+
+        <p class="room-name"><%= ObjectKey %></p>
+        <table class="sched-table">
+          <thead>
+            <tr>
+              <th>subject</th>
+              <th>day</th>
+              <th>time</th>
+              <th>professor</th>
+              <th>room</th>
+              <th class="dhead"><p style="opacity: 0;">delete</p></th>
+              <td style="position: absolute; transition: 0.3s ease">
+                
+                <p name="room-section" style="display: none">
+                  <%= ObjectKey %>
+                </p>
+                <button
+                  class="material-icons-outlined"
+                  style="
+                    border: none;
+                    background-color: white;
+                    font-size: 30px;
+                  "
+                  id="showaddroom"
+                  onclick="showaddroom()"
+                >
+                arrow_drop_down
+                </button>
+              
+            </td>
+            </tr>
+          </thead>
+          <tbody>
+            <% objectformsecttion[ObjectKey].forEach((attri, index) => { %>
+            <tr>
+              <td><%= attri.subject_code %></td>
+              <td><%= attri.day %></td>
+              <td>
+                <%= converTime(attri.start_time) %> - <%=
+                converTime(attri.end_time) %>
+              </td>
+              <td><%= attri.prof %></td>
+              <td><%= attri.room_name %></td>
+              <td class="dbody">
+                <form class="delete-sched">
+                  <button
+                    class="material-icons-outlined"
+                    name="deleteS"
+                    value="<%= attri.id %>"
+                    type="submit"
+                    style="background-color: white; border: none;"
+                  >
+                    delete
+                  </button>
+                </form>
+              </td>
+              <% if (index === objectformsecttion[ObjectKey].length - 1) { %>
+              
+              <% } %>
+            </tr>
+            <% }); %>
+            <tr id="tr2"  style="display: none;">
+              <form id="submitsched-form">
+                <td>
+                  <select
+                    type="text"
+                    placeholder="FEC1"
+                    name="subject"
+                    class="subjectSelect"
+                    required
+                    style="border: none; outline: none; border-bottom: 1px solid black; max-width: 120px;"
+                  >
+                    
+                  </select>
+                </td>
+                <td><select name="day" id="day">
+                  <option value="MONDAY">MONDAY</option>
+                  <option value="TUESDAY">TUESDAY</option>
+                  <option value="WEDNESDAY">WEDNESDAY</option>
+                  <option value="THURSDAY">THURSDAY</option>
+                  <option value="FRIDAY">FRIDAY</option>
+                  <option value="SATURDAY">SATURDAY</option>
+                </select>
+                </td>
+                <td> <select name="start" id="start" style="border: none; outline: none; border-bottom: 1px solid black;">
+                <option value="07:00:00">07:00 AM</option>
+                <option value="07:30:00">07:30 AM</option>
+                <option value="08:00:00">08:00 AM</option>
+                <option value="08:30:00">08:30 AM</option>
+                <option value="09:00:00">09:00 AM</option>
+                <option value="09:30:00">09:30 AM</option>
+                <option value="10:00:00">10:00 AM</option>
+                <option value="10:30:00">10:30 AM</option>
+                <option value="11:00:00">11:00 AM</option>
+                <option value="11:30:00">11:30 AM</option>
+                <option value="12:00:00">12:00 PM</option>
+                <option value="12:30:00">12:30 PM</option>
+                <option value="13:00:00">01:00 PM</option>
+                <option value="13:30:00">01:30 PM</option>
+                <option value="14:00:00">02:00 PM</option>
+                <option value="14:30:00">02:30 PM</option>
+                <option value="15:00:00">03:00 PM</option>
+                <option value="15:30:00">03:30 PM</option>
+                <option value="16:00:00">04:00 PM</option>
+                <option value="16:30:00">04:30 PM</option>
+                <option value="17:00:00">05:00 PM</option>
+                <option value="17:30:00">05:30 PM</option>
+                <option value="18:00:00">06:00 PM</option>
+                <option value="18:30:00">06:30 PM</option>
+                <option value="19:00:00">07:00 PM</option>
+              </select>
+              <select name="end" id="end">
+                <option value="07:00:00">07:00 AM</option>
+                <option value="07:30:00">07:30 AM</option>
+                <option value="08:00:00">08:00 AM</option>
+                <option value="08:30:00">08:30 AM</option>
+                <option value="09:00:00">09:00 AM</option>
+                <option value="09:30:00">09:30 AM</option>
+                <option value="10:00:00">10:00 AM</option>
+                <option value="10:30:00">10:30 AM</option>
+                <option value="11:00:00">11:00 AM</option>
+                <option value="11:30:00">11:30 AM</option>
+                <option value="12:00:00">12:00 PM</option>
+                <option value="12:30:00">12:30 PM</option>
+                <option value="13:00:00">01:00 PM</option>
+                <option value="13:30:00">01:30 PM</option>
+                <option value="14:00:00">02:00 PM</option>
+                <option value="14:30:00">02:30 PM</option>
+                <option value="15:00:00">03:00 PM</option>
+                <option value="15:30:00">03:30 PM</option>
+                <option value="16:00:00">04:00 PM</option>
+                <option value="16:30:00">04:30 PM</option>
+                <option value="17:00:00">05:00 PM</option>
+                <option value="17:30:00">05:30 PM</option>
+                <option value="18:00:00">06:00 PM</option>
+                <option value="18:30:00">06:30 PM</option>
+                <option value="19:00:00">07:00 PM</option>
+              </select>
+            </td>
+            <td>
+              <select
+                type="text"
+                class="facultySelect"
+                name="faculty"
+                onchange="facultysub()"
+                required
+                style="border: none; outline: none; border-bottom: 1px solid black; width: 120px;"
+              >
+                <% Object.keys(groupedfaculty).forEach(dat =>{%>
+
+                <option style="background-color: palevioletred; font-size: 12px; padding-top: 5px;" value="<%= dat %>"><%= dat %></option>
+                <%}) %>
+              </select>
+            </td>
+              <td>
+                <select name="room" class="rooms-select">
+                  <% for(let i = 0 ; i < roomsAvail.length; i++){ %>
+                  <option value="<%= roomsAvail[i] %>">
+                    <%= roomsAvail[i]%>
+                  </option>
+                  <%} %>
+                </select>
+              </td>
+              <input type="hidden" value="<%= ObjectKey %>" name="section" >  
+
+              <td style="position: absolute;  transition: 0.3s ease;">
+                  <button type="submit" class="material-icons-outlined" style="border: none; background-color: white; font-size: 25px;">add_box</button>
+                </form>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <% } %>
+      </div>
+    </div>
+    <script>
+      
+      function showaddroom(){
+        
+        let elems = document.querySelectorAll("#tr2");
+        let but = document.querySelectorAll("#showaddroom")
+
+
+        for (let i = 0; i < elems.length; i++){
+          but[i].addEventListener("click",()=>{
+            if(elems[i].style.display === "none"){
+          elems[i].style.display = "table-row"
+          but[i].textContent = "arrow_drop_up"
+        }else{
+          elems[i].style.display = "none"
+          but[i].textContent = "arrow_drop_down"
+        }
+          })
+          
+        
+        }
+      }
+
+
+      let addsched = document.querySelector("#submitsched-form");
+      addsched.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        let Newform = new FormData(addsched);
+        let data = Object.fromEntries(Newform);
+
+        fetch("/addsched", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        })
+          .then((res) => res.json())
+          .then((dat) => {
+            if (dat.success){
+              popthis(dat.message);
+           
+
+           setTimeout(() => {
+             location.reload()
+           }, 1500);
+            }else{
+              popthis(dat.message)
+            }
+          }); 
+      }); 
+
+    function facultysub() {
+
+   let faculties = <%- JSON.stringify(groupedfaculty) %>;
+   let prof = document.querySelector(".facultySelect").value;
+   let subjectSe = document.querySelector(".subjectSelect")
+   subjectSe.innerHTML = ""
+   console.log(faculties[prof]);
+   console.log(prof);
+
+    faculties[prof].forEach(element => {
+    subjectSe.innerHTML += `<option value="${element.subject}">${element.subject}</option>`
+
+     });
+    }
+
+      let dels = document.querySelectorAll(".delete-sched");
+
+      dels.forEach((del) => {
+        del.addEventListener("submit", (e) => {
+          e.preventDefault();
+
+          const delid = del.querySelector("button[name='deleteS']").value;
+          const data = { deleteS: delid };
+          fetch("/deletesched", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          })
+            .then((res) => res.json())
+            .then((dat) => {
+              if (dat.success) {
+                location.reload();
+              } else {
+                popthis(dat.message);
+              }
+            });
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,110 @@
+* {
+    padding: 0;
+    margin: 0;
+  }
+  .container {
+    width: 70%;
+    height: 400px;
+    position: absolute;
+    left: 58%;
+    transform: translate(-50%);
+    top: 15%;
+    z-index: 1;
+    height: 83%;
+    overflow-y: scroll;
+    font-family: "poppins";
+  }
+  .container::-webkit-scrollbar {
+    width: 0;
+  }
+  .container > div {
+    width: 100%;
+    min-height: 500px;
+    overflow-x: scroll;
+  }
+  .container > div::-webkit-scrollbar {
+    width: 0;
+  }
+  .sched-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    margin-top: 10px;
+    font-size: 1em;
+    min-width: 900px;
+    margin-left: 25px;
+    border: 2px solid black;
+    box-shadow: 2px 2px 1px 0px rgb(0, 0, 0);
+    animation: fadeInUp 1s ease;
+  }
+  .sched-table > thead > tr {
+    text-align: left;
+  }
+  .sched-table th {
+    font-size: 1.2em;
+    background-color: palevioletred;
+  }
+  .sched-table th:first-of-type {
+    border-radius: 5px 0 0 5px;
+  }
+  .sched-table th:last-of-type {
+    border-radius: 0 5px 5px 0;
+  }
+  .sched-table th,
+  .sched-table td {
+    padding: 25px 0;
+    padding-left: 25px;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      transform: translate3d(0, 40px, 0);
+      opacity: 0;
+    }
+  
+    to {
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+    }
+  }
+  @keyframes opa {
+    0%{
+      opacity: 0;
+    }
+    90%{
+      opacity: 0;
+    }
+    100%{
+      opacity: 1;
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .container {
+      width: 80%;
+      height: 86%;
+      position: absolute;
+      left: 54%;
+      transform: translateX(-50%);
+      top: 13%;
+    }
+  }
+  @media screen and (max-width: 390px) {
+    .container {
+      width: 80%;
+      height: 87%;
+      position: absolute;
+      left: 50%;
+      right: unset;
+      top: 10%;
+      transform: translateX(-50%);
+    }
+  }
+  td,th{
+    cursor: pointer;
+  }
+  #logout-form button{
+    border: none;
+    background-color: transparent;
+    font-family: "archivo";
+    margin-top: 15px;
+  }

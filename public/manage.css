@@ -1,0 +1,375 @@
+/*main {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10%;
+  width: 80%;
+  height: 100%;
+  animation: allin ease 1s;
+  position: absolute;
+  top: 0;
+}
+#logout-form button {
+  border: none;
+  background-color: transparent;
+  font-family: "archivo";
+  margin-top: 15px;
+}
+.container > div {
+  width: 50%;
+  border-radius: 20px;
+}
+select {
+  width: 100px;
+  background-color: transparent;
+}
+*::-webkit-scrollbar {
+  width: 0;
+}
+.session-inputs {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+.manageSessions p {
+  font-family: "poppins";
+  font-size: 20px;
+  width: 100%;
+  text-align: center;
+  height: 10%;
+}
+
+.manageSessions > div,
+form > div {
+  width: 100%;
+  height: 15%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  gap: 10%;
+}
+.manageSessions button {
+  display: block;
+  margin: auto;
+  width: 40%;
+  height: 10%;
+  min-height: 30px;
+  max-height: 30px;
+  border-radius: 5px;
+  background-color: palevioletred;
+  border: 1px solid black;
+}
+
+
+.session-inputs input[type="text"],
+.session-inputs input[type="number"] {
+  width: 150px;
+  text-align: center;
+  border: none;
+  border-bottom: 1px solid black;
+  outline: none;
+  height: 30px;
+  background-color: transparent;
+  color: black;
+}
+.session-inputs input[type="text"]::placeholder,
+.session-inputs input[type="number"]::placeholder {
+  width: 150px;
+  text-align: center;
+  border: none;
+  border-bottom: 1px solid black;
+  outline: none;
+  height: 30px;
+  background-color: transparent;
+  color: rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+}
+.addroom-button {
+  border-top: 1px solid black;
+  width: 90% !important;
+  margin: auto;
+  margin-top: 20px;
+}
+.submitRoom {
+  background-color: rgba(255, 217, 0, 1) !important;
+}
+select {
+  font-family: "poppins";
+  width: 150px;
+  text-align: center;
+  border: none;
+  border-bottom: 1px solid black;
+  outline: none;
+  position: relative;
+}
+option {
+  background-color: palevioletred;
+  box-shadow: unset;
+}
+.roomss-div,
+.startt,
+.endd,
+.subject-inpp,
+.section-inpp,
+.dayy-div,
+.faculty-inpp {
+  position: relative;
+}
+.roomss-div::after,
+.startt::after,
+.endd::after,
+.subject-inpp::after,
+.section-inpp::after,
+.dayy-div::after,
+.faculty-inpp::after {
+  content: "Rooms";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -100%;
+  font-family: "poppins";
+  font-size: 15px;
+}
+.dayy-div::after {
+  content: "day";
+}
+.roomss-div::after {
+  content: "room";
+}
+.startt::after {
+  content: "Start";
+}
+.endd::after {
+  content: "End";
+}
+.subject-inpp::after {
+  content: "Subject";
+}
+.section-inpp::after {
+  content: "Section";
+}
+.room-input-name {
+  text-transform: uppercase;
+}
+.faculty-inpp::after {
+  content: "Faculty";
+}
+
+@keyframes fadeInUp {
+  from {
+    transform: translate3d(0, 40px, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeInUp {
+  from {
+    transform: translate3d(0, 40px, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+.animated {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+}
+
+.animatedFadeInUp {
+  opacity: 0;
+}
+
+.fadeInUp {
+  opacity: 0;
+  animation-name: fadeInUp;
+  -webkit-animation-name: fadeInUp;
+}
+@keyframes allin {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+#logout-form button {
+  border: none !important;
+  background-color: transparent !important;
+  font-family: "archivo" !important;
+  margin-top: 15px !important;
+}
+button:first-of-type {
+  margin-top: 12px !important;
+}
+.manageSessions {
+  background-color: white;
+
+}
+#roominp {
+  gap: 5%;
+}
+form{
+  height: 60%;
+  margin-top: 30px;
+}
+form:nth-of-type(2) {
+  height: 10%;  
+  align-items: center;
+}
+
+form:nth-of-type(2) > p:first-of-type {
+  margin-bottom: 50px;
+}
+.faculty-inputs > input[type="text"],.faculty-inputs > input[type="number"]{
+  width: 150px;
+  text-align: center;
+  border: none;
+  border-bottom: 1px solid black;
+  outline: none;
+  height: 30px;
+  background-color: transparent;
+  color: rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+.faculty-inputs {
+  height: 40px;
+}
+
+*/
+
+*{
+  font-family: "archivo";
+}
+main {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+.container{
+  width: 90%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 20px;
+}
+.container > div{
+  width: 300px;
+  height: 500px;
+  background-color: white;
+  padding: 10px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 2px 0px rgb(0, 0, 0);
+  border: 1px solid black;
+  animation: fadeInUp 1s ease;
+}
+.container > div:last-of-type{
+  margin-top: 40px;
+  animation: fadeInUptwo 1.5s ease;
+  transform: rotateY(20deg);
+  
+  
+}
+.container > div:first-of-type{
+  margin-top: 40px;
+  animation: fadeInUptwo 1.5s ease;
+  transform: rotateY(-20deg);
+}
+@keyframes fadeInUp {
+  from {
+    transform: translate3d(0, 40px, 0);
+    opacity: 0;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+@keyframes fadeInUptwo{
+  from {
+    transform: translate3d(0, 40px, 0);
+    opacity: 0;
+    transform: rotateY(0deg);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+    transform: rotateY(20deg);
+    opacity: 1;
+  }
+}
+p{
+  text-align: center;
+}
+#submitsched-form{
+  height: 85%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 10%;
+  
+}
+#submitsched-form > select, #submitsched-form > input{
+  width: 200px;
+  outline: none;
+  border: none;
+  border-bottom: 1px black solid;
+}
+#start,#end{  
+  width: 100px;
+}
+#submitsched-form > button{
+  background-color: rgba(255, 220, 21, 1);
+  font-family: "Archivo";
+  width: 100px;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+*::-webkit-scrollbar {
+  width: 0;
+}
+option{
+  background-color: palevioletred;
+}

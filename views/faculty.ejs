@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Planado | Faculty</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Allura&family=Archivo:ital,wght@0,100..900;1,100..900&family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playwrite+TZ+Guides&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik+Vinyl&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Allura&family=Archivo:ital,wght@0,100..900;1,100..900&family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playwrite+TZ+Guides&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik+Vinyl&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link rel="stylesheet" href="/header.css" />
+    <link rel="stylesheet" href="/sections.css" />
+  </head>
+  <body>
+    <p style="display: none" class="page">
+      faculty<i
+        class="material-icons-outlined"
+        style="position: absolute; left: 8%"
+        >add_circle</i
+      >
+    </p>
+    <%- include("partials/header") %> <%- include("partials/main") %> <%
+    function converTime(time){ let [hours, minutes] = time.split(':'); hours =
+    parseInt(hours, 10); let period = hours >= 12? "PM" : "AM"; hours = hours %
+    12 || 12; return `${hours}:${minutes}${period}`; } %>
+    <div class="container">
+      <div>
+        <p class="room-name"></p>
+        <table class="sched-table">
+          <thead>
+            <tr>
+              <th>INSTRUCTOR</th>
+              <th>SUBJECT</th>
+              <th>units</th>
+              <th class="dhead"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for ( const ObjectKey in facultyarrobj ){ %> <%
+            facultyarrobj[ObjectKey].forEach((dat, index) => { %>
+            <tr>
+              <td><%= dat.prof %></td>
+              <td><%= dat.subject %></td>
+              <td><%= dat.units %></td>
+              <td class="dbody">
+                <form class="delete-sched-faculty">
+                  <button
+                    class="material-icons-outlined"
+                    name="deleteS"
+                    value="<%= dat.ID %>"
+                    type="submit"
+                    style="border: none; background-color: white"
+                  >
+                    delete
+                  </button>
+                  <input type="hidden" name="prof" value="<%= dat.prof %>" />
+                  <input
+                    type="hidden"
+                    name="subject"
+                    value="<%= dat.subject %>"
+                  />
+                </form>
+              </td>
+            </tr>
+
+            <%}) %> <% } %>
+            <tr class="showaddproff" style="display: none">
+              <form id="addprof">
+                <td>
+                  <input
+                    type="text"
+                    name="prof"
+                    placeholder="ENGR SAN PASCUAL"
+                    id="prof-name"
+                    style="
+                      border: none;
+                      border-bottom: 1px solid black;
+                      background: none;
+                      outline: none;
+                      text-align: center;
+                    "
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="subject"
+                    placeholder="MATH"
+                    id="subject"
+                    style="
+                      border: none;
+                      border-bottom: 1px solid black;
+                      background: none;
+                      outline: none;
+                      text-align: center;
+                    "
+                  />
+                </td>
+                <td>
+                  <style>
+                    input[type="number"]::-webkit-outer-spin-button,
+                    input[type="number"]::-webkit-inner-spin-button {
+                      -webkit-appearance: none;
+                      margin: 0;
+                    }
+                  </style>
+                  <input
+                    type="number"
+                    name="units"
+                    placeholder="2"
+                    id="units"
+                    style="
+                      border: none;
+                      border-bottom: 1px solid black;
+                      background: none;
+                      outline: none;
+                      text-align: center;
+                      width: 30px;
+                    "
+                  />
+                </td>
+                <td>
+                  <button
+                    class="material-icons-outlined"
+                    type="submit"
+                    style="border: none; background-color: white"
+                  >
+                    add_box
+                  </button>
+                </td>
+              </form>
+            </tr>
+
+            <tr>
+              <td
+                style="
+                  position: absolute;
+                  transition: 0.3s ease;
+                  top: 0;
+                  right: 20px;
+                  animation: opa 1.5s ease;
+                "
+              >
+                <button
+                  class="material-icons-outlined"
+                  style="border: none; background-color: white; font-size: 30px"
+                  id="showaddprof"
+                >
+                  arrow_drop_down
+                </button>
+              </td>
+            </tr>
+
+            <script>
+              const addprofform = document.querySelector("#addprof");
+
+              addprofform.addEventListener("submit", (e) => {
+                e.preventDefault();
+
+                let newform = new FormData(addprofform);
+                let data = Object.fromEntries(newform);
+
+                fetch("/addprof", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify(data),
+                })
+                  .then((res) => res.json())
+                  .then((dat) => {
+                    if (dat.success) {
+                      popthis(dat.message);
+                      location.reload();
+                    } else {
+                      popthis(dat.message);
+                    }
+                  });
+              });
+
+              let addthisprof = document.querySelector("#showaddprof");
+
+              addthisprof.addEventListener("click", () => {
+                let formprof = document.querySelector(".showaddproff");
+
+                if (formprof.style.display === "none") {
+                  formprof.style.display = "table-row";
+                  addthisprof.textContent = "arrow_drop_up";
+                } else {
+                  formprof.style.display = "none";
+                  addthisprof.textContent = "arrow_drop_down";
+                }
+              });
+
+              let delss = document.querySelectorAll(".delete-sched-faculty");
+
+              delss.forEach((del) => {
+                del.addEventListener("submit", (e) => {
+                  e.preventDefault();
+
+                  const delid = del.querySelector(
+                    "button[name='deleteS']"
+                  ).value;
+                  const delprof = del.querySelector("input[name='prof']").value;
+                  const delsub = del.querySelector(
+                    "input[name='subject']"
+                  ).value;
+
+                  const data = {
+                    deleteS: delid,
+                    prof: delprof,
+                    subject: delsub,
+                  };
+
+                  fetch("/deleteschedf", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data),
+                  })
+                    .then((res) => res.json())
+                    .then((dat) => {
+                      if (dat.success) {
+                        location.reload();
+                      } else {
+                        popthis(dat.message);
+                      }
+                    });
+                });
+              });
+            </script>
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <% let i = 0; %> <% for (const ObjectKey in facultyschedobj) {%> <% if
+        (i++ === 0) continue; %>
+        <p class="room-name"><%= ObjectKey %></p>
+        <table class="sched-table">
+          <thead>
+            <tr>
+              <th>SUBJECT</th>
+              <th>SCHEDULE</th>
+              <th>SECTION</th>
+              <th>DAY</th>
+              <th>ROOM</th>
+              <th class="dhead"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% facultyschedobj[ObjectKey].forEach((atrri, index) => { %>
+            <tr>
+              <td><%= atrri.subject_code %></td>
+              <td>
+                <%= converTime(atrri.start_time) %> - <%=
+                converTime(atrri.end_time) %>
+              </td>
+              <td><%= atrri.section %></td>
+              <td><%= atrri.day %></td>
+              <td><%= atrri.room_name%></td>
+              <td class="dbody">
+                <form class="delete-sched">
+                  <button
+                    class="material-icons-outlined"
+                    name="deleteS"
+                    value="<%= atrri.id %>"
+                    type="submit"
+                    style="border: none; background-color: white"
+                  >
+                    delete
+                  </button>
+                </form>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+        <% }%>
+
+        <script>
+          let dels = document.querySelectorAll(".delete-sched");
+
+          dels.forEach((del) => {
+            del.addEventListener("submit", (e) => {
+              e.preventDefault();
+
+              const delid = del.querySelector("button[name='deleteS']").value;
+              const data = { deleteS: delid };
+              fetch("/deletesched", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data),
+              })
+                .then((res) => res.json())
+                .then((dat) => {
+                  if (dat.success) {
+                    location.reload();
+                  } else {
+                    popthis(dat.message);
+                  }
+                });
+            });
+          });
+        </script>
+      </div>
+    </div>
+  </body>
+</html>

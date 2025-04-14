@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Planado</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link rel="stylesheet" href="/index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Allura&family=Archivo:ital,wght@0,100..900;1,100..900&family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playwrite+TZ+Guides&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik+Vinyl&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Allura&family=Archivo:ital,wght@0,100..900;1,100..900&family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playwrite+TZ+Guides&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik+Vinyl&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Allura&family=Archivo:ital,wght@0,100..900;1,100..900&family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playwrite+TZ+Guides&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik+Vinyl&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="alertthis">gegeg</div>
+    <div class="cont">
+      <header class="index-header2">
+        <a href="#" style="margin-top: 40px"></a>
+        <a href="#" class="openhome"
+          ><button onclick="openhome(event)">
+            <i class="material-icons">home</i>
+          </button></a
+        >
+      </header>
+      <div class="home-content">
+        <p>
+          Plan it. <span style="color: palevioletred">Do</span> it.
+          <span style="color: rgba(255, 220, 21, 1)">Own</span> it!
+        </p>
+        <p>
+          Planado is the ultimate scheduling and productivity tool designed to
+          help you take full control of your time. Whether you're organizing
+          your daily tasks, managing important events, or tracking your
+          progress, Planado simplifies the process and keeps you on top of every
+          plan. With easy-to-use scheduling, personalized to-do lists, and smart
+          reminders, you'll never miss a deadline again. Say goodbye to chaos
+          and hello to a more organized, efficient life. Plan it. Do it. Own it!
+        </p>
+      </div>
+
+      <form method="post" id="logform">
+        <div class="login-content">
+          <p>Welcome Back!</p>
+          <div class="email">
+            <i class="material-icons">mail</i
+            ><input type="email" name="email" placeholder="email" required /><i
+              class="material-icons"
+              style="opacity: 0"
+              >visibility_off</i
+            >
+          </div>
+          <div class="password">
+            <i class="material-icons">lock</i
+            ><input
+              type="password"
+              name="password"
+              id=""
+              placeholder="password"
+              required
+            /><i class="material-icons" id="logvisible">visibility_off</i>
+          </div>
+          <p class="for-check" style="justify-content: center">
+            <span>Forgot password?</span>
+          </p>
+          <button type="submit">Sign in</button>
+        </div>
+      </form>
+      <form method="post" id="signForm">
+        <div class="signup-content">
+          <p>Sign in</p>
+          <div class="email-signup">
+            <i class="material-icons">mail</i
+            ><input
+              type="email"
+              name="emailSignup"
+              id="emailSignup"
+              placeholder="email"
+              required
+            /><i class="material-icons" style="opacity: 0">visibility_off</i>
+          </div>
+          <div class="password-signup">
+            <i class="material-icons">lock</i
+            ><input
+              type="password"
+              name="passwordSignup"
+              id="passwordSignup"
+              placeholder="password"
+              required
+            /><i class="material-icons" id="signvis1">visibility_off</i>
+          </div>
+          <div class="confirm-password-signup">
+            <i class="material-icons">lock</i
+            ><input
+              type="password"
+              name="cpasswordSignup"
+              id="cpasswordSignup"
+              placeholder="Confirm Password"
+              required
+            /><i class="material-icons" id="signvis2">visibility_off</i>
+          </div>
+          <p class="terms">
+            <span
+              ><input type="checkbox" name="terms" id="termsCheck" /><span
+                style="color: rgba(255, 220, 21, 0)"
+                >n</span
+              ><a
+                class="terms-download"
+                href="/terms/terms.pdf"
+                download="terms.pdf"
+                >terms of condition</a
+              ></span
+            ><span onclick="opensignin(event)">Already have an account?</span>
+          </p>
+          <button type="submit" id="submitsign">Sign up</button>
+        </div>
+      </form>
+      <div class="info-content">
+        <p><i class="material-icons">info</i></p>
+        <p>Key Features</p>
+        <ul>
+          <li>
+            <h4>Automated Scheduling</h4>
+            Prevents double bookings and classroom conflicts, ensuring a smooth
+            scheduling process.
+          </li>
+          <li>
+            <h4>Block-based Compilation</h4>
+            Efficiently organizes schedules for different student blocks, making
+            planning easier.
+          </li>
+          <li>
+            <h4>Real-time Updates</h4>
+            Instantly view, manage, and adapt to any changes without delays.
+          </li>
+          <li>
+            <h4>User-Friendly Interface</h4>
+            Designed for students, teachers, and admins to navigate
+            effortlessly.
+          </li>
+          <li>
+            <h4>Faster & More Reliable</h4>
+            Minimizes manual work and optimizes schedule distribution for
+            maximum efficiency.
+          </li>
+        </ul>
+      </div>
+      <div class="help-content">
+        <div class="chat-log">
+          <div class="from-bot">
+            <i class="material-icons"></i>
+            <p>Hello my name is otter how can i help you?</p>
+          </div>
+        </div>
+        <div class="send-message">
+          <select name="message" id="user-message" class="user-message">
+            <option value="what is Planado?">What is Planado?</option>
+            <option value="Is Planado exclusive for CDM?">
+              Is Planado exclusive for CDM?
+            </option>
+            <option value="Who is eligible to register?">
+              Who is eligible to register?
+            </option>
+            <option value="Do you have schedule for section?">
+              Do you have schedule for section?
+            </option>
+            <option value="Can i print my Schedule?">
+              Can I print my Schedule?
+            </option>
+          </select>
+          <button onclick="sendmessage()">Send</button>
+        </div>
+      </div>
+
+      <footer class="index-head">
+        <a href="#" onclick="opensignin(event)" class="opensignin"
+          ><i class="material-icons">person</i></a
+        >
+        <a href="#" onclick="opensignup(event)" class="opensignup"
+          ><i class="material-icons">person_add</i></a
+        >
+        <a href="#" onclick="openinfo(event)" class="openinfo"
+          ><i class="material-icons">info</i></a
+        >
+        <a href="#" onclick="openhelp(event)" class="openhelp"
+          ><i class="material-icons">help</i></a
+        >
+      </footer>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      const loginform = document.getElementById("logform");
+      loginform.addEventListener("submit", async function (event) {
+        event.preventDefault();
+        const formdata = new FormData(loginform);
+        const data = Object.fromEntries(formdata);
+
+        const res = await fetch("/submitlogin", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success) {
+              popthis("welcome to planado");
+              window.location.href = data.url;
+            } else {
+              popthis("wrong password");
+            }
+          });
+      });
+
+      const newform = document.getElementById("signForm");
+      newform.addEventListener("submit", function (event) {
+        let termss = document.getElementById("termsCheck");
+        event.preventDefault();
+
+        if (!termss.checked) {
+          popthis("pls check our terms of condition");
+          return;
+        }
+
+        let pass = document.getElementById("passwordSignup").value;
+        let cpass = document.getElementById("cpasswordSignup").value;
+
+        if (cpass !== pass) {
+          popthis("password dont match");
+          return;
+        }
+
+        const formdata = new FormData(newform);
+        const data = Object.fromEntries(formdata);
+
+        const res = fetch("/submitsignp", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((res) => res.json())
+          .then((dat) => {
+            if (dat.emailtaken) {
+              popthis(dat.emailtaken);
+            } else if (dat.success) {
+              console.log("pumasok");
+              popthis(dat.emailcreated);
+              window.location.href = dat.url;
+            }
+          });
+      });
+
+      let loginpass = document.querySelector(".password > input");
+      let loginshowpass = document.querySelector("#logvisible");
+      let signpass1 = document.querySelector(".password-signup > input");
+      let signpass2 = document.querySelector(
+        ".confirm-password-signup > input"
+      );
+      let signvisible1 = document.querySelector("#signvis1");
+      let signvisible2 = document.querySelector("#signvis2");
+
+      function showpass(textvar, icon) {
+        icon.addEventListener("click", function () {
+          if (textvar.type === "password") {
+            textvar.type = "text";
+            icon.innerText = "visibility";
+          } else {
+            textvar.type = "password";
+            icon.textContent = "visibility_off";
+          }
+        });
+      }
+      showpass(loginpass, loginshowpass);
+      showpass(signpass1, signvisible1);
+      showpass(signpass2, signvisible2);
+
+      function sendmessage() {
+        let chatlog = document.querySelector(".chat-log");
+        let usermessage = document.querySelector(".user-message").value;
+
+        let sentbyuser = document.createElement("div");
+        sentbyuser.classList.add("from-user");
+
+        let psentbyuser = document.createElement("p");
+        psentbyuser.innerText = usermessage;
+        let userlogo = document.createElement("i");
+        userlogo.classList.add("material-icons");
+        userlogo.innerText = "account_circle";
+
+        sentbyuser.appendChild(psentbyuser);
+        sentbyuser.appendChild(userlogo);
+        chatlog.appendChild(sentbyuser);
+
+        setTimeout(() => {
+          let botresponse = document.createElement("div");
+          botresponse.classList.add("from-bot");
+
+          let botp = document.createElement("p");
+          let boti = document.createElement("i");
+          boti.classList.add("material-icons");
+
+          botresponse.appendChild(boti);
+          botresponse.appendChild(botp);
+          chatlog.appendChild(botresponse);
+
+          let umessage = [
+            "what is Planado?",
+            "Is Planado exclusive for CDM?",
+            "Who is eligible to register?",
+            "Do you have schedule for section?",
+            "Can i print my Schedule?",
+          ];
+          let bresponse = [
+            "Planado is Room scheduling system made for SMART STEAMLESS SCHEDULING!!!",
+            "As of today Planado is only Available to cdm",
+            "Students, teachers, and admin only ",
+            "Yes, Planado provides compilation of schedule per section",
+            "Yes, you can print your schedule directly from Planado",
+          ];
+          let gresponse;
+
+          for (let i = 0; i < umessage.length; i++) {
+            if (usermessage === umessage[i]) {
+              botp.innerText = bresponse[i];
+            }
+          }
+
+          chatlog.scrollTop = chatlog.scrollHeight;
+        }, 1000);
+      }
+      function openhome(event) {
+        event.preventDefault();
+        document.querySelector(".home-content").style.display = "block";
+        document.querySelector(".login-content").style.display = "none";
+        document.querySelector(".signup-content").style.display = "none";
+        document.querySelector(".info-content").style.display = "none";
+        document.querySelector(".help-content").style.display = "none";
+      }
+      function opensignin(event) {
+        event.preventDefault();
+        document.querySelector(".home-content").style.display = "none";
+        document.querySelector(".login-content").style.display = "flex";
+        document.querySelector(".signup-content").style.display = "none";
+        document.querySelector(".info-content").style.display = "none";
+        document.querySelector(".help-content").style.display = "none";
+      }
+      function opensignup(event) {
+        event.preventDefault();
+        document.querySelector(".home-content").style.display = "none";
+        document.querySelector(".login-content").style.display = "none";
+        document.querySelector(".signup-content").style.display = "flex";
+        document.querySelector(".info-content").style.display = "none";
+        document.querySelector(".help-content").style.display = "none";
+      }
+      function openinfo(event) {
+        event.preventDefault();
+        document.querySelector(".home-content").style.display = "none";
+        document.querySelector(".login-content").style.display = "none";
+        document.querySelector(".signup-content").style.display = "none";
+        document.querySelector(".info-content").style.display = "flex";
+        document.querySelector(".help-content").style.display = "none";
+      }
+      function openhelp(event) {
+        event.preventDefault();
+        document.querySelector(".home-content").style.display = "none";
+        document.querySelector(".login-content").style.display = "none";
+        document.querySelector(".signup-content").style.display = "none";
+        document.querySelector(".info-content").style.display = "none";
+        document.querySelector(".help-content").style.display = "flex";
+      }
+      function popthis(message) {
+        let alertthis = document.querySelector(".alertthis");
+        alertthis.textContent = message;
+
+        alertthis.style.display = "flex";
+
+        setTimeout(() => {
+          alertthis.style.display = "none";
+          alertthis.textContent = "";
+        }, 1000);
+      }
+    </script>
+  </body>
+</html>
