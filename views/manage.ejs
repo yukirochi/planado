@@ -401,24 +401,7 @@
               class="subjectSelect"
               required
             >
-              <script>
-
-             
-                function facultysub() {
-
-                  let faculties = <%- JSON.stringify(groupedfaculty) %>;
-                  let prof = document.querySelector(".facultySelect").value;
-                  let subjectSe = document.querySelector(".subjectSelect")
-                   subjectSe.innerHTML = ""
-                  console.log(faculties[prof]);
-                  console.log(prof);
-
-                faculties[prof].forEach(element => {
-                    subjectSe.innerHTML += `<option value="${element.subject}">${element.subject}</option>`
-
-                 });
-                }
-              </script>
+           
             </select>
             <select
               type="text"
@@ -457,5 +440,21 @@
         </div>
       </div>
     </main>
+    <div style="display: none;" id="vardiv" data-info='<%- JSON.stringify(groupedfaculty) %>' ></div>
+    <script>
+      function facultysub() {
+        let faculties = JSON.parse(document.querySelector("#vardiv").dataset.info);
+        let prof = document.querySelector(".facultySelect").value;
+        let subjectSe = document.querySelector(".subjectSelect")
+         subjectSe.innerHTML = ""
+        console.log(faculties[prof]);
+        console.log(prof);
+
+      faculties[prof].forEach(element => {
+          subjectSe.innerHTML += `<option value="${element.subject}">${element.subject}</option>`
+
+       });
+      }
+    </script>
   </body>
 </html>

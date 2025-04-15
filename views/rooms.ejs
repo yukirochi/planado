@@ -192,7 +192,8 @@
         <% } %>
       </div>
     </div>
-
+    
+    <div style="display: none;" id="vardiv" data-info='<%- JSON.stringify(groupedfaculty) %>' ></div>
     <script>
   
        
@@ -215,8 +216,7 @@
         }
 
       function facultysub() {
-
-        let faculties = <%- JSON.stringify(groupedfaculty) %>;
+        let faculties = JSON.parse(document.querySelector("#vardiv").dataset.info);
         let prof = document.querySelectorAll(".facultySelect");
         let subjectSe = document.querySelectorAll(".subjectSelect")
          
@@ -237,8 +237,7 @@
 
      
       }
-    </script>
-    <script>
+   
       
       let addsched = document.querySelectorAll("#submitsched-form");
 

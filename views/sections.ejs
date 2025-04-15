@@ -208,6 +208,7 @@
         <% } %>
       </div>
     </div>
+    <div style="display: none;" id="vardiv" data-info='<%- JSON.stringify(groupedfaculty) %>' ></div>
     <script>
       
       function showaddroom(){
@@ -260,8 +261,7 @@
       }); 
 
     function facultysub() {
-
-   let faculties = <%- JSON.stringify(groupedfaculty) %>;
+   let faculties = JSON.parse(document.querySelector("#vardiv").dataset.info);
    let prof = document.querySelector(".facultySelect").value;
    let subjectSe = document.querySelector(".subjectSelect")
    subjectSe.innerHTML = ""
