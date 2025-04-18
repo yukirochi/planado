@@ -11,6 +11,8 @@
 
 /*ALTER TABLE rooms ADD prof varchar(255)*/
 
-DELETE FROM rooms
+/* FROM rooms*/
 
 /*INSERT INTO faculty ( prof, subject ) VALUES ("ENGR SAN PASCUAL", "FEC 1")*/
+
+UPDATE users SET role = "admin" WHERE email = 'otter@example.com'

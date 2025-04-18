@@ -108,3 +108,17 @@
     font-family: "archivo";
     margin-top: 15px;
   }
+  table select{
+    border: none;
+    background-color: transparent;
+    font-family: "archivo";
+    margin-top: 15px; 
+    border-bottom: 1px solid black ;
+  }
+  option{
+    background-color: palevioletred;
+    text-align: center;
+  }
+  *::-webkit-scrollbar{
+    width: 0;
+  }

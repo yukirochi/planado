@@ -46,7 +46,7 @@
               <th>INSTRUCTOR</th>
               <th>SUBJECT</th>
               <th>units</th>
-              <th class="dhead"></th>
+              <th class="dhead" id="tablehide"></th>
             </tr>
           </thead>
           <tbody>
@@ -56,7 +56,7 @@
               <td><%= dat.prof %></td>
               <td><%= dat.subject %></td>
               <td><%= dat.units %></td>
-              <td class="dbody">
+              <td class="dbody" id="tablehide">
                 <form class="delete-sched-faculty">
                   <button
                     class="material-icons-outlined"
@@ -166,6 +166,7 @@
             </tr>
 
             <script>
+              
               const addprofform = document.querySelector("#addprof");
 
               addprofform.addEventListener("submit", (e) => {
@@ -256,7 +257,7 @@
               <th>SECTION</th>
               <th>DAY</th>
               <th>ROOM</th>
-              <th class="dhead"></th>
+              <th class="dhead" id="tablehide"></th>
             </tr>
           </thead>
           <tbody>
@@ -270,7 +271,7 @@
               <td><%= atrri.section %></td>
               <td><%= atrri.day %></td>
               <td><%= atrri.room_name%></td>
-              <td class="dbody">
+              <td class="dbody" id="tablehide">
                 <form class="delete-sched">
                   <button
                     class="material-icons-outlined"
@@ -290,6 +291,18 @@
         <% }%>
 
         <script>
+          let tablehide = document.querySelectorAll("#tablehide"); 
+          let showadd = document.querySelector("#showaddprof")
+          let rolecont = document.querySelector(".rolecont").textContent
+        
+
+           if(rolecont !== "admin"){
+           showadd.style.display = "none"
+           tablehide.forEach(tohide =>{
+            tohide.style.display = "none"
+           })
+           }
+
           let dels = document.querySelectorAll(".delete-sched");
 
           dels.forEach((del) => {

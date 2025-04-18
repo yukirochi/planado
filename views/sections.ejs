@@ -42,7 +42,7 @@
               <th>time</th>
               <th>professor</th>
               <th>room</th>
-              <th class="dhead"><p style="opacity: 0;">delete</p></th>
+              <th class="dhead" id="tablehide"><p style="opacity: 0;">delete</p></th>
               <td style="position: absolute; transition: 0.3s ease">
                 
                 <p name="room-section" style="display: none">
@@ -75,7 +75,7 @@
               </td>
               <td><%= attri.prof %></td>
               <td><%= attri.room_name %></td>
-              <td class="dbody">
+              <td class="dbody" id="tablehide">
                 <form class="delete-sched">
                   <button
                     class="material-icons-outlined"
@@ -210,7 +210,20 @@
     </div>
     <div style="display: none;" id="vardiv" data-info='<%- JSON.stringify(groupedfaculty) %>' ></div>
     <script>
-      
+      let tablehide = document.querySelectorAll("#tablehide"); 
+      let showadds = document.querySelectorAll("#showaddroom")
+      let rolecont = document.querySelector(".rolecont").textContent
+       
+    showadds.forEach(showadd => {
+    if (rolecont !== "admin"){
+    showadd.style.display = "none"
+    tablehide.forEach(tohide =>{
+            tohide.style.display = "none"
+           })
+    }
+    })
+
+
       function showaddroom(){
         
         let elems = document.querySelectorAll("#tr2");
@@ -233,11 +246,13 @@
       }
 
 
-      let addsched = document.querySelector("#submitsched-form");
-      addsched.addEventListener("submit", (e) => {
+      let addsched = document.querySelectorAll("#submitsched-form");
+
+      addsched.forEach(element => { 
+      element.addEventListener("submit", (e) => {
         e.preventDefault();
 
-        let Newform = new FormData(addsched);
+        let Newform = new FormData(element);
         let data = Object.fromEntries(Newform);
 
         fetch("/addsched", {
@@ -259,20 +274,27 @@
             }
           }); 
       }); 
+    })
 
-    function facultysub() {
-   let faculties = JSON.parse(document.querySelector("#vardiv").dataset.info);
-   let prof = document.querySelector(".facultySelect").value;
-   let subjectSe = document.querySelector(".subjectSelect")
-   subjectSe.innerHTML = ""
-   console.log(faculties[prof]);
-   console.log(prof);
+      function facultysub() {
+        let faculties = JSON.parse(document.querySelector("#vardiv").dataset.info);
+        let prof = document.querySelectorAll(".facultySelect");
+        let subjectSe = document.querySelectorAll(".subjectSelect")
+         
+       
+        for (let i = 0; i < prof.length; i++){
 
-    faculties[prof].forEach(element => {
-    subjectSe.innerHTML += `<option value="${element.subject}">${element.subject}</option>`
+          let profs = prof[i].value;
+          let subs = subjectSe[i]
+          subs.innerHTML = ""
 
-     });
-    }
+          faculties[profs].forEach(element => {
+          subs.innerHTML += `<option style="background-color: palevioletred; font-size: 12px; padding-top: 5px;" value="${element.subject}">${element.subject}</option>`
+
+       });
+        }
+     
+      }
 
       let dels = document.querySelectorAll(".delete-sched");
 

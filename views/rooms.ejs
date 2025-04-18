@@ -44,7 +44,7 @@
               <th>subject</th>
               <th>time</th>
               <th>day</th>
-              <th class="dhead"><p style="opacity: 0;">delete</p></th>
+              <th class="dhead" id="tablehide"><p style="opacity: 0;" >delete</p></th>
               <td style="position: absolute;  transition: 0.3s ease;">
                   
                 <button class="material-icons-outlined" id="arrow" style="border: none; background-color: white; font-size: 30px;" onclick="showadd()">arrow_drop_down</button>
@@ -63,7 +63,7 @@
                 <%= converTime(attri.start_time) %> - <%= converTime(attri.end_time) %>
               </td>
               <td><%= attri.day%></td>
-              <td class="dbody">
+              <td class="dbody" id="tablehide">
                 <form class="delete-sched">
                   <button class="material-icons-outlined" name="deleteS" value="<%= attri.id %>" type="submit" style="border: none; background-color: white;" >delete</button>
                 </form>
@@ -195,7 +195,21 @@
     
     <div style="display: none;" id="vardiv" data-info='<%- JSON.stringify(groupedfaculty) %>' ></div>
     <script>
-  
+    let tablehide = document.querySelectorAll("#tablehide"); 
+    let showadds = document.querySelectorAll("#arrow")
+    let rolecont = document.querySelector(".rolecont").textContent
+    showadds.forEach(showadd => {
+    if (rolecont !== "admin"){
+    showadd.style.display = "none"
+    tablehide.forEach(tohide =>{
+            tohide.style.display = "none"
+           })
+    }
+    })
+
+
+
+
        
         let elems = document.querySelectorAll("#tr2");
         let but = document.querySelectorAll("#arrow")
@@ -232,9 +246,6 @@
 
        });
         }
-          
-        
-
      
       }
    

@@ -303,44 +303,47 @@
         <div>
           <p>Add Faculty</p>
           <form id="addprof">
-            <input
+            <p><label for="prof">Faculty</label><input
               type="text"
               name="prof"
               placeholder="Enter name"
               id="prof-name"
             />
-            <input
+          </p> 
+            <p><label for="subject">Subject</label><input
               type="text"
               name="subject"
               placeholder="Enter Subject"
               id="subject"
             />
-            <input
+          </p> 
+           <p><label for="units">Units</label><input
               type="number"
               name="units"
               placeholder="Enter units"
               id="units"
             />
+          </p> 
             <button type="submit">Submit</button>
           </form>
         </div>
         <div>
           <p>Add Session</p>
           <form id="submitsched-form">
-            <select name="room" class="rooms-select">
+            <p> <label for="room">Room</label> <select name="room" class="rooms-select">
               <% for(let i = 0 ; i < roomsAvail.length; i++){ %>
               <option value="<%= roomsAvail[i] %>"><%= roomsAvail[i]%></option>
               <%} %>
-            </select>
-            <select name="day" id="day">
+            </select></p> 
+            <p><label for="day">Day</label> <select name="day" id="day">
               <option value="MONDAY">monday</option>
               <option value="TUESDAY">tuesday</option>
               <option value="WEDNESDAY">wednesday</option>
               <option value="THURSDAY">thursday</option>
               <option value="FRIDAY">friday</option>
               <option value="SATURDAY">saturday</option>
-            </select>
-            <select name="start" id="start">
+            </select></p> 
+            <p><label for="start">Start</label> <select name="start" id="start">
               <option value="07:00:00">07:00 AM</option>
               <option value="07:30:00">07:30 AM</option>
               <option value="08:00:00">08:00 AM</option>
@@ -366,8 +369,8 @@
               <option value="18:00:00">06:00 PM</option>
               <option value="18:30:00">06:30 PM</option>
               <option value="19:00:00">07:00 PM</option>
-            </select>
-            <select name="end" id="end">
+            </select></p> 
+            <p><label for="end">End</label><select name="end" id="end">
               <option value="07:00:00">07:00 AM</option>
               <option value="07:30:00">07:30 AM</option>
               <option value="08:00:00">08:00 AM</option>
@@ -393,8 +396,8 @@
               <option value="18:00:00">06:00 PM</option>
               <option value="18:30:00">06:30 PM</option>
               <option value="19:00:00">07:00 PM</option>
-            </select>
-            <select
+            </select></p> 
+             <p><label for="subject">Subject</label><select
               type="text"
               placeholder="FEC1"
               name="subject"
@@ -402,39 +405,41 @@
               required
             >
            
-            </select>
-            <select
+            </select></p> 
+
+          <p><label for="faculty">Faculty</label> <select
               type="text"
               class="facultySelect"
               name="faculty"
               onchange="facultysub()"
               required
             >
+
               <% Object.keys(groupedfaculty).forEach(dat =>{%>
 
               <option value="<%= dat %>"><%= dat %></option>
               <%}) %>
-            </select>
-            <input type="text" placeholder="BSCPE2A" name="section" required />
+            </select></p> 
+           <p><label for="section">Section</label> <input type="text" placeholder="BSCPE2A" name="section" required /></p> 
             <button type="submit">Submit</button>
           </form>
         </div>
         <div>
           <p>Add Room</p>
           <form id="addroom-form">
-            <input
+           <p> <label for="roomName">Room Name</label><input
             type="text"
             name="roomName"
             placeholder="Enter name"
             id="room-input-name"
-          />
-          <input
+          /></p> 
+           <p><label for="roomNumber">Room Number</label><input
             type="number"
             name="roomNumber"
             placeholder="Enter Room Number"
             id="room-input-name"
             
-          />
+          /></p> 
           <button type="submit">Submit</button>
           </form>
         </div>
@@ -447,14 +452,87 @@
         let prof = document.querySelector(".facultySelect").value;
         let subjectSe = document.querySelector(".subjectSelect")
          subjectSe.innerHTML = ""
-        console.log(faculties[prof]);
-        console.log(prof);
-
       faculties[prof].forEach(element => {
           subjectSe.innerHTML += `<option value="${element.subject}">${element.subject}</option>`
 
        });
       }
+
+     
+
+      const addroomForm = document.querySelector("#addroom-form");
+
+      addroomForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      let Newform = new FormData(addroomForm);
+      let data = Object.fromEntries(Newform);
+
+      fetch("/addroom", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+      })
+      .then((res) => res.json())
+      .then((dat) => {
+      if (dat.success) {
+        popthis(dat.message);
+
+        setTimeout(() => {
+          location.reload();
+        }, 1500);
+       
+      } else {
+        popthis(dat.message);
+      }
+      });
+      });
+
+      let addsched = document.querySelector("#submitsched-form");
+      addsched.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        let Newform = new FormData(addsched);
+        let data = Object.fromEntries(Newform);
+
+        fetch("/addsched", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        })
+          .then((res) => res.json())
+          .then((dat) => {
+            popthis(dat.message);
+          }); 
+      });
+
+      const addprofform = document.querySelector("#addprof");
+
+      addprofform.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      let newform = new FormData(addprofform);
+      let data = Object.fromEntries(newform);
+
+      fetch("/addprof", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+       body: JSON.stringify(data),
+
+       })
+      .then((res) => res.json())
+      .then((dat) => {
+      if (dat.success) {
+         popthis(dat.message);
+         setTimeout(() => {
+          location.reload();
+        }, 1500);
+       } else {
+         popthis(dat.message);
+       }
+     });
+
+    })
     </script>
   </body>
 </html>

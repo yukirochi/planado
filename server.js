@@ -22,14 +22,20 @@ const connection = mysql
 
 let wrongpass = "";
 let useremail = "";
+let role = ""
 
 app.post("/submitlogin", async (req, res) => {
   const { email, password } = req.body;
-
+  
+  const [rows] = await connection.query("SELECT role FROM users WHERE email = ?", [email]);
+   role = rows[0]?.role;
+  
+  
   const [verify] = await connection.query(
     "SELECT * FROM users WHERE email = ? AND password = ?",
     [email, password]
   );
+
   if (verify.length === 0) {
     return res.json({
       success: false,
@@ -41,6 +47,7 @@ app.post("/submitlogin", async (req, res) => {
       success: true,
       url: "/landing",
       useremail: useremail,
+      role
     });
   }
 });
@@ -97,6 +104,7 @@ app.get("/landing", async (req, res) => {
     listsection,
     listuser,
     emailcreated,
+    role
   });
 });
 
@@ -108,7 +116,7 @@ app.get("/rooms", async (req, res) => {
     WHEN 'Wednesday' THEN 4
     WHEN 'Thursday' THEN 5
     WHEN 'Friday' THEN 6
-    WHEN 'Saturday' THEN 7 END`);
+    WHEN 'Saturday' THEN 7 END, start_time, end_time`);
 
   arrayform = alldata.map((dat) => dat);
 
@@ -121,12 +129,12 @@ app.get("/rooms", async (req, res) => {
   const [faculty] = await connection.query("SELECT prof, subject FROM faculty");
 
   let groupedfaculty = Object.groupBy(faculty, (dat) => dat.prof);
-  console.log(Array.isArray(faculty));
+  
 
   let roomsAvail = roomsAvailable.map((row) => row.room_name);
 
   res.render("rooms", { usermail: useremail, objectform, roomsAvail,
-    groupedfaculty, });
+    groupedfaculty,role });
 
 });
 
@@ -138,20 +146,19 @@ app.get("/manage", async (req, res) => {
   const [faculty] = await connection.query("SELECT prof, subject FROM faculty");
 
   let groupedfaculty = Object.groupBy(faculty, (dat) => dat.prof);
-  console.log(Array.isArray(faculty));
 
   let roomsAvail = roomsAvailable.map((row) => row.room_name);
   return res.render("manage", {
     usermail: useremail,
     roomsAvail,
     groupedfaculty,
+    role
   });
 });
 app.post("/addroom", async (req, res) => {
   let { roomName, roomNumber } = req.body;
 
   let uroomName = roomName.toUpperCase() + " " + roomNumber.toString();
-  console.log(uroomName);
 
   let [verify] = await connection.query(
     "SELECT * FROM rooms WHERE room_name = ?",
@@ -182,7 +189,10 @@ app.post("/addroom", async (req, res) => {
 });
 app.post("/addsched", async (req, res) => {
   let { room, start, end, subject, section, day, faculty } = req.body;
-
+  
+  let [ifproftime] = await connection.query("SELECT * FROM rooms WHERE prof = ? AND day = ? AND NOT (? >= end_time OR ? <= start_time)",[faculty, day, start, end])
+  let [iftimeexist] = await connection.query("SELECT * FROM rooms WHERE section = ? AND day = ? AND NOT (? >= end_time OR ? <= start_time)",[section, day, start, end])
+  
   let [verifytime] = await connection.query(
     `SELECT * FROM rooms WHERE room_name = ?
      AND day = ?
@@ -207,7 +217,18 @@ app.post("/addsched", async (req, res) => {
       success: false,
       message: "spot taken",
     });
-  } else {
+  }else if(iftimeexist.length > 0){
+    return res.json({
+      success: false,
+      message: "Same time slot in another room."
+    })
+  }else if(ifproftime.length > 0){
+    return res.json({
+      success: false,
+      message: "times slot is not available for prof "
+    })
+  }
+  else {
     await connection.query(
       "INSERT INTO rooms (room_name, start_time, end_time, subject_code, section, day, prof) VALUES (?, ?, ?, ?, ?, ?, ?)",
       [room, start, end, subject, section, day, faculty]
@@ -226,9 +247,9 @@ app.get("/sections", async (req, res) => {
     WHEN 'Wednesday' THEN 4
     WHEN 'Thursday' THEN 5
     WHEN 'Friday' THEN 6
-    WHEN 'Saturday' THEN 7 END`);
+    WHEN 'Saturday' THEN 7 END, start_time, end_time`);
   arrayformm = data.map((dat) => dat);
-  objectformsecttion = Object.groupBy(
+  objectformsecttion = Object.groupBy(  
     arrayformm.filter((dat) => dat.section),
     (dat) => dat.section
   );
@@ -241,33 +262,38 @@ app.get("/sections", async (req, res) => {
   const [faculty] = await connection.query("SELECT prof, subject FROM faculty");
 
   let groupedfaculty = Object.groupBy(faculty, (dat) => dat.prof);
-  console.log(Array.isArray(faculty));
 
   let roomsAvail = roomsAvailable.map((row) => row.room_name);
-  res.render("sections", { usermail: useremail, objectformsecttion, groupedfaculty, roomsAvail});
+  res.render("sections", { usermail: useremail, objectformsecttion, groupedfaculty, roomsAvail, role});
 });
 
 app.get("/faculty", async (req, res) => {
   let [facultyarr] = await connection.query("SELECT * FROM faculty");
   let facultyarrobj = Object.groupBy(facultyarr, (dat) => dat.prof);
 
-  let [facultysched] = await connection.query("SELECT * FROM rooms");
+  let [facultysched] = await connection.query(`SELECT * FROM rooms ORDER BY CASE day WHEN 'Sunday' THEN 1
+    WHEN 'Monday' THEN 2
+    WHEN 'Tuesday' THEN 3
+    WHEN 'Wednesday' THEN 4
+    WHEN 'Thursday' THEN 5
+    WHEN 'Friday' THEN 6
+    WHEN 'Saturday' THEN 7 END, start_time, end_time`);
   let facultyschedobj = Object.groupBy(facultysched, (dat) => dat.prof);
 
   const [faculty] = await connection.query("SELECT prof, subject FROM faculty");
 
   let groupedfaculty = Object.groupBy(faculty, (dat) => dat.prof);
-  console.log(Array.isArray(faculty));
 
   return res.render("faculty", {
     usermail: useremail,
     facultyarrobj,
     facultyschedobj,
-    groupedfaculty
+    groupedfaculty,
+    role
   });
 });
 app.get("/feedback", async (req, res) => {
-  return res.render("feedback", { usermail: useremail });
+  return res.render("feedback", { usermail: useremail,role});
 });
 app.post("/addfeed", async (req, res) => {
   let { usermail, feedbackcont } = req.body;
@@ -278,7 +304,7 @@ app.post("/addfeed", async (req, res) => {
   } else {
     await connection.query(
       "INSERT INTO feedback (email, feedback_cont) VALUES (?, ?)",
-      [usermail, feedbackcont]
+      [usermail, feedbackcont,role]
     );
     return res.json({
       message: "thank you for the feedback",
@@ -350,5 +376,4 @@ app.post("/logout", async (req, res) => {
   return res.redirect("index");
 });
 
-//fix faculty index
 module.exports = app;

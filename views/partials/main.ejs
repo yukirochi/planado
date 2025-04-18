@@ -1,3 +1,4 @@
+
 <script>
   let pathtof = window.location.pathname;
   function pageturn(pagename, variable) {
@@ -50,7 +51,17 @@ function popthis(message){
 
 function logout(){
   window.location.href = "/"
+  document.querySelector(".rolecont").textContent = ""
 }
+
+let showaddsss = document.querySelector(".manage-div")
+let rolecontt = document.querySelector(".rolecont").textContent
+
+if (rolecontt !== "admin"){
+  showaddsss.style.display = "none"
+}
+
+
 
 
 </script>
