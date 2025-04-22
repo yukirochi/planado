@@ -756,7 +756,8 @@ i:hover{
     .manage-div ,
     .feedback-div,
     .manage-drop > div,
-    .faculty-div{
+    .faculty-div,
+    .manage-users{
         display: flex;
         align-items: center;
         gap: 8px; 
@@ -810,6 +811,11 @@ i:hover{
         content: " Manage Schedules";
         font-size: 16px;
         font-family: "Archivo", sans-serif; 
+    }
+    .manage-users::after{
+        content: " Manage Users";
+        font-size: 16px;
+        font-family: "Archivo", sans-serif;
     }
     .sidebar{
         width: 15%;

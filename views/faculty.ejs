@@ -40,13 +40,30 @@
     <div class="container">
       <div>
         <p class="room-name"></p>
-        <table class="sched-table">
+        <table class="sched-table" style="margin-top: 30px;">
           <thead>
             <tr>
               <th>INSTRUCTOR</th>
               <th>SUBJECT</th>
               <th>units</th>
               <th class="dhead" id="tablehide"></th>
+              <td
+                style="
+                  position: absolute;
+                  transition: 0.3s ease;
+                  display: flex;
+                  flex-direction: column;
+                "
+                class="buttontd"
+                id="notu"
+              >
+                
+                <button class="material-icons-outlined download-btn" style="margin-top: 20px;">
+                  picture_as_pdf
+                </button>
+                
+              </td>
+              <td style="position: absolute; border: none !important; left: -2px; top: -20px ; display: none;" class="tdhad"><p class="room-name">FACULTY </p></td>
             </tr>
           </thead>
           <tbody>
@@ -153,20 +170,152 @@
                   top: 0;
                   right: 20px;
                   animation: opa 1.5s ease;
+                  margin-bottom: 10px;
                 "
               >
                 <button
                   class="material-icons-outlined"
-                  style="border: none; background-color: white; font-size: 30px"
+                  style="border: none; background-color: white; font-size: 30px;"
                   id="showaddprof"
                 >
                   arrow_drop_down
                 </button>
               </td>
             </tr>
+           
+          </tbody>
+        </table>
+      </div>
 
+      <div>
+        <% let i = 0; %> <% for (const ObjectKey in facultyschedobj) {%> <% if
+        (i++ === 0) continue; %>
+        <p class="room-name"><%= ObjectKey %></p>
+        <table class="sched-table" style="margin: 20px;">
+          <thead>
+            <tr>
+              <th>SUBJECT</th>
+              <th>SCHEDULE</th>
+              <th>SECTION</th>
+              <th>DAY</th>
+              <th>ROOM</th>
+              <th class="dhead" id="tablehide"></th>
+              <td
+                style="
+                  position: absolute;
+                  transition: 0.3s ease;
+                  display: flex;
+                  flex-direction: column;
+                "
+                class="buttontd"
+                id="notu"
+              >
+                <button
+                  class="material-icons-outlined"
+                  id="arrow"
+                  style="
+                    border: none;
+                    background-color: white;
+                    font-size: 30px;
+                    display: none;
+                  "
+                  onclick="showadd()"
+                >
+                  arrow_drop_down
+                </button>
+                <button class="material-icons-outlined download-btn">
+                  picture_as_pdf
+                </button>
+              </td>
+              <td style="position: absolute; border: none !important; left: -2px; top: -20px ; display: none;" class="tdhad"><p class="room-name"><%= ObjectKey %> </p></td>
+            </tr>
+          </thead>
+          <tbody>
+            <% facultyschedobj[ObjectKey].forEach((atrri, index) => { %>
+            <tr>
+              <td><%= atrri.subject_code %></td>
+              <td>
+                <%= converTime(atrri.start_time) %> - <%=
+                converTime(atrri.end_time) %>
+              </td>
+              <td><%= atrri.section %></td>
+              <td><%= atrri.day %></td>
+              <td><%= atrri.room_name%></td>
+              <td class="dbody" id="tablehide">
+                <form class="delete-sched">
+                  <button
+                    class="material-icons-outlined"
+                    name="deleteS"
+                    value="<%= atrri.id %>"
+                    type="submit"
+                    style="border: none; background-color: white"
+                  >
+                    delete
+                  </button>
+                </form>
+              </td>
+              <td style="position: absolute; border: none !important; left: -2px; top: -20px ; display: none;" class="tdhad"><p class="room-name"><%= ObjectKey %> </p></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+        <% }%>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
             <script>
-              
+              document.addEventListener("DOMContentLoaded", () => {
+                const tables = document.querySelectorAll(".sched-table");
+
+                tables.forEach((table, index) => {
+                  const downloadBtn = table.querySelector(".download-btn");
+
+                  if (downloadBtn) {
+                    downloadBtn.addEventListener("click", () => {
+                      table.querySelector(".buttontd").style.display = "none";
+                      table.querySelectorAll("th").forEach((th) => {
+                        th.style.border = "1px solid black";
+                        th.style.backgroundColor = "white";
+                      });
+                      table.querySelectorAll("td:not(#notu)").forEach((td) => {
+                        td.style.border = "1px solid black";
+                      });
+                      table.querySelector("tr").style.border =
+                        "1px solid black";
+                      table.querySelector("td").style.border =
+                        "1px solid black";
+                      table.style.border = "1px solid black";
+                      table.style.width = "500px";
+                      table.querySelector(".dhead").style.display = "none";
+                      table.querySelector(".dbody").style.display = "none";
+                      table.querySelectorAll("#tablehide").forEach(a =>{ a.style.display = "none"})
+                      table.querySelector(".tdhad").style.border = "none"
+                      table.querySelector(".tdhad").style.display = "table-cell"
+
+                      setTimeout(() => {
+                        table.style.animation = "none";
+                        table.style.overflow = "visible";
+                        html2pdf()
+                          .set({
+                            margin: 15,
+                            filename: `room-${index + 1}.pdf`,
+                            image: { type: "jpeg", quality: 0.98 },
+                            html2canvas: { scale: 2 },
+                            jsPDF: {
+                              unit: "mm",
+                              format: "a4",
+                              orientation: "landscape",
+                            },
+                          })
+                          .from(table)
+                          .save();
+                      }, 2000);
+                      setTimeout(() => {
+                        location.reload();
+                      }, 2500);
+                    });
+                  }
+                });
+              });
+
               const addprofform = document.querySelector("#addprof");
 
               addprofform.addEventListener("submit", (e) => {
@@ -241,67 +390,17 @@
                 });
               });
             </script>
-          </tbody>
-        </table>
-      </div>
-
-      <div>
-        <% let i = 0; %> <% for (const ObjectKey in facultyschedobj) {%> <% if
-        (i++ === 0) continue; %>
-        <p class="room-name"><%= ObjectKey %></p>
-        <table class="sched-table">
-          <thead>
-            <tr>
-              <th>SUBJECT</th>
-              <th>SCHEDULE</th>
-              <th>SECTION</th>
-              <th>DAY</th>
-              <th>ROOM</th>
-              <th class="dhead" id="tablehide"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% facultyschedobj[ObjectKey].forEach((atrri, index) => { %>
-            <tr>
-              <td><%= atrri.subject_code %></td>
-              <td>
-                <%= converTime(atrri.start_time) %> - <%=
-                converTime(atrri.end_time) %>
-              </td>
-              <td><%= atrri.section %></td>
-              <td><%= atrri.day %></td>
-              <td><%= atrri.room_name%></td>
-              <td class="dbody" id="tablehide">
-                <form class="delete-sched">
-                  <button
-                    class="material-icons-outlined"
-                    name="deleteS"
-                    value="<%= atrri.id %>"
-                    type="submit"
-                    style="border: none; background-color: white"
-                  >
-                    delete
-                  </button>
-                </form>
-              </td>
-            </tr>
-            <% }) %>
-          </tbody>
-        </table>
-        <% }%>
-
         <script>
-          let tablehide = document.querySelectorAll("#tablehide"); 
-          let showadd = document.querySelector("#showaddprof")
-          let rolecont = document.querySelector(".rolecont").textContent
-        
+          let tablehide = document.querySelectorAll("#tablehide");
+          let showadd = document.querySelector("#showaddprof");
+          let rolecont = document.querySelector(".rolecont").textContent;
 
-           if(rolecont !== "admin"){
-           showadd.style.display = "none"
-           tablehide.forEach(tohide =>{
-            tohide.style.display = "none"
-           })
-           }
+          if (rolecont !== "admin") {
+            showadd.style.display = "none";
+            tablehide.forEach((tohide) => {
+              tohide.style.display = "none";
+            });
+          }
 
           let dels = document.querySelectorAll(".delete-sched");
 

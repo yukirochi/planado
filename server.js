@@ -155,6 +155,16 @@ app.get("/manage", async (req, res) => {
     role
   });
 });
+app.get("/useroption", async (req, res) => {
+
+  let [users] = await connection.query("SELECT * FROM users")
+  
+  return res.render("useroption",{
+    usermail: useremail,
+    role,
+    users
+  })
+})
 app.post("/addroom", async (req, res) => {
   let { roomName, roomNumber } = req.body;
 
@@ -375,5 +385,27 @@ app.post("/logout", async (req, res) => {
   useremail = "";
   return res.redirect("index");
 });
+
+app.post("/updateuser", async(req,res) =>{
+
+  let {id, email, password, role} = req.body
+
+  let [verify] = await connection.query("SELECT * FROM users WHERE id = ?",[id])
+  
+  
+
+  if (verify[0].email === email && verify[0].password === password &&  verify[0].role === role ){
+    res.json({
+      success:false,
+      message:"No changes detected"
+    })
+  }else{
+    await connection.query("UPDATE users SET email = ?, password = ? , role = ? WHERE id =?",[email,password,role,id])
+    res.json({
+      success:true,
+      message:"updated sucessfully"
+    })
+  }
+})
 
 module.exports = app;

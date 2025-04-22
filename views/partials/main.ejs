@@ -1,4 +1,3 @@
-
 <script>
   let pathtof = window.location.pathname;
   function pageturn(pagename, variable) {
@@ -12,8 +11,10 @@
   pageturn("/landing", ".home-div");
   pageturn("/rooms", ".rooms-div");
   pageturn("/manage", ".manage-div");
-  pageturn("/sections", ".sections-div")
-  pageturn("/faculty",".faculty-div");
+  pageturn("/sections", ".sections-div");
+  pageturn("/faculty", ".faculty-div");
+  pageturn("/useroption", ".manage-users");
+  pageturn("/feedback", ".feedback-div");
 
   const navigators = document.querySelectorAll(
     " .home-div, .rooms-div, .sections-div, .manage-rooms, .manage-schedules, .sidebar-content2 div ,sidebar-content1 div, faculty-div"
@@ -26,42 +27,38 @@
       this.classList.add("active-selector");
     });
   });
-  let menu = document.querySelector(".sidebar")
-  function showmenu(){
-    menu.classList.toggle("showside")
+  let menu = document.querySelector(".sidebar");
+  function showmenu() {
+    menu.classList.toggle("showside");
   }
 
+  function reload() {
+    location.reload();
+  }
 
-function reload(){
-  location.reload()
-}
+  function popthis(message) {
+    let alertthis = document.querySelector(".alertthis");
+    alertthis.textContent = message;
 
+    alertthis.style.display = "flex";
 
-function popthis(message){
-  let alertthis = document.querySelector(".alertthis");
-   alertthis.textContent = message
+    setTimeout(() => {
+      alertthis.style.display = "none";
+      alertthis.textContent = "";
+    }, 1000);
+  }
 
-   alertthis.style.display = "flex";
+  function logout() {
+    window.location.href = "/";
+    document.querySelector(".rolecont").textContent = "";
+  }
 
-   setTimeout(() => {
-    alertthis.style.display = "none"
-    alertthis.textContent = ""
-   }, 1000);
-}
+  let showaddsss = document.querySelector(".manage-div");
+  let showusersman = document.querySelector(".manage-users");
+  let rolecontt = document.querySelector(".rolecont").textContent;
 
-function logout(){
-  window.location.href = "/"
-  document.querySelector(".rolecont").textContent = ""
-}
-
-let showaddsss = document.querySelector(".manage-div")
-let rolecontt = document.querySelector(".rolecont").textContent
-
-if (rolecontt !== "admin"){
-  showaddsss.style.display = "none"
-}
-
-
-
-
+  if (rolecontt !== "admin") {
+    showaddsss.style.display = "none";
+    showusersman.style.display = "none";
+  }
 </script>
