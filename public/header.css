@@ -757,7 +757,8 @@ i:hover{
     .feedback-div,
     .manage-drop > div,
     .faculty-div,
-    .manage-users{
+    .manage-users,
+    .account-settings{
         display: flex;
         align-items: center;
         gap: 8px; 
@@ -792,7 +793,7 @@ i:hover{
         font-family: "Archivo", sans-serif;   
     }
     .manage-div::after{
-        content: " Manage";
+        content: " Add Schedule";
         font-size: 16px;
         font-family: "Archivo", sans-serif;   
     }
@@ -800,7 +801,11 @@ i:hover{
         content: " Feedback";
         font-size: 16px;
         font-family: "Archivo", sans-serif; 
-
+    }
+    .account-settings::after{
+        content: " Account";
+        font-size: 16px;
+        font-family: "Archivo", sans-serif; 
     }
     .manage-rooms::after{
         content: " Manage Rooms";
@@ -946,9 +951,9 @@ header{
     margin-top: 15px;
 
 }
-#person:hover .logout{
+/*#person:hover .logout{
     display: flex;
-}
+}*/
 .delbutton{
     color: rgb(0, 0, 0);
     background-color:  rgba(255, 220, 21, 1);
@@ -959,5 +964,4 @@ header{
 }
 .delbutton:hover{
     opacity: 0.8;
-
 }

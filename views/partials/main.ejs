@@ -15,6 +15,7 @@
   pageturn("/faculty", ".faculty-div");
   pageturn("/useroption", ".manage-users");
   pageturn("/feedback", ".feedback-div");
+  pageturn("/account", ".account-settings")
 
   const navigators = document.querySelectorAll(
     " .home-div, .rooms-div, .sections-div, .manage-rooms, .manage-schedules, .sidebar-content2 div ,sidebar-content1 div, faculty-div"
@@ -56,9 +57,25 @@
   let showaddsss = document.querySelector(".manage-div");
   let showusersman = document.querySelector(".manage-users");
   let rolecontt = document.querySelector(".rolecont").textContent;
-
-  if (rolecontt !== "admin") {
-    showaddsss.style.display = "none";
-    showusersman.style.display = "none";
+  
+   
+  if(rolecontt === "employee"){
+    showusersman.style.display = "none"
+  }else if(rolecontt === null || rolecontt === "user"){
+    showusersman.style.display = "none"
+    showaddsss.style.display = "none"
   }
+  let logoutdiv = document.querySelector(".logout")
+  document.querySelector("#person").addEventListener("click",() => {
+
+    if(logoutdiv.style.display === "flex"){
+      logoutdiv.style.display = "none";
+    }else {
+      logoutdiv.style.display = "flex";
+    }
+  })
+
+  
+
+  
 </script>

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Planado | Rooms Users</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Allura&family=Archivo:ital,wght@0,100..900;1,100..900&family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playwrite+TZ+Guides&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik+Vinyl&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
@@ -43,13 +43,19 @@
                 <form id="update-users">
                  <td><input class="ptag" type="hidden" name="id" value="<%= dat.id %>"><%= dat.id %></td>
                  <td><input name="email" type="text" value="<%= dat.email %>"></td>
-                 <td><input name="password" type="text" value="<%= dat.password %>"></td>
+                 <td><input name="password" type="password" id="pass-type" value="<%= dat.password %>"></td>
                  <td><select name="role"><% if(dat.role === "admin"){%>
                     <option value="admin" selected>admin</option>
-                    <option value="users">users</option>
-                <%  }else{ %>
+                    <option value="employee">employee</option>
+                    <option value="user">user</option>
+                <%  }else if(dat.role === "employee"){ %>
+                  <option value="admin" >admin</option>
+                  <option value="employee" selected>employee</option>
+                  <option value="user">user</option>
+                <% } else{ %>
                     <option value="admin">admin</option>
-                    <option value="users" selected>user</option>
+                    <option value="employee" >employee</option>
+                    <option value="user" selected>user</option>
                 <%  } %>
                     
                 </select></td>

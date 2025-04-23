@@ -265,7 +265,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let showadds = document.querySelectorAll("#arrow")
     let rolecont = document.querySelector(".rolecont").textContent
     showadds.forEach(showadd => {
-    if (rolecont !== "admin"){
+    if (rolecont === null || rolecont === "user"){
     showadd.style.display = "none"
     tablehide.forEach(tohide =>{
             tohide.style.display = "none"

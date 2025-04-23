@@ -395,7 +395,7 @@
           let showadd = document.querySelector("#showaddprof");
           let rolecont = document.querySelector(".rolecont").textContent;
 
-          if (rolecont !== "admin") {
+          if (rolecont === null || rolecont === "user") {
             showadd.style.display = "none";
             tablehide.forEach((tohide) => {
               tohide.style.display = "none";

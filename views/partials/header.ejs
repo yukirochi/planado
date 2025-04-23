@@ -9,7 +9,7 @@
     <p class="username"><%=usermail%></p>
     <i class="material-icons-outlined" id="person">person
       <div class="logout">
-        <div method="post" id="logout-form">
+        <div method="post" id="logout-form" >
           <button id="logout-button" onclick="logout()">logout</button>
         </div>
       </div>
@@ -37,7 +37,10 @@
       <i class="material-icons-outlined">summarize</i>
     </div>
     <div class="faculty-div" onclick="location.href='/faculty'">
-      <i class="material-icons-outlined">person_apron</i>
+      <i class="material-icons-outlined">assignment_ind</i>
+    </div>
+    <div class="account-settings" onclick="location.href = '/account'">
+      <i class="material-icons-outlined">manage_accounts</i>
     </div>
     <div class="manage-div" onclick="location.href = '/manage'">
       <i class="material-icons">manage_search</i>
@@ -45,12 +48,14 @@
     <div class="manage-users" onclick="location.href = '/useroption'">
       <i class="material-icons-outlined">groups</i>
     </div>
+    
   </div>
   <div class="sidebar-content2">
     <div class="feedback-div" onclick="location.href='/feedback'">
       <i class="material-icons-outlined">feedback</i>
     </div>
   </div>
+  
   
 </div>
 

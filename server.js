@@ -22,15 +22,18 @@ const connection = mysql
 
 let wrongpass = "";
 let useremail = "";
-let role = ""
+let role = "";
+let gmail = "";
 
 app.post("/submitlogin", async (req, res) => {
   const { email, password } = req.body;
-  
-  const [rows] = await connection.query("SELECT role FROM users WHERE email = ?", [email]);
-   role = rows[0]?.role;
-  
-  
+
+  const [rows] = await connection.query(
+    "SELECT role FROM users WHERE email = ?",
+    [email]
+  );
+  role = rows[0]?.role;
+
   const [verify] = await connection.query(
     "SELECT * FROM users WHERE email = ? AND password = ?",
     [email, password]
@@ -43,11 +46,12 @@ app.post("/submitlogin", async (req, res) => {
     });
   } else {
     useremail = verify[0].email.split("@")[0];
+    gmail = verify[0].email;
     return res.json({
       success: true,
       url: "/landing",
       useremail: useremail,
-      role
+      role,
     });
   }
 });
@@ -59,13 +63,13 @@ app.post("/submitsignp", async (req, res) => {
     "SELECT * FROM users WHERE email =?",
     [emailSignup]
   );
-
+  let rolex = "user"
   if (verify.length > 0) {
     return res.json({ emailtaken: "email is already exist" });
   } else {
     await connection.query(
-      `INSERT INTO users (email, password) VALUES (?, ?)`,
-      [emailSignup, passwordSignup]
+      `INSERT INTO users (email, password,role) VALUES (?, ?, ?)`,
+      [emailSignup, passwordSignup, rolex]
     );
     useremail = emailSignup.split("@")[0];
     return res.json({
@@ -104,7 +108,7 @@ app.get("/landing", async (req, res) => {
     listsection,
     listuser,
     emailcreated,
-    role
+    role,
   });
 });
 
@@ -129,13 +133,16 @@ app.get("/rooms", async (req, res) => {
   const [faculty] = await connection.query("SELECT prof, subject FROM faculty");
 
   let groupedfaculty = Object.groupBy(faculty, (dat) => dat.prof);
-  
 
   let roomsAvail = roomsAvailable.map((row) => row.room_name);
 
-  res.render("rooms", { usermail: useremail, objectform, roomsAvail,
-    groupedfaculty,role });
-
+  res.render("rooms", {
+    usermail: useremail,
+    objectform,
+    roomsAvail,
+    groupedfaculty,
+    role,
+  });
 });
 
 app.get("/manage", async (req, res) => {
@@ -152,19 +159,18 @@ app.get("/manage", async (req, res) => {
     usermail: useremail,
     roomsAvail,
     groupedfaculty,
-    role
+    role,
   });
 });
 app.get("/useroption", async (req, res) => {
+  let [users] = await connection.query("SELECT * FROM users");
 
-  let [users] = await connection.query("SELECT * FROM users")
-  
-  return res.render("useroption",{
+  return res.render("useroption", {
     usermail: useremail,
     role,
-    users
-  })
-})
+    users,
+  });
+});
 app.post("/addroom", async (req, res) => {
   let { roomName, roomNumber } = req.body;
 
@@ -199,10 +205,16 @@ app.post("/addroom", async (req, res) => {
 });
 app.post("/addsched", async (req, res) => {
   let { room, start, end, subject, section, day, faculty } = req.body;
-  
-  let [ifproftime] = await connection.query("SELECT * FROM rooms WHERE prof = ? AND day = ? AND NOT (? >= end_time OR ? <= start_time)",[faculty, day, start, end])
-  let [iftimeexist] = await connection.query("SELECT * FROM rooms WHERE section = ? AND day = ? AND NOT (? >= end_time OR ? <= start_time)",[section, day, start, end])
-  
+
+  let [ifproftime] = await connection.query(
+    "SELECT * FROM rooms WHERE prof = ? AND day = ? AND NOT (? >= end_time OR ? <= start_time)",
+    [faculty, day, start, end]
+  );
+  let [iftimeexist] = await connection.query(
+    "SELECT * FROM rooms WHERE section = ? AND day = ? AND NOT (? >= end_time OR ? <= start_time)",
+    [section, day, start, end]
+  );
+
   let [verifytime] = await connection.query(
     `SELECT * FROM rooms WHERE room_name = ?
      AND day = ?
@@ -227,18 +239,17 @@ app.post("/addsched", async (req, res) => {
       success: false,
       message: "spot taken",
     });
-  }else if(iftimeexist.length > 0){
+  } else if (iftimeexist.length > 0) {
     return res.json({
       success: false,
-      message: "Same time slot in another room."
-    })
-  }else if(ifproftime.length > 0){
+      message: "Same time slot in another room.",
+    });
+  } else if (ifproftime.length > 0) {
     return res.json({
       success: false,
-      message: "times slot is not available for prof "
-    })
-  }
-  else {
+      message: "times slot is not available for prof ",
+    });
+  } else {
     await connection.query(
       "INSERT INTO rooms (room_name, start_time, end_time, subject_code, section, day, prof) VALUES (?, ?, ?, ?, ?, ?, ?)",
       [room, start, end, subject, section, day, faculty]
@@ -259,12 +270,11 @@ app.get("/sections", async (req, res) => {
     WHEN 'Friday' THEN 6
     WHEN 'Saturday' THEN 7 END, start_time, end_time`);
   arrayformm = data.map((dat) => dat);
-  objectformsecttion = Object.groupBy(  
+  objectformsecttion = Object.groupBy(
     arrayformm.filter((dat) => dat.section),
     (dat) => dat.section
   );
 
-  
   let [roomsAvailable] = await connection.query(
     "SELECT DISTINCT room_name From rooms"
   );
@@ -274,14 +284,21 @@ app.get("/sections", async (req, res) => {
   let groupedfaculty = Object.groupBy(faculty, (dat) => dat.prof);
 
   let roomsAvail = roomsAvailable.map((row) => row.room_name);
-  res.render("sections", { usermail: useremail, objectformsecttion, groupedfaculty, roomsAvail, role});
+  res.render("sections", {
+    usermail: useremail,
+    objectformsecttion,
+    groupedfaculty,
+    roomsAvail,
+    role,
+  });
 });
 
 app.get("/faculty", async (req, res) => {
   let [facultyarr] = await connection.query("SELECT * FROM faculty");
   let facultyarrobj = Object.groupBy(facultyarr, (dat) => dat.prof);
 
-  let [facultysched] = await connection.query(`SELECT * FROM rooms ORDER BY CASE day WHEN 'Sunday' THEN 1
+  let [facultysched] =
+    await connection.query(`SELECT * FROM rooms ORDER BY CASE day WHEN 'Sunday' THEN 1
     WHEN 'Monday' THEN 2
     WHEN 'Tuesday' THEN 3
     WHEN 'Wednesday' THEN 4
@@ -299,11 +316,11 @@ app.get("/faculty", async (req, res) => {
     facultyarrobj,
     facultyschedobj,
     groupedfaculty,
-    role
+    role,
   });
 });
 app.get("/feedback", async (req, res) => {
-  return res.render("feedback", { usermail: useremail,role});
+  return res.render("feedback", { usermail: useremail, role });
 });
 app.post("/addfeed", async (req, res) => {
   let { usermail, feedbackcont } = req.body;
@@ -314,7 +331,7 @@ app.post("/addfeed", async (req, res) => {
   } else {
     await connection.query(
       "INSERT INTO feedback (email, feedback_cont) VALUES (?, ?)",
-      [usermail, feedbackcont,role]
+      [usermail, feedbackcont, role]
     );
     return res.json({
       message: "thank you for the feedback",
@@ -365,47 +382,101 @@ app.post("/deleteschedf", async (req, res) => {
 });
 
 app.post("/addprof", async (req, res) => {
-  let {prof, units, subject} = req.body
-  let unitstring = units.toString()
-  let [verify] = await connection.query("SELECT * FROM faculty WHERE  prof = ? AND subject = ?",[prof, subject])
-  if(verify.length > 0){
+  let { prof, units, subject } = req.body;
+  let unitstring = units.toString();
+  let [verify] = await connection.query(
+    "SELECT * FROM faculty WHERE  prof = ? AND subject = ?",
+    [prof, subject]
+  );
+  if (verify.length > 0) {
     res.json({
-      success:false,
-      message:"proffesor " + prof + " already have this subject"
-    })
-  }else{
-    await connection.query("INSERT INTO faculty (prof, subject, units) VALUES (?, ?, ?)",[prof, subject, unitstring])
+      success: false,
+      message: "proffesor " + prof + " already have this subject",
+    });
+  } else {
+    await connection.query(
+      "INSERT INTO faculty (prof, subject, units) VALUES (?, ?, ?)",
+      [prof, subject, unitstring]
+    );
     res.json({
-      success:true,
-      message:"Added Successfully"
-    })
+      success: true,
+      message: "Added Successfully",
+    });
   }
-})
+});
 app.post("/logout", async (req, res) => {
   useremail = "";
   return res.redirect("index");
 });
 
-app.post("/updateuser", async(req,res) =>{
+app.post("/updateuser", async (req, res) => {
+  let { id, email, password, role } = req.body;
 
-  let {id, email, password, role} = req.body
+  let [verify] = await connection.query("SELECT * FROM users WHERE id = ?", [
+    id,
+  ]);
 
-  let [verify] = await connection.query("SELECT * FROM users WHERE id = ?",[id])
-  
-  
+  if (
+    verify[0].email === email &&
+    verify[0].password === password &&
+    verify[0].role === role
+  ) {
+    res.json({
+      success: false,
+      message: "No changes detected",
+    });
+  } else {
+    await connection.query(
+      "UPDATE users SET email = ?, password = ? , role = ? WHERE id =?",
+      [email, password, role, id]
+    );
+    res.json({
+      success: true,
+      message: "updated sucessfully",
+    });
+  }
+});
 
-  if (verify[0].email === email && verify[0].password === password &&  verify[0].role === role ){
+app.get("/account", async (req, res) => {
+  let [userinfoo] = await connection.query(
+    "SELECT * FROM users WHERE email = ?",
+    [gmail]
+  );
+  let userinfo = userinfoo[0];
+
+  return res.render("account", {
+    usermail: useremail,
+    role,
+    userinfo,
+  });
+});
+
+app.post("/accountmanage", async (req, res) => {
+  let {email,password, npassword } = req.body;
+
+  let [verify] = await connection.query("SELECT email FROM users WHERE password = ?",[password])
+  if(verify.length === 0){
     res.json({
       success:false,
-      message:"No changes detected"
-    })
-  }else{
-    await connection.query("UPDATE users SET email = ?, password = ? , role = ? WHERE id =?",[email,password,role,id])
-    res.json({
-      success:true,
-      message:"updated sucessfully"
+      message:"Your current Password is Wrong"
     })
   }
-})
+  
+  if (npassword === null) {
+    res.json({
+      success: false,
+      message: "No changes made",
+    });
+  } else {
+    await connection.query("UPDATE users SET password = ? WHERE email =?", [
+      npassword,
+      email,
+    ]);
+    res.json({
+      success: true,
+      message: "Password changed successfully",
+    });
+  } 
+});
 
 module.exports = app;
