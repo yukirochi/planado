@@ -40,7 +40,7 @@
     <div class="container">
       <div>
         <p class="room-name"></p>
-        <table class="sched-table" style="margin-top: 30px;">
+        <table class="sched-table" style="margin-top: 30px">
           <thead>
             <tr>
               <th>INSTRUCTOR</th>
@@ -57,19 +57,31 @@
                 class="buttontd"
                 id="notu"
               >
-                
-                <button class="material-icons-outlined download-btn" style="margin-top: 20px;">
+                <button
+                  class="material-icons-outlined download-btn"
+                  style="margin-top: 20px"
+                >
                   picture_as_pdf
                 </button>
-                
               </td>
-              <td style="position: absolute; border: none !important; left: -2px; top: -20px ; display: none;" class="tdhad"><p class="room-name">FACULTY </p></td>
+              <td
+                style="
+                  position: absolute;
+                  border: none !important;
+                  left: -2px;
+                  top: -20px;
+                  display: none;
+                "
+                class="tdhad"
+              >
+                <p class="room-name">FACULTY</p>
+              </td>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="row-add">
             <% for ( const ObjectKey in facultyarrobj ){ %> <%
             facultyarrobj[ObjectKey].forEach((dat, index) => { %>
-            <tr>
+            <tr >
               <td><%= dat.prof %></td>
               <td><%= dat.subject %></td>
               <td><%= dat.units %></td>
@@ -175,14 +187,13 @@
               >
                 <button
                   class="material-icons-outlined"
-                  style="border: none; background-color: white; font-size: 30px;"
+                  style="border: none; background-color: white; font-size: 30px"
                   id="showaddprof"
                 >
                   arrow_drop_down
                 </button>
               </td>
             </tr>
-           
           </tbody>
         </table>
       </div>
@@ -191,7 +202,7 @@
         <% let i = 0; %> <% for (const ObjectKey in facultyschedobj) {%> <% if
         (i++ === 0) continue; %>
         <p class="room-name"><%= ObjectKey %></p>
-        <table class="sched-table" style="margin: 20px;">
+        <table class="sched-table" style="margin: 20px">
           <thead>
             <tr>
               <th>SUBJECT</th>
@@ -227,7 +238,18 @@
                   picture_as_pdf
                 </button>
               </td>
-              <td style="position: absolute; border: none !important; left: -2px; top: -20px ; display: none;" class="tdhad"><p class="room-name"><%= ObjectKey %> </p></td>
+              <td
+                style="
+                  position: absolute;
+                  border: none !important;
+                  left: -2px;
+                  top: -20px;
+                  display: none;
+                "
+                class="tdhad"
+              >
+                <p class="room-name"><%= ObjectKey %></p>
+              </td>
             </tr>
           </thead>
           <tbody>
@@ -254,142 +276,173 @@
                   </button>
                 </form>
               </td>
-              <td style="position: absolute; border: none !important; left: -2px; top: -20px ; display: none;" class="tdhad"><p class="room-name"><%= ObjectKey %> </p></td>
+              <td
+                style="
+                  position: absolute;
+                  border: none !important;
+                  left: -2px;
+                  top: -20px;
+                  display: none;
+                "
+                class="tdhad"
+              >
+                <p class="room-name"><%= ObjectKey %></p>
+              </td>
             </tr>
             <% }) %>
           </tbody>
         </table>
         <% }%>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-            <script>
-              document.addEventListener("DOMContentLoaded", () => {
-                const tables = document.querySelectorAll(".sched-table");
+        <script>
+          document.addEventListener("DOMContentLoaded", () => {
+            const tables = document.querySelectorAll(".sched-table");
 
-                tables.forEach((table, index) => {
-                  const downloadBtn = table.querySelector(".download-btn");
+            tables.forEach((table, index) => {
+              const downloadBtn = table.querySelector(".download-btn");
 
-                  if (downloadBtn) {
-                    downloadBtn.addEventListener("click", () => {
-                      table.querySelector(".buttontd").style.display = "none";
-                      table.querySelectorAll("th").forEach((th) => {
-                        th.style.border = "1px solid black";
-                        th.style.backgroundColor = "white";
-                      });
-                      table.querySelectorAll("td:not(#notu)").forEach((td) => {
-                        td.style.border = "1px solid black";
-                      });
-                      table.querySelector("tr").style.border =
-                        "1px solid black";
-                      table.querySelector("td").style.border =
-                        "1px solid black";
-                      table.style.border = "1px solid black";
-                      table.style.width = "500px";
-                      table.querySelector(".dhead").style.display = "none";
-                      table.querySelector(".dbody").style.display = "none";
-                      table.querySelectorAll("#tablehide").forEach(a =>{ a.style.display = "none"})
-                      table.querySelector(".tdhad").style.border = "none"
-                      table.querySelector(".tdhad").style.display = "table-cell"
-
-                      setTimeout(() => {
-                        table.style.animation = "none";
-                        table.style.overflow = "visible";
-                        html2pdf()
-                          .set({
-                            margin: 15,
-                            filename: `room-${index + 1}.pdf`,
-                            image: { type: "jpeg", quality: 0.98 },
-                            html2canvas: { scale: 2 },
-                            jsPDF: {
-                              unit: "mm",
-                              format: "a4",
-                              orientation: "landscape",
-                            },
-                          })
-                          .from(table)
-                          .save();
-                      }, 2000);
-                      setTimeout(() => {
-                        location.reload();
-                      }, 2500);
-                    });
-                  }
-                });
-              });
-
-              const addprofform = document.querySelector("#addprof");
-
-              addprofform.addEventListener("submit", (e) => {
-                e.preventDefault();
-
-                let newform = new FormData(addprofform);
-                let data = Object.fromEntries(newform);
-
-                fetch("/addprof", {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify(data),
-                })
-                  .then((res) => res.json())
-                  .then((dat) => {
-                    if (dat.success) {
-                      popthis(dat.message);
-                      location.reload();
-                    } else {
-                      popthis(dat.message);
-                    }
+              if (downloadBtn) {
+                downloadBtn.addEventListener("click", () => {
+                  table.querySelector(".buttontd").style.display = "none";
+                  table.querySelectorAll("th").forEach((th) => {
+                    th.style.border = "1px solid black";
+                    th.style.backgroundColor = "white";
                   });
-              });
+                  table.querySelectorAll("td:not(#notu)").forEach((td) => {
+                    td.style.border = "1px solid black";
+                  });
+                  table.querySelector("tr").style.border = "1px solid black";
+                  table.querySelector("td").style.border = "1px solid black";
+                  table.style.border = "1px solid black";
+                  table.style.width = "500px";
+                  table.querySelector(".dhead").style.display = "none";
+                  table.querySelector(".dbody").style.display = "none";
+                  table.querySelectorAll("#tablehide").forEach((a) => {
+                    a.style.display = "none";
+                  });
+                  table.querySelector(".tdhad").style.border = "none";
+                  table.querySelector(".tdhad").style.display = "table-cell";
 
-              let addthisprof = document.querySelector("#showaddprof");
+                  setTimeout(() => {
+                    table.style.animation = "none";
+                    table.style.overflow = "visible";
+                    html2pdf()
+                      .set({
+                        margin: 15,
+                        filename: `room-${index + 1}.pdf`,
+                        image: { type: "jpeg", quality: 0.98 },
+                        html2canvas: { scale: 2 },
+                        jsPDF: {
+                          unit: "mm",
+                          format: "a4",
+                          orientation: "landscape",
+                        },
+                      })
+                      .from(table)
+                      .save();
+                  }, 2000);
+                  setTimeout(() => {
+                    location.reload();
+                  }, 2500);
+                });
+              }
+            });
+          });
 
-              addthisprof.addEventListener("click", () => {
-                let formprof = document.querySelector(".showaddproff");
+          const addprofform = document.querySelector("#addprof");
 
-                if (formprof.style.display === "none") {
-                  formprof.style.display = "table-row";
-                  addthisprof.textContent = "arrow_drop_up";
+          addprofform.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            let newform = new FormData(addprofform);
+            let data = Object.fromEntries(newform);
+
+            fetch("/addprof", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(data),
+            })
+              .then((res) => res.json())
+              .then((dat) => {
+                if (dat.success) {
+                  popthis(dat.message);
+                  let contel = document.createElement("tr");
+                  contel.innerHTML += `<tr class ="new-tab"><td>${dat.prof} </td>
+              <td>${dat.subject}</td>
+              <td>${dat.units}</td>
+              <td class="dbody" id="tablehide">
+                <form class="delete-sched-faculty">
+                  <button
+                    class="material-icons-outlined"
+                    name="deleteS"
+                    value="${dat.id}"
+                    type="submit"
+                    style="border: none; background-color: white"
+                  >
+                    delete
+                  </button>
+                  <input type="hidden" name="prof" value="${dat.prof}" />
+                  <input
+                    type="hidden"
+                    name="subject"
+                    value="${dat.subject}"
+                  />
+                </form>
+              </td></tr>`;
+                let bottom = document.querySelector(".showaddproff")
+                document.querySelector(".sched-table tbody").insertBefore(contel, bottom)
                 } else {
-                  formprof.style.display = "none";
-                  addthisprof.textContent = "arrow_drop_down";
+                  popthis(dat.message);
                 }
               });
+          });
 
-              let delss = document.querySelectorAll(".delete-sched-faculty");
+          let addthisprof = document.querySelector("#showaddprof");
 
-              delss.forEach((del) => {
-                del.addEventListener("submit", (e) => {
-                  e.preventDefault();
+          addthisprof.addEventListener("click", () => {
+            let formprof = document.querySelector(".showaddproff");
 
-                  const delid = del.querySelector(
-                    "button[name='deleteS']"
-                  ).value;
-                  const delprof = del.querySelector("input[name='prof']").value;
-                  const delsub = del.querySelector(
-                    "input[name='subject']"
-                  ).value;
+            if (formprof.style.display === "none") {
+              formprof.style.display = "table-row";
+              addthisprof.textContent = "arrow_drop_up";
+            } else {
+              formprof.style.display = "none";
+              addthisprof.textContent = "arrow_drop_down";
+            }
+          });
 
-                  const data = {
-                    deleteS: delid,
-                    prof: delprof,
-                    subject: delsub,
-                  };
+          let delss = document.querySelectorAll(".delete-sched-faculty");
 
-                  fetch("/deleteschedf", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(data),
-                  })
-                    .then((res) => res.json())
-                    .then((dat) => {
-                      if (dat.success) {
-                        location.reload();
-                      } else {
-                        popthis(dat.message);
-                      }
-                    });
+          delss.forEach((del) => {
+            del.addEventListener("submit", (e) => {
+              e.preventDefault();
+
+              const delid = del.querySelector("button[name='deleteS']").value;
+              const delprof = del.querySelector("input[name='prof']").value;
+              const delsub = del.querySelector("input[name='subject']").value;
+
+              const data = {
+                deleteS: delid,
+                prof: delprof,
+                subject: delsub,
+              };
+
+              fetch("/deleteschedf", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data),
+              })
+                .then((res) => res.json())
+                .then((dat) => {
+                  if (dat.success) {
+                    e.target.closest("tr").remove();
+                  } else {
+                    popthis(dat.message);
+                  }
                 });
-              });
-            </script>
+            });
+          });
+        </script>
         <script>
           let tablehide = document.querySelectorAll("#tablehide");
           let showadd = document.querySelector("#showaddprof");
@@ -418,7 +471,8 @@
                 .then((res) => res.json())
                 .then((dat) => {
                   if (dat.success) {
-                    location.reload();
+                 
+                    e.target.closest("tr").remove();
                   } else {
                     popthis(dat.message);
                   }

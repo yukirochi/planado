@@ -15,4 +15,6 @@
 
 /*INSERT INTO faculty ( prof, subject ) VALUES ("ENGR SAN PASCUAL", "FEC 1")*/
 
-UPDATE users SET role = "admin" WHERE email = 'otter@example.com'
+/*UPDATE users SET role = "admin" WHERE email = 'otter@example.com'*/
+
+DELETE FROM facultyINSERT INTO faculty (ID, prof, subject, units)

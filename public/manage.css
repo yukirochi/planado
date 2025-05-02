@@ -447,4 +447,7 @@ option {
   border-radius: 3px;
   width: 200px ;
 }
+input[type="text"]{
+  text-transform: unset !important;
+}
 

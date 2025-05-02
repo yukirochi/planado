@@ -48,7 +48,7 @@
               <th class="dhead" id="tablehide"><p style="opacity: 0;" >delete</p></th>
               <td style="position: absolute;  transition: 0.3s ease; display: flex; flex-direction: column;" class="buttontd" id="notu">
                   
-                <button class="material-icons-outlined" id="arrow" style="border: none; background-color: white; font-size: 30px;" onclick="showadd()">arrow_drop_down</button>
+                <button class="material-icons-outlined" id="arrow" style="border: none; background-color: white; font-size: 30px;" >arrow_drop_down</button>
                 <button class="material-icons-outlined download-btn" >picture_as_pdf</button>
               
             </td>
@@ -80,7 +80,7 @@
             <% } %> 
             
             <% }); %>
-            <tr id="tr2"  style="display: none;">
+            <tr id="tr2"  style="display: none;" class="tr2">
               <form id="submitsched-form">
               <td>
                 <input
@@ -100,6 +100,7 @@
                   required
                   style="border: none; outline: none; border-bottom: 1px solid black;"
                 >
+                <option value="">SELECT FACULTY</option>
                   <% Object.keys(groupedfaculty).forEach(dat =>{%>
 
                   <option style="background-color: palevioletred; font-size: 12px; padding-top: 5px;" value="<%= dat %>"><%= dat %></option>
@@ -306,11 +307,12 @@ document.addEventListener("DOMContentLoaded", () => {
           let profs = prof[i].value;
           let subs = subjectSe[i]
           subs.innerHTML = ""
-
+          if(profs !== ""){
           faculties[profs].forEach(element => {
           subs.innerHTML += `<option style="background-color: palevioletred; font-size: 12px; padding-top: 5px;" value="${element.subject}">${element.subject}</option>`
-
+        
        });
+      }
         }
      
       }
@@ -335,11 +337,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (dat.success){
               popthis(dat.message);
+            let contel = document.createElement("tr");
+            contel.innerHTML += `  <tr>
+              <td> ${dat.section }</td>
+              <td> ${dat.faculty} %></td>
+              <td>${dat.subject}></td>
+              <td>
+                ${dat.strt} - ${dat.ending}
+              </td>
+              <td>${dat.day}</td>
+              <td class="dbody" id="tablehide">
+                <form class="delete-sched">
+                  <button class="material-icons-outlined" name="deleteS" value="${dat.id}" type="submit" style="border: none; background-color: white;" >delete</button>
+                </form>
+              </td>  
+            </tr>`
+            let table = e.target.closest(".sched-table");
+            let tbody = table.querySelector("tbody")
+            let bottom = tbody.querySelector(".tr2")
+            tbody.insertBefore(contel, bottom)
            
-
-           setTimeout(() => {
-             location.reload()
-           }, 1500);
             }else{
               popthis(dat.message)
             }
@@ -368,7 +385,7 @@ document.addEventListener("DOMContentLoaded", () => {
           .then((res) => res.json())
           .then((dat) => {
             if (dat.success) {
-              location.reload();     
+              e.target.closest("tr").remove()
             } else {
               popthis(dat.message);
             }

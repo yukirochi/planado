@@ -1,75 +1,69 @@
-
-
 .material-icons-outlined {
-    font-family: 'Material Icons Outlined';
-    font-size: 24px;
+  font-family: "Material Icons Outlined";
+  font-size: 24px;
 }
 
-
-body{
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
+body {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
 }
-*{
-    padding: 0;
-    margin: 0;
+* {
+  padding: 0;
+  margin: 0;
 }
-header{
-    height: 9%;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid black;
-    position: fixed;
-   
+header {
+  height: 9%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid black;
+  position: fixed;
 }
-header > div:nth-child(3){
-    min-width: 50px;
-    width:10%;
-    max-width: 150px;
-    height: 30px;
-    margin-right: 20px;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5%;
-    font-family: "archivo";
-    border: 1px solid black;
-    border: none;
-    
-
+header > div:nth-child(3) {
+  min-width: 50px;
+  width: 10%;
+  max-width: 150px;
+  height: 30px;
+  margin-right: 20px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5%;
+  font-family: "archivo";
+  border: 1px solid black;
+  border: none;
 }
-header > div:nth-child(3) > i{
-    width: 30px;
-    height: 30px;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid black;
+header > div:nth-child(3) > i {
+  width: 30px;
+  height: 30px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
 }
-header > i:nth-child(1){
-    margin-left: 20px;
-    font-size: 30px;
+header > i:nth-child(1) {
+  margin-left: 20px;
+  font-size: 30px;
 }
-#search{
-    width: 30px;
-    height: 30px;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    font-size: 20px;
-    position: absolute;
-    top:50%;
+#search {
+  width: 30px;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
 }
-@media only screen and ( max-width: 1000px){
-   .username{
+@media only screen and (max-width: 1000px) {
+  .username {
     display: none;
-   }
-   #search{
+  }
+  #search {
     width: 30px;
     height: 30px;
     justify-content: center;
@@ -77,891 +71,886 @@ header > i:nth-child(1){
     display: flex;
     font-size: 20px;
     position: absolute;
-    top:35%;
+    top: 35%;
+  }
+}
+.searchbar {
+  background-color: rgba(255, 255, 255, 1);
+  width: 40%;
+  max-width: 400px;
+  min-width: 150px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  border: 1px solid black;
+}
+.searchbar > input {
+  width: 85%;
+  height: 25px;
+  min-width: 120px;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  background-color: rgb(255, 255, 255);
+  margin-left: 10px;
+}
+.searchbar > button {
+  height: 25px;
+  min-width: 20px;
+  width: 10%;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  background-color: rgb(255, 255, 255);
+}
+.searchbar > button > i {
+  font-size: clamp(15px, 100%, 50px);
+}
+i:hover {
+  cursor: pointer;
 }
 
-}
-.searchbar{
-    background-color: rgba(255, 255, 255, 1);
-    width: 40%;
-    max-width: 400px;
-    min-width: 150px;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    border: 1px solid black;
-    
+.sidebar {
+  width: 20%;
+  min-width: 200px;
+  height: 100%;
+  background-color: white;
+  position: absolute;
+  border-right: 1px solid black;
+  /* border-radius: 0 8px 8px 0;*/
+  --dot-bg: rgb(255, 253, 253);
+  --dot-color: rgb(0, 0, 0);
+  --dot-size: 1px;
+  --dot-space: 20px;
 
-}
-.searchbar > input{
-    width: 85%;
-    height: 25px;
-    min-width: 120px;
-    border-radius: 10px;
-    outline: none;
-    border: none;
-    background-color: rgb(255, 255, 255);
-    margin-left: 10px;
-}
-.searchbar > button{
-    height: 25px;
-    min-width: 20px;
-    width: 10%;
-    border-radius: 10px;
-    outline: none;
-    border: none;
-    background-color: rgb(255, 255, 255);
-    
-
-}
-.searchbar > button > i{
-    font-size: clamp(15px,100%,50px);
-    
-}
-i:hover{
-    cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
-.sidebar{
-    width: 20%;
-    min-width: 200px;
-    height: 100%;
-    background-color: white;
-    position: absolute;
-    border-right: 1px solid black;
-   /* border-radius: 0 8px 8px 0;*/
-    --dot-bg: rgb(255, 253, 253);
-    --dot-color: rgb(0, 0, 0);
-    --dot-size: 1px;
-    --dot-space: 20px;
-     
-    display: flex;
-    justify-content: center;
-    align-items: center;     
-    flex-direction: column;
-    
-}
-
-.sidebar-content1{
-    
-    width: 90%;
-    height: 50%;
-    border-bottom: 1px solid black;
-    display: flex;
-    flex-direction: column;
-    gap: 3%;
-    align-items: center;
+.sidebar-content1 {
+  width: 90%;
+  height: 50%;
+  border-bottom: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  gap: 3%;
+  align-items: center;
 }
 .sidebar-content1 > div,
 .logo-div,
 .feedback-div,
-.manage-drop > div{
-    width: 95%;
-    height: 35px;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.5);
-    
+.manage-drop > div,
+.feedbacks {
+  width: 95%;
+  height: 35px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.5);
 }
-.logo-div{
-    justify-content: center;
+.logo-div {
+  justify-content: center;
 }
 .sidebar-content1 > div:hover,
-.feedback-div:hover{
-    background-color: rgba(255, 217, 0, 0.5);
+.feedback-div:hover,
+.feedbacks:hover {
+  background-color: rgba(255, 217, 0, 0.5);
 }
-.manage-drop:hover{
-    background-color: transparent !important;
-    
+.manage-drop:hover {
+  background-color: transparent !important;
 }
 .sidebar-content1 > div:nth-child(1),
-.feedback-div{
-    margin-top: 10px;
+.feedback-div,
+.feedbacks {
+  margin-top: 10px;
 }
 .sidebar-content1 > div > i,
 .logo-div > i,
 .feedback-div > i,
-.manage-drop > div > i{
-    width: 25px;
-    height: 25px;
-    font-size: 25px;
-    color: #000000;
-    
+.manage-drop > div > i,
+.feedbacks > i {
+  width: 25px;
+  height: 25px;
+  font-size: 25px;
+  color: #000000;
 }
-.logo-div > i{
-    background-image: url(logo/DSADSADA-removebg-preview.png);
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    width: 30px;
-    height: 30px;
+.logo-div > i {
+  background-image: url(logo/DSADSADA-removebg-preview.png);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 30px;
+  height: 30px;
 }
-.sidebar-header{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    
+.sidebar-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
-.sidebar-content2{
-
-    width: 100%;
-    height: 30%;
-
+.sidebar-content2 {
+  width: 100%;
+  height: 30%;
 }
-.sidebar-header{
-    width: 90%;
-    height: 20%;
-    border-bottom: 1px solid black;
+.sidebar-header {
+  width: 90%;
+  height: 20%;
+  border-bottom: 1px solid black;
 }
 .active-selector {
-    background-color: rgba(255, 220, 21, 1) !important;
+  background-color: rgba(255, 220, 21, 1) !important;
 }
-.manage-drop{
-    height: 50px !important;
-    display: flex;
-    flex-direction: column;
-    gap: 10px !important;
-    justify-content: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
+.manage-drop {
+  height: 50px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 10px !important;
+  justify-content: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
-#menu{
-    display: none;
+#menu {
+  display: none;
 }
-#closemenu{
-    display: none;
+#closemenu {
+  display: none;
 }
-.active-selector{
-    box-shadow: 2px 2px 1px 0px rgb(0, 0, 0);
+.active-selector {
+  box-shadow: 2px 2px 1px 0px rgb(0, 0, 0);
+  background-color: rgba(255, 220, 21, 1) !important;
+  border-radius: 3px !important;
+  border: 1px solid black;
+}
+@media screen and (max-width: 390px) {
+  .active-selector {
+    box-shadow: 1px 1px 0px 0px rgb(0, 0, 0);
     background-color: rgba(255, 220, 21, 1) !important;
     border-radius: 3px !important;
     border: 1px solid black;
+  }
+  #closemenu:hover,
+  #menu:hover {
+    background-color: rgba(255, 220, 21, 1);
+    border-radius: 5px;
+    border: 1px solid black;
+  }
+  #closemenu {
+    position: absolute;
+    top: 3%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #menu {
+    display: inline;
+    width: 40px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .sidebar {
+    left: -100%;
+    transition: 0.3s ease;
+    z-index: 10;
+  }
+  .showside {
+    left: 0;
+  }
+  .feedback-div,
+  .feedbacks {
+    justify-content: center;
+  }
+  .sidebar-content1 div::after,
+  .sidebar-content2 div::after {
+    transition: 0.5s ease;
+  }
+  .home-div:hover::after {
+    content: " Home";
+    width: 100px;
+    height: 20px;
+    background-color: rgba(255, 217, 0, 1);
+    position: absolute;
+    z-index: 2;
+    right: -202%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "archivo";
+    font-size: 15px;
+    border-radius: 0 8px 10px 8px;
+    box-shadow: 0 1px 1px 1px black;
+  }
+  .home-div:target::after {
+    content: " Home";
+    width: 100px;
+    height: 20px;
+    background-color: rgba(255, 217, 0, 1);
+    position: absolute;
+    z-index: 2;
+    right: -202%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "archivo";
+    font-size: 15px;
+    border-radius: 0 8px 10px 8px;
+    box-shadow: 0 1px 1px 1px black;
+  }
+  .rooms-div:hover::after {
+    content: " Rooms";
+    width: 100px;
+    height: 20px;
+    background-color: rgba(255, 217, 0, 1);
+    position: absolute;
+    z-index: 2;
+    right: -202%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "archivo";
+    font-size: 15px;
+    border-radius: 0 8px 10px 8px;
+    box-shadow: 0 1px 1px 1px black;
+  }
+  .rooms-div:target::after {
+    content: " Rooms";
+    width: 100px;
+    height: 20px;
+    background-color: rgba(255, 217, 0, 1);
+    position: absolute;
+    z-index: 2;
+    right: -202%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "archivo";
+    font-size: 15px;
+    border-radius: 0 8px 10px 8px;
+    box-shadow: 0 1px 1px 1px black;
+  }
+  .sections-div:hover::after {
+    content: " Sections";
+    width: 100px;
+    height: 20px;
+    background-color: rgba(255, 217, 0, 1);
+    position: absolute;
+    z-index: 2;
+    right: -202%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "archivo";
+    font-size: 15px;
+    border-radius: 0 8px 10px 8px;
+    box-shadow: 0 1px 1px 1px black;
+  }
+  .sections-div:target:after {
+    content: " Sections";
+    width: 100px;
+    height: 20px;
+    background-color: rgba(255, 217, 0, 1);
+    position: absolute;
+    z-index: 2;
+    right: -202%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "archivo";
+    font-size: 15px;
+    border-radius: 0 8px 10px 8px;
+    box-shadow: 0 1px 1px 1px black;
+  }
+  .manage-div:hover::after {
+    content: " Manage";
+    width: 100px;
+    height: 20px;
+    background-color: rgba(255, 217, 0, 1);
+    position: absolute;
+    z-index: 2;
+    right: -202%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "archivo";
+    font-size: 15px;
+    border-radius: 0 8px 10px 8px;
+    box-shadow: 0 1px 1px 1px black;
+  }
+  .manage-div:target::after {
+    content: " Manage";
+    width: 100px;
+    height: 20px;
+    background-color: rgba(255, 217, 0, 1);
+    position: absolute;
+    z-index: 2;
+    right: -202%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "archivo";
+    font-size: 15px;
+    border-radius: 0 8px 10px 8px;
+    box-shadow: 0 1px 1px 1px black;
+  }
+  .manage-rooms:hover::after {
+    content: " Manage Rooms";
+    width: 150px;
+    height: 20px;
+    background-color: rgba(255, 217, 0, 1);
+    position: absolute;
+    z-index: 2;
+    right: -300%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "archivo";
+    font-size: 15px;
+    border-radius: 0 8px 10px 8px;
+    box-shadow: 0 1px 1px 1px black;
+  }
+  .manage-rooms:target::after {
+    content: " Manage Rooms";
+    width: 150px;
+    height: 20px;
+    background-color: rgba(255, 217, 0, 1);
+    position: absolute;
+    z-index: 2;
+    right: -300%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "archivo";
+    font-size: 15px;
+    border-radius: 0 8px 10px 8px;
+    box-shadow: 0 1px 1px 1px black;
+  }
+  .manage-schedules:hover::after {
+    content: " Manage Schedules";
+    width: 150px;
+    height: 20px;
+    background-color: rgba(255, 217, 0, 1);
+    position: absolute;
+    z-index: 2;
+    right: -300%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "archivo";
+    font-size: 15px;
+    border-radius: 0 8px 10px 8px;
+    box-shadow: 0 1px 1px 1px black;
+  }
+  .manage-schedules:target::after {
+    content: " Manage Schedules";
+    width: 150px;
+    height: 20px;
+    background-color: rgba(255, 217, 0, 1);
+    position: absolute;
+    z-index: 2;
+    right: -300%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "archivo";
+    font-size: 15px;
+    border-radius: 0 8px 10px 8px;
+    box-shadow: 0 1px 1px 1px black;
+  }
+  .sidebar {
+    width: 10%;
+    max-width: 60px;
+    min-width: 50px;
+  }
+  .sidebar-content1 > div {
+    display: flex;
+    justify-content: center;
+  }
+  .manage-drop > div {
+    justify-content: center;
+  }
+  header {
+    background-color: transparent !important;
+    border: none;
+  }
+  .searchbar {
+    margin-left: 10%;
+    margin-top: 5%;
+  }
+  #search {
+    width: 30px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    font-size: 20px;
+    position: absolute;
+    top: 41%;
+    left: 63%;
+  }
 }
-@media screen and (max-width:390px){
-    .active-selector{
-        box-shadow: 1px 1px 0px 0px rgb(0, 0, 0);
-        background-color: rgba(255, 220, 21, 1) !important;
-        border-radius: 3px !important;
-        border: 1px solid black;
-    }
-    #closemenu:hover,
-    #menu:hover {
-        background-color: rgba(255, 220, 21, 1);
-        border-radius: 5px;
-        border: 1px solid black;
-    
-    }
-    #closemenu{
-        position: absolute;
-        top: 3%;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 40px;
-        height: 30px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    #menu{
-        display: inline;
-        width: 40px;
-        height: 30px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .sidebar{
-        left: -100%;
-        transition: 0.3s ease;
-        z-index: 10;
-    }
-    .showside{
-        left: 0;
-    }
-    .feedback-div{
-        justify-content: center;
-    }
-    .sidebar-content1  div::after,
-    .sidebar-content2  div::after{
-        transition: 0.5s ease;
-    }
-    .home-div:hover::after{
-        content: " Home";
-        width: 100px;
-        height: 20px;
-        background-color:  rgba(255, 217, 0, 1);
-        position: absolute;
-        z-index: 2;
-        right: -202%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: "archivo";
-        font-size: 15px;
-        border-radius: 0 8px 10px 8px;
-        box-shadow: 0 1px 1px 1px  black;
-    }
-    .home-div:target::after{
-        content: " Home";
-        width: 100px;
-        height: 20px;
-        background-color:  rgba(255, 217, 0, 1);
-        position: absolute;
-        z-index: 2;
-        right: -202%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: "archivo";
-        font-size: 15px;
-        border-radius: 0 8px 10px 8px;
-        box-shadow: 0 1px 1px 1px  black;
-    }
-    .rooms-div:hover::after{
-        content: " Rooms";
-        width: 100px;
-        height: 20px;
-        background-color:  rgba(255, 217, 0, 1);
-        position: absolute;
-        z-index: 2;
-        right: -202%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: "archivo";
-        font-size: 15px;
-        border-radius: 0 8px 10px 8px;
-        box-shadow: 0 1px 1px 1px  black;
-    }
-    .rooms-div:target::after{
-        content: " Rooms";
-        width: 100px;
-        height: 20px;
-        background-color:  rgba(255, 217, 0, 1);
-        position: absolute;
-        z-index: 2;
-        right: -202%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: "archivo";
-        font-size: 15px;
-        border-radius: 0 8px 10px 8px;
-        box-shadow: 0 1px 1px 1px  black;
-    }
-    .sections-div:hover::after{
-        content: " Sections";
-        width: 100px;
-        height: 20px;
-        background-color:  rgba(255, 217, 0, 1);
-        position: absolute;
-        z-index: 2;
-        right: -202%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: "archivo";
-        font-size: 15px;
-        border-radius: 0 8px 10px 8px;
-        box-shadow: 0 1px 1px 1px  black;
-    }
-    .sections-div:target:after{
-        content: " Sections";
-        width: 100px;
-        height: 20px;
-        background-color:  rgba(255, 217, 0, 1);
-        position: absolute;
-        z-index: 2;
-        right: -202%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: "archivo";
-        font-size: 15px;
-        border-radius: 0 8px 10px 8px;
-        box-shadow: 0 1px 1px 1px  black;
-    }
-    .manage-div:hover::after{
-        content: " Manage";
-        width: 100px;
-        height: 20px;
-        background-color:  rgba(255, 217, 0, 1);
-        position: absolute;
-        z-index: 2;
-        right: -202%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: "archivo";
-        font-size: 15px;
-        border-radius: 0 8px 10px 8px;
-        box-shadow: 0 1px 1px 1px  black;
-    }
-    .manage-div:target::after{
-        content: " Manage";
-        width: 100px;
-        height: 20px;
-        background-color:  rgba(255, 217, 0, 1);
-        position: absolute;
-        z-index: 2;
-        right: -202%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: "archivo";
-        font-size: 15px;
-        border-radius: 0 8px 10px 8px;
-        box-shadow: 0 1px 1px 1px  black;
-    }
-    .manage-rooms:hover::after{
-        content: " Manage Rooms";
-        width: 150px;
-        height: 20px;
-        background-color:  rgba(255, 217, 0, 1);
-        position: absolute;
-        z-index: 2;
-        right: -300%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: "archivo";
-        font-size: 15px;
-        border-radius: 0 8px 10px 8px;
-        box-shadow: 0 1px 1px 1px  black;
-    }
-    .manage-rooms:target::after{
-        content: " Manage Rooms";
-        width: 150px;
-        height: 20px;
-        background-color:  rgba(255, 217, 0, 1);
-        position: absolute;
-        z-index: 2;
-        right: -300%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: "archivo";
-        font-size: 15px;
-        border-radius: 0 8px 10px 8px;
-        box-shadow: 0 1px 1px 1px  black;
-    }
-    .manage-schedules:hover::after{
-        content: " Manage Schedules";
-        width: 150px;
-        height: 20px;
-        background-color:  rgba(255, 217, 0, 1);
-        position: absolute;
-        z-index: 2;
-        right: -300%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: "archivo";
-        font-size: 15px;
-        border-radius: 0 8px 10px 8px;
-        box-shadow: 0 1px 1px 1px  black;
-    }
-    .manage-schedules:target::after{
-        content: " Manage Schedules";
-        width: 150px;
-        height: 20px;
-        background-color:  rgba(255, 217, 0, 1);
-        position: absolute;
-        z-index: 2;
-        right: -300%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: "archivo";
-        font-size: 15px;
-        border-radius: 0 8px 10px 8px;
-        box-shadow: 0 1px 1px 1px  black;
-    }
-    .sidebar{
-        width: 10%;
-        max-width: 60px;
-        min-width: 50px;
-        
-    }
-    .sidebar-content1 > div {
-        display: flex;
-        justify-content: center;
-    }
-    .manage-drop > div{
-        justify-content: center;
-    }
-    header{
-        background-color: transparent !important;
-        border: none;
-    }
-    .searchbar{
-        margin-left: 10%;
-        margin-top: 5%;
-    }
-    #search{
-        width: 30px;
-        height: 30px;
-        justify-content: center;
-        align-items: center;
-        display: flex;
-        font-size: 20px;
-        position: absolute;
-        top:41%;
-        left: 63%;
-    }
-  
-}
-@media screen and (max-width:768px ) and (min-width:391px){
-    .active-selector{
-        box-shadow: 1px 1px 0px 0px rgb(0, 0, 0);
-        background-color: rgba(255, 220, 21, 1) !important;
-        border-radius: 3px !important;
-        border: 1px solid black;
-    }
-    .searchbar{
-        margin-left: 10%;
-    }
-    .sidebar-content1  div::after,
-    .sidebar-content2  div::after{
-        transition: 0.5s ease;
-    }
-    .home-div:hover::after{
-        content: " Home";
-        width: 100px;
-        height: 20px;
-        background-color:  rgba(255, 217, 0, 1);
-        position: absolute;
-        z-index: 2;
-        right: -170%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: "archivo";
-        font-size: 15px;
-        border-radius: 0 8px 10px 8px;
-        box-shadow: 0 1px 1px 1px  black;
-    }
-    .home-div:target::after{
-        content: " Home";
-        width: 100px;
-        height: 20px;
-        background-color:  rgba(255, 217, 0, 1);
-        position: absolute;
-        z-index: 2;
-        right: -170%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: "archivo";
-        font-size: 15px;
-        border-radius: 0 8px 10px 8px;
-        box-shadow: 0 1px 1px 1px  black;
-    }
-    .rooms-div:hover::after{
-        content: " Rooms";
-        width: 100px;
-        height: 20px;
-        background-color:  rgba(255, 217, 0, 1);
-        position: absolute;
-        z-index: 2;
-        right: -170%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: "archivo";
-        font-size: 15px;
-        border-radius: 0 8px 10px 8px;
-        box-shadow: 0 1px 1px 1px  black;
-    }
-    .rooms-div:target::after{
-        content: " Rooms";
-        width: 100px;
-        height: 20px;
-        background-color:  rgba(255, 217, 0, 1);
-        position: absolute;
-        z-index: 2;
-        right: -170%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: "archivo";
-        font-size: 15px;
-        border-radius: 0 8px 10px 8px;
-        box-shadow: 0 1px 1px 1px  black;
-    }
-    .sections-div:hover::after{
-        content: " Sections";
-        width: 100px;
-        height: 20px;
-        background-color:  rgba(255, 217, 0, 1);
-        position: absolute;
-        z-index: 2;
-        right: -170%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: "archivo";
-        font-size: 15px;
-        border-radius: 0 8px 10px 8px;
-        box-shadow: 0 1px 1px 1px  black;
-    }
-    .sections-div:target:after{
-        content: " Sections";
-        width: 100px;
-        height: 20px;
-        background-color:  rgba(255, 217, 0, 1);
-        position: absolute;
-        z-index: 2;
-        right: -170%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: "archivo";
-        font-size: 15px;
-        border-radius: 0 8px 10px 8px;
-        box-shadow: 0 1px 1px 1px  black;
-    }
-    .manage-div:hover::after{
-        content: " Manage";
-        width: 100px;
-        height: 20px;
-        background-color:  rgba(255, 217, 0, 1);
-        position: absolute;
-        z-index: 2;
-        right: -170%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: "archivo";
-        font-size: 15px;
-        border-radius: 0 8px 10px 8px;
-        box-shadow: 0 1px 1px 1px  black;
-    }
-    .manage-div:target::after{
-        content: " Manage";
-        width: 100px;
-        height: 20px;
-        background-color:  rgba(255, 217, 0, 1);
-        position: absolute;
-        z-index: 2;
-        right: -170%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: "archivo";
-        font-size: 15px;
-        border-radius: 0 8px 10px 8px;
-        box-shadow: 0 1px 1px 1px  black;
-    }
-    .manage-rooms:hover::after{
-        content: " Manage Rooms";
-        width: 150px;
-        height: 20px;
-        background-color:  rgba(255, 217, 0, 1);
-        position: absolute;
-        z-index: 2;
-        right: -255%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: "archivo";
-        font-size: 15px;
-        border-radius: 0 8px 10px 8px;
-        box-shadow: 0 1px 1px 1px  black;
-    }
-    .manage-rooms:target::after{
-        content: " Manage Rooms";
-        width: 150px;
-        height: 20px;
-        background-color:  rgba(255, 217, 0, 1);
-        position: absolute;
-        z-index: 2;
-        right: -255%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: "archivo";
-        font-size: 15px;
-        border-radius: 0 8px 10px 8px;
-        box-shadow: 0 1px 1px 1px  black;
-    }
-    .manage-schedules:hover::after{
-        content: " Manage Schedules";
-        width: 150px;
-        height: 20px;
-        background-color:  rgba(255, 217, 0, 1);
-        position: absolute;
-        z-index: 2;
-        right: -255%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: "archivo";
-        font-size: 15px;
-        border-radius: 0 8px 10px 8px;
-        box-shadow: 0 1px 1px 1px  black;
-    }
-    .manage-schedules:target::after{
-        content: " Manage Schedules";
-        width: 150px;
-        height: 20px;
-        background-color:  rgba(255, 217, 0, 1);
-        position: absolute;
-        z-index: 2;
-        right: -255%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: "archivo";
-        font-size: 15px;
-        border-radius: 0 8px 10px 8px;
-        box-shadow: 0 1px 1px 1px  black;
-    }
-    .sidebar{
-        width: 10%;
-        max-width: 60px;
-        min-width: 50px;
-    }
-    .sidebar-content1 > div,
-    .feedback-div {
-        display: flex;
-        justify-content: center;
-    }
-    .manage-drop > div{
-        justify-content: center;
-    }
-    header{
-        background-color: rgba(255, 217, 0, 0) !important;
-        border: none;
-    }
+@media screen and (max-width: 768px) and (min-width: 391px) {
+  .active-selector {
+    box-shadow: 1px 1px 0px 0px rgb(0, 0, 0);
+    background-color: rgba(255, 220, 21, 1) !important;
+    border-radius: 3px !important;
+    border: 1px solid black;
+  }
+  .searchbar {
+    margin-left: 10%;
+  }
+  .sidebar-content1 div::after,
+  .sidebar-content2 div::after {
+    transition: 0.5s ease;
+  }
+  .home-div:hover::after {
+    content: " Home";
+    width: 100px;
+    height: 20px;
+    background-color: rgba(255, 217, 0, 1);
+    position: absolute;
+    z-index: 2;
+    right: -170%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "archivo";
+    font-size: 15px;
+    border-radius: 0 8px 10px 8px;
+    box-shadow: 0 1px 1px 1px black;
+  }
+  .home-div:target::after {
+    content: " Home";
+    width: 100px;
+    height: 20px;
+    background-color: rgba(255, 217, 0, 1);
+    position: absolute;
+    z-index: 2;
+    right: -170%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "archivo";
+    font-size: 15px;
+    border-radius: 0 8px 10px 8px;
+    box-shadow: 0 1px 1px 1px black;
+  }
+  .rooms-div:hover::after {
+    content: " Rooms";
+    width: 100px;
+    height: 20px;
+    background-color: rgba(255, 217, 0, 1);
+    position: absolute;
+    z-index: 2;
+    right: -170%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "archivo";
+    font-size: 15px;
+    border-radius: 0 8px 10px 8px;
+    box-shadow: 0 1px 1px 1px black;
+  }
+  .rooms-div:target::after {
+    content: " Rooms";
+    width: 100px;
+    height: 20px;
+    background-color: rgba(255, 217, 0, 1);
+    position: absolute;
+    z-index: 2;
+    right: -170%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "archivo";
+    font-size: 15px;
+    border-radius: 0 8px 10px 8px;
+    box-shadow: 0 1px 1px 1px black;
+  }
+  .sections-div:hover::after {
+    content: " Sections";
+    width: 100px;
+    height: 20px;
+    background-color: rgba(255, 217, 0, 1);
+    position: absolute;
+    z-index: 2;
+    right: -170%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "archivo";
+    font-size: 15px;
+    border-radius: 0 8px 10px 8px;
+    box-shadow: 0 1px 1px 1px black;
+  }
+  .sections-div:target:after {
+    content: " Sections";
+    width: 100px;
+    height: 20px;
+    background-color: rgba(255, 217, 0, 1);
+    position: absolute;
+    z-index: 2;
+    right: -170%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "archivo";
+    font-size: 15px;
+    border-radius: 0 8px 10px 8px;
+    box-shadow: 0 1px 1px 1px black;
+  }
+  .manage-div:hover::after {
+    content: " Manage";
+    width: 100px;
+    height: 20px;
+    background-color: rgba(255, 217, 0, 1);
+    position: absolute;
+    z-index: 2;
+    right: -170%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "archivo";
+    font-size: 15px;
+    border-radius: 0 8px 10px 8px;
+    box-shadow: 0 1px 1px 1px black;
+  }
+  .manage-div:target::after {
+    content: " Manage";
+    width: 100px;
+    height: 20px;
+    background-color: rgba(255, 217, 0, 1);
+    position: absolute;
+    z-index: 2;
+    right: -170%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "archivo";
+    font-size: 15px;
+    border-radius: 0 8px 10px 8px;
+    box-shadow: 0 1px 1px 1px black;
+  }
+  .manage-rooms:hover::after {
+    content: " Manage Rooms";
+    width: 150px;
+    height: 20px;
+    background-color: rgba(255, 217, 0, 1);
+    position: absolute;
+    z-index: 2;
+    right: -255%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "archivo";
+    font-size: 15px;
+    border-radius: 0 8px 10px 8px;
+    box-shadow: 0 1px 1px 1px black;
+  }
+  .manage-rooms:target::after {
+    content: " Manage Rooms";
+    width: 150px;
+    height: 20px;
+    background-color: rgba(255, 217, 0, 1);
+    position: absolute;
+    z-index: 2;
+    right: -255%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "archivo";
+    font-size: 15px;
+    border-radius: 0 8px 10px 8px;
+    box-shadow: 0 1px 1px 1px black;
+  }
+  .manage-schedules:hover::after {
+    content: " Manage Schedules";
+    width: 150px;
+    height: 20px;
+    background-color: rgba(255, 217, 0, 1);
+    position: absolute;
+    z-index: 2;
+    right: -255%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "archivo";
+    font-size: 15px;
+    border-radius: 0 8px 10px 8px;
+    box-shadow: 0 1px 1px 1px black;
+  }
+  .manage-schedules:target::after {
+    content: " Manage Schedules";
+    width: 150px;
+    height: 20px;
+    background-color: rgba(255, 217, 0, 1);
+    position: absolute;
+    z-index: 2;
+    right: -255%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "archivo";
+    font-size: 15px;
+    border-radius: 0 8px 10px 8px;
+    box-shadow: 0 1px 1px 1px black;
+  }
+  .sidebar {
+    width: 10%;
+    max-width: 60px;
+    min-width: 50px;
+  }
+  .sidebar-content1 > div,
+  .feedback-div,
+  .feedbacks {
+    display: flex;
+    justify-content: center;
+  }
+  .manage-drop > div {
+    justify-content: center;
+  }
+  header {
+    background-color: rgba(255, 217, 0, 0) !important;
+    border: none;
+  }
 }
 
-@media screen and (min-width:769px){
-    .active-selector{
-        background-color: rgba(255, 220, 21, 1) !important;
-        border-radius: 3px !important;
-        border: 1px solid black;
-    }
-    .searchbar{
-        margin-left: 22%;
-        margin-top: 2%;
-    }
-    .home-div,
-    .rooms-div,
-    .sections-div,
-    .manage-div ,
-    .feedback-div,
-    .manage-drop > div,
-    .faculty-div,
-    .manage-users,
-    .account-settings{
-        display: flex;
-        align-items: center;
-        gap: 8px; 
-        gap: 10px;
-    }
-    .feedback-div {
-        margin-left: 10px;
-    }
-    .sidebar-content1 > div:hover,
-    .feedback-div:hover{
-        background-color: rgba(255, 217, 0, 0.5);
-        padding-left: 10px;
-    }
-    .faculty-div::after{
-        content: " Faculty";
-        font-size: 16px;
-        font-family: "Archivo", sans-serif;
-    }
-    .home-div::after {
-        content: " Home";
-        font-size: 16px;
-        font-family: "Archivo", sans-serif;
-    }
-    .rooms-div::after{
-        content: " Rooms";
-        font-size: 16px;
-        font-family: "Archivo", sans-serif;   
-    }
-    .sections-div::after{
-        content: " Sections";
-        font-size: 16px;
-        font-family: "Archivo", sans-serif;   
-    }
-    .manage-div::after{
-        content: " Add Schedule";
-        font-size: 16px;
-        font-family: "Archivo", sans-serif;   
-    }
-    .feedback-div::after{
-        content: " Feedback";
-        font-size: 16px;
-        font-family: "Archivo", sans-serif; 
-    }
-    .account-settings::after{
-        content: " Account";
-        font-size: 16px;
-        font-family: "Archivo", sans-serif; 
-    }
-    .manage-rooms::after{
-        content: " Manage Rooms";
-        font-size: 16px;
-        font-family: "Archivo", sans-serif; 
-    }
-    .manage-schedules::after{
-        content: " Manage Schedules";
-        font-size: 16px;
-        font-family: "Archivo", sans-serif; 
-    }
-    .manage-users::after{
-        content: " Manage Users";
-        font-size: 16px;
-        font-family: "Archivo", sans-serif;
-    }
-    .sidebar{
-        width: 15%;
-        min-width: 150px;
-    }
-    .logo-div{
-        width: 95%;
-        height: 95%;
-        border-radius: 5px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .logo-div > i{
-       width: 120px;
-       height: 120px;
-    }
-    .active-selector {
-        padding-left: 10px;
-    }
-    .manage-drop{
-        height: 60px !important;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start !important;
-        gap: 10px;
-        padding-bottom: 10px;
-          
-    }
-    .manage-rooms,
-    .manage-schedules{
-        display: flex;
-        gap: 8%;
-        align-items: center;
-        border-radius: inherit;
-       
-    }
-    .manage-drop:hover{
-        background-color: transparent !important;
-        margin-left: 0 !important;
-        padding-left: 0 !important;
-    }
-    header{
-        background-color: transparent !important;
-        border: none;
-    }
-    
+@media screen and (min-width: 769px) {
+  .active-selector {
+    background-color: rgba(255, 220, 21, 1) !important;
+    border-radius: 3px !important;
+    border: 1px solid black;
+  }
+  .searchbar {
+    margin-left: 22%;
+    margin-top: 2%;
+  }
+  .home-div,
+  .rooms-div,
+  .sections-div,
+  .manage-div,
+  .feedback-div,
+  .manage-drop > div,
+  .faculty-div,
+  .manage-users,
+  .account-settings,
+  .feedbacks {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    gap: 10px;
+  }
+  .feedback-div,
+  .feedbacks {
+    margin-left: 10px;
+  }
+  .sidebar-content1 > div:hover,
+  .feedback-div:hover,
+  .feedbacks {
+    background-color: rgba(255, 217, 0, 0.5);
+    padding-left: 10px;
+  }
+  .faculty-div::after {
+    content: " Faculty";
+    font-size: 16px;
+    font-family: "Archivo", sans-serif;
+  }
+  .home-div::after {
+    content: " Home";
+    font-size: 16px;
+    font-family: "Archivo", sans-serif;
+  }
+  .rooms-div::after {
+    content: " Rooms";
+    font-size: 16px;
+    font-family: "Archivo", sans-serif;
+  }
+  .sections-div::after {
+    content: " Sections";
+    font-size: 16px;
+    font-family: "Archivo", sans-serif;
+  }
+  .manage-div::after {
+    content: " Add Schedule";
+    font-size: 16px;
+    font-family: "Archivo", sans-serif;
+  }
+  .feedback-div::after {
+    content: " Feedback";
+    font-size: 16px;
+    font-family: "Archivo", sans-serif;
+  }
+  .account-settings::after {
+    content: " Account";
+    font-size: 16px;
+    font-family: "Archivo", sans-serif;
+  }
+  .manage-rooms::after {
+    content: " Manage Rooms";
+    font-size: 16px;
+    font-family: "Archivo", sans-serif;
+  }
+  .manage-schedules::after {
+    content: " Manage Schedules";
+    font-size: 16px;
+    font-family: "Archivo", sans-serif;
+  }
+  .manage-users::after {
+    content: " Manage Users";
+    font-size: 16px;
+    font-family: "Archivo", sans-serif;
+  }
+  .feedbacks::after {
+    content: " Feedbacks";
+    font-size: 16px;
+    font-family: "Archivo", sans-serif;
+  }
+  .sidebar {
+    width: 15%;
+    min-width: 150px;
+  }
+  .logo-div {
+    width: 95%;
+    height: 95%;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .logo-div > i {
+    width: 120px;
+    height: 120px;
+  }
+  .active-selector {
+    padding-left: 10px;
+  }
+  .manage-drop {
+    height: 60px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 10px;
+    padding-bottom: 10px;
+  }
+  .manage-rooms,
+  .manage-schedules {
+    display: flex;
+    gap: 8%;
+    align-items: center;
+    border-radius: inherit;
+  }
+  .manage-drop:hover {
+    background-color: transparent !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+  }
+  header {
+    background-color: transparent !important;
+    border: none;
+  }
 }
 
 .sidebar-content1 > div,
 .sidebar-content2 > div,
-.manage-drop > div{
-    background-color: transparent;
-    transition: 0.1s ease;
-} 
-
-.sidebar-content2{
-    display: flex;
-    justify-content: center;
-}
-.sidebar-content2 > div{
-    width: 90%;
-    
-}
-.manage-drop{
-    display: none !important;
-}
-.hide{
-    display: flex !important;
+.manage-drop > div {
+  background-color: transparent;
+  transition: 0.1s ease;
 }
 
-.active-selector:target{
-    box-shadow: unset;
+.sidebar-content2 {
+  display: flex;
+  justify-content: center;
 }
-.feedback-div{
-    width: 85% !important;
+.sidebar-content2 > div {
+  width: 90%;
 }
-header{
-    background-color: rgba(255, 255, 255,1) !important;
+.manage-drop {
+  display: none !important;
 }
-.alertthis{
-    background-color: rgba(216, 112, 147, 0.5);
-    width: 300px;
-    height: 50px;
-    position: absolute;
-    left: 55%;
-    transform: translateX(-50%);
-    z-index: 10000;
-    top: 30px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: "archivo";
-    animation: opa 0.2s ease;
-    display: none;
-    
+.hide {
+  display: flex !important;
+}
+
+.active-selector:target {
+  box-shadow: unset;
+}
+.feedback-div,
+.feedbacks {
+  width: 85% !important;
+}
+header {
+  background-color: rgba(255, 255, 255, 1) !important;
+}
+.alertthis {
+  background-color: rgba(216, 112, 147, 0.5);
+  width: 300px;
+  height: 50px;
+  position: absolute;
+  left: 55%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  top: 30px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "archivo";
+  animation: opa 0.2s ease;
+  display: none;
 }
 @keyframes opa {
-    0%{
-        opacity: 0;
-    }
-    50%{
-        opacity: 0.5;
-    }
-    100%{
-        opacity: 1;
-    }
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
 }
-.logout{
-    width: 80px;
-    height: 50px;
-    background-color:  rgba(255, 220, 21, 1);
-    position: absolute;
-    top: 70%;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: start;
-    display: none;
+.logout {
+  width: 80px;
+  height: 50px;
+  background-color: rgba(255, 220, 21, 1);
+  position: absolute;
+  top: 70%;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  display: none;
 }
-#logout-button{
-    border: none;
-    background-color: transparent;
-    font-family: "archivo";
-    margin-top: 15px;
-
+#logout-button {
+  border: none;
+  background-color: transparent;
+  font-family: "archivo";
+  margin-top: 15px;
 }
 /*#person:hover .logout{
     display: flex;
 }*/
-.delbutton{
-    color: rgb(0, 0, 0);
-    background-color:  rgba(255, 220, 21, 1);
-    border: none;
-    width: 70px;
-    height: 20px;
-    font-family: "archivo";
+.delbutton {
+  color: rgb(0, 0, 0);
+  background-color: rgba(255, 220, 21, 1);
+  border: none;
+  width: 70px;
+  height: 20px;
+  font-family: "archivo";
 }
-.delbutton:hover{
-    opacity: 0.8;
+.delbutton:hover {
+  opacity: 0.8;
+}
+input[type="text"] {
+  text-transform: uppercase;
 }

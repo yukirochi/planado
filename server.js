@@ -194,8 +194,9 @@ app.post("/addroom", async (req, res) => {
       message: "rooms is already existed",
     });
   } else {
+    
     await connection.query(`INSERT INTO rooms (room_name) VALUES (?)`, [
-      uroomName,
+      uroomName.toUpperCase(),
     ]);
     return res.json({
       success: true,
@@ -212,7 +213,7 @@ app.post("/addsched", async (req, res) => {
   );
   let [iftimeexist] = await connection.query(
     "SELECT * FROM rooms WHERE section = ? AND day = ? AND NOT (? >= end_time OR ? <= start_time)",
-    [section, day, start, end]
+    [section.toUpperCase(), day, start, end]
   );
 
   let [verifytime] = await connection.query(
@@ -252,11 +253,27 @@ app.post("/addsched", async (req, res) => {
   } else {
     await connection.query(
       "INSERT INTO rooms (room_name, start_time, end_time, subject_code, section, day, prof) VALUES (?, ?, ?, ?, ?, ?, ?)",
-      [room, start, end, subject, section, day, faculty]
+      [room, start, end, subject, section.toUpperCase(), day, faculty]
     );
+    let [idver] = await connection.query("SELECT * FROM rooms WHERE section = ? AND room_name = ? AND start_time = ? AND end_time = ?",[section,room, start, end])
+
+    let id = idver[0].ID
+    function converTime(time){ let [hours, minutes] = time.split(':'); hours =
+      parseInt(hours, 10); let period = hours >= 12? "PM" : "AM"; hours = hours %
+      12 || 12; return `${hours}:${minutes}${period}`; }
+      let strt = converTime(start)
+      let ending = converTime(end)
     return res.json({
       success: true,
       message: "schedule added",
+      room,
+      strt,
+      ending,
+      subject,
+      section,
+      day,
+      faculty,
+      id
     });
   }
 });
@@ -321,9 +338,11 @@ app.get("/faculty", async (req, res) => {
 });
 app.get("/feedback", async (req, res) => {
   return res.render("feedback", { usermail: useremail, role });
+  
 });
 app.post("/addfeed", async (req, res) => {
-  let { usermail, feedbackcont } = req.body;
+  let {  feedbackcont } = req.body;
+  
   if (feedbackcont === "") {
     return res.json({
       message: "pls say something before submiting",
@@ -331,7 +350,7 @@ app.post("/addfeed", async (req, res) => {
   } else {
     await connection.query(
       "INSERT INTO feedback (email, feedback_cont) VALUES (?, ?)",
-      [usermail, feedbackcont, role]
+      [useremail, feedbackcont]
     );
     return res.json({
       message: "thank you for the feedback",
@@ -398,14 +417,22 @@ app.post("/addprof", async (req, res) => {
       "INSERT INTO faculty (prof, subject, units) VALUES (?, ?, ?)",
       [prof, subject, unitstring]
     );
+    let [idver] = await connection.query("SELECT * FROM faculty WHERE prof = ? AND subject = ?",[prof,subject])
+
+    let id = idver[0].ID
     res.json({
       success: true,
       message: "Added Successfully",
+      prof,
+      units,
+      subject,
+      id
     });
   }
 });
 app.post("/logout", async (req, res) => {
   useremail = "";
+  role = "";
   return res.redirect("index");
 });
 
@@ -478,5 +505,13 @@ app.post("/accountmanage", async (req, res) => {
     });
   } 
 });
+app.get("/feedbacks", async (req, res) => {
+  let [feeddata] = await connection.query("SELECT * FROM feedback")
+  return res.render("feedbacks", {
+    usermail: useremail,
+    role,
+    feeddata
+  });
+})
 
 module.exports = app;

@@ -16,6 +16,7 @@
   pageturn("/useroption", ".manage-users");
   pageturn("/feedback", ".feedback-div");
   pageturn("/account", ".account-settings")
+  pageturn("/feedbacks", ".feedbacks")
 
   const navigators = document.querySelectorAll(
     " .home-div, .rooms-div, .sections-div, .manage-rooms, .manage-schedules, .sidebar-content2 div ,sidebar-content1 div, faculty-div"
@@ -61,9 +62,13 @@
    
   if(rolecontt === "employee"){
     showusersman.style.display = "none"
+    document.querySelector(".feedback-div").style.display = "none"
   }else if(rolecontt === null || rolecontt === "user"){
     showusersman.style.display = "none"
     showaddsss.style.display = "none"
+    document.querySelector(".feedbacks").style.display = "none"
+  }else if(rolecontt === "admin"){
+    document.querySelector(".feedback-div").style.display = "none"
   }
   let logoutdiv = document.querySelector(".logout")
   document.querySelector("#person").addEventListener("click",() => {

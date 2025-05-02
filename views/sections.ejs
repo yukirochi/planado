@@ -90,12 +90,10 @@
                   </button>
                 </form>
               </td>
-              <% if (index === objectformsecttion[ObjectKey].length - 1) { %>
               
-              <% } %>
             </tr>
             <% }); %>
-            <tr id="tr2"  style="display: none;">
+            <tr id="tr2"  style="display: none;" class="tr2">
               <form id="submitsched-form">
                 <td>
                   <select
@@ -182,6 +180,7 @@
                 required
                 style="border: none; outline: none; border-bottom: 1px solid black; width: 120px;"
               >
+                <option value="">SELECT FACULTY</option>
                 <% Object.keys(groupedfaculty).forEach(dat =>{%>
 
                 <option style="background-color: palevioletred; font-size: 12px; padding-top: 5px;" value="<%= dat %>"><%= dat %></option>
@@ -324,11 +323,34 @@
           .then((dat) => {
             if (dat.success){
               popthis(dat.message);
-           
-
-           setTimeout(() => {
-             location.reload()
-           }, 1500);
+              let contel = document.createElement("tr");
+            contel.innerHTML += `  <tr>
+              <td>${ dat.subject} </td>
+              <td>${dat.day} </td>
+              <td>
+                ${dat.strt} - ${dat.ending}
+              </td>
+              <td>${dat.faculty}</td>
+              <td>${dat.room}</td>
+              <td class="dbody" id="tablehide">
+                <form class="delete-sched">
+                  <button
+                    class="material-icons-outlined"
+                    name="deleteS"
+                    value="${dat.id}"
+                    type="submit"
+                    style="background-color: white; border: none;"
+                  >
+                    delete
+                  </button>
+                </form>
+              </td>
+              
+            </tr>`
+            let table = e.target.closest(".sched-table");
+            let tbody = table.querySelector("tbody")
+            let bottom = tbody.querySelector(".tr2")
+            tbody.insertBefore(contel, bottom)
             }else{
               popthis(dat.message)
             }
@@ -347,11 +369,12 @@
           let profs = prof[i].value;
           let subs = subjectSe[i]
           subs.innerHTML = ""
-
+          if(profs !== ""){
           faculties[profs].forEach(element => {
           subs.innerHTML += `<option style="background-color: palevioletred; font-size: 12px; padding-top: 5px;" value="${element.subject}">${element.subject}</option>`
 
        });
+      }
         }
      
       }
@@ -372,7 +395,7 @@
             .then((res) => res.json())
             .then((dat) => {
               if (dat.success) {
-                location.reload();
+                e.target.closest("tr").remove();
               } else {
                 popthis(dat.message);
               }
