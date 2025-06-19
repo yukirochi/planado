@@ -10,7 +10,7 @@ this system streamlines the entire scheduling workflow, from creation to release
 
 🔄 Dynamic Compilation System
 -One of PLANADO’s standout features is its dynamic compilation system. This means that schedules are not static or isolated entities; rather, they are interconnected. When a new schedule entry is added or modified, PLANADO intelligently checks for any conflicts or dependencies with existing schedules and updates them accordingly. This eliminates errors caused by overlapping schedules or outdated data, ensuring that every user always accesses the most current information.
-
+![landing](./photos/image2)
 🤖 Interactive Bot Assistance
 -Understanding that users may have questions or need guidance while navigating the platform, PLANADO integrates a simple yet effective chatbot on the landing page. This bot can respond to common inquiries, provide quick instructions, and help users troubleshoot minor issues without the need for human intervention, thus improving accessibility and user satisfaction.
 
