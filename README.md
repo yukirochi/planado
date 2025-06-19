@@ -1,5 +1,5 @@
 
-![landing](./photos/image).
+![landing](./photos/image)
 
 
 ![landing](./photos/image2)
