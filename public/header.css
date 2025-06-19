@@ -742,7 +742,8 @@ i:hover {
   .faculty-div,
   .manage-users,
   .account-settings,
-  .feedbacks {
+  .feedbacks,
+  .search {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -790,6 +791,11 @@ i:hover {
   }
   .account-settings::after {
     content: " Account";
+    font-size: 16px;
+    font-family: "Archivo", sans-serif;
+  }
+  .search::after {
+    content: " Search";
     font-size: 16px;
     font-family: "Archivo", sans-serif;
   }

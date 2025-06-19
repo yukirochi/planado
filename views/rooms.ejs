@@ -197,7 +197,7 @@
         <% } %>
       </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <div style="display: none;" id="vardiv" data-info='<%- JSON.stringify(groupedfaculty) %>' ></div>
     <script>
 
@@ -211,7 +211,18 @@ document.addEventListener("DOMContentLoaded", () => {
     if (downloadBtn) {
       
       downloadBtn.addEventListener("click", () => {
-
+            const message = document.createElement("div");
+    message.textContent = "Generating PDF, please wait...";
+    message.style.position = "fixed";
+    message.style.top = "50%";
+    message.style.left = "50%";
+    message.style.transform = "translate(-50%, -50%)";
+    message.style.padding = "20px";
+    message.style.backgroundColor = "rgba(0,0,0,0.7)";
+    message.style.color = "white";
+    message.style.borderRadius = "5px";
+    message.style.zIndex = "9999";
+    document.body.appendChild(message);
           table.querySelector(".buttontd").style.display ="none";
           table.querySelectorAll("th").forEach(th => {
             th.style.border = "1px solid black"
@@ -230,20 +241,28 @@ document.addEventListener("DOMContentLoaded", () => {
           table.querySelectorAll("#tablehide").forEach(a =>{ a.style.display = "none"})
           table.querySelector(".tdhad").style.border = "none"
           table.querySelector(".tdhad").style.display = "table-cell"
-      
-        
+
           
-         
+          const tr2 =  table.querySelector("tr2")
+
+          if (tr2){
+          if(tr2.style.display !== "none"){
+            tr2.style.display = "none"
+          }
+        }
+      
+      
+            
         setTimeout(() => {
           
           table.style.animation = "none";
           table.style.overflow = "visible";
           html2pdf()
             .set({
-              margin: 15,
+              margin: 10,
               filename: `room-${index + 1}.pdf`,
-              image: { type: "jpeg", quality: 1 },
-              html2canvas: { scale: 2 },
+              image: { type: "jpeg", quality: 0.98 },
+              html2canvas: { scale: 1.5 },
               jsPDF: { unit: "mm", format: "a4", orientation: "landscape" }
             })
             .from(table)
@@ -252,6 +271,7 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
           location.reload()
         }, 2500);
+
        
       });
      } 
@@ -338,10 +358,13 @@ document.addEventListener("DOMContentLoaded", () => {
             if (dat.success){
               popthis(dat.message);
             let contel = document.createElement("tr");
+            let dataforsec = dat.section
+
+            let datafor = dataforsec.toUpperCase()
             contel.innerHTML += `  <tr>
-              <td> ${dat.section }</td>
-              <td> ${dat.faculty} %></td>
-              <td>${dat.subject}></td>
+              <td> ${datafor }</td>
+              <td> ${dat.faculty}</td>
+              <td>${dat.subject}</td>
               <td>
                 ${dat.strt} - ${dat.ending}
               </td>
@@ -392,6 +415,27 @@ document.addEventListener("DOMContentLoaded", () => {
           });
       })
       })
+
+       if(rolecontt === "admin"){
+
+     document.querySelectorAll(".dhead").forEach(dhe => {
+      dhe.style.display = "table-cell"
+     })
+     document.querySelectorAll(".dbody").forEach(dhe => {
+      dhe.style.display = "table-cell"
+     })
+
+  
+
+
+  }else{
+    document.querySelectorAll(".dhead").forEach(dhe => {
+      dhe.style.display = "none"
+     })
+     document.querySelectorAll(".dbody").forEach(dhe => {
+      dhe.style.display = "none"
+     })
+  }
     </script>
   </body>
 </html>

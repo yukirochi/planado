@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Planado | Search</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Allura&family=Archivo:ital,wght@0,100..900;1,100..900&family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playwrite+TZ+Guides&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik+Vinyl&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Allura&family=Archivo:ital,wght@0,100..900;1,100..900&family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playwrite+TZ+Guides&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik+Vinyl&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link rel="stylesheet" href="/header.css" />
+    <link rel="stylesheet" href="/search.css" />
+  </head>
+  <div
+    class="obj1"
+    style="display: none"
+    data-obj="<%= JSON.stringify(objectform) %>"
+  ></div>
+  <div
+    class="obj2"
+    style="display: none"
+    data-obj="<%= JSON.stringify(objectformsecttion)%>"
+  ></div>
+  <div
+    class="obj3"
+    style="display: none"
+    data-obj="<%= JSON.stringify(groupedfaculty)%>"
+  ></div>
+  <div
+    class="obj4"
+    style="display: none"
+    data-obj="<%= JSON.stringify(facultyschedobj)%>"
+  ></div>
+  <div
+    class="obj5"
+    style="display: none"
+    data-obj="<%= JSON.stringify(roomsAvail)%>"
+  ></div>
+  <body style="overflow-y: scroll; overflow-x: hidden">
+    <p style="display: none" class="page">search</p>
+    <%- include("partials/header") %> <%- include("partials/main") %> <%
+    function converTime(time){ let [hours, minutes] = time.split(':'); hours =
+    parseInt(hours, 10); let period = hours >= 12? "PM" : "AM"; hours = hours %
+    12 || 12; return `${hours}:${minutes}${period}`; } %>
+
+    <main>
+      <div class="container">
+        <div class="cont-head">
+          <form id="find">
+            <div class="inputcont">
+              <input type="text" list="items" name="findthis" />
+              <datalist id="items">
+                <% for(const ObjectKey in objectformsecttion) {%>
+                <option value="<%= ObjectKey %>"></option>
+                <% } %> <% for(const ObjectKeys in groupedfaculty) {%>
+                <option value="<%= ObjectKeys %>"></option>
+                <% } %> <% for(let i = 0; i < roomsAvail.length; i++) { %>
+                <option value="<%= roomsAvail[i] %>"></option>
+                <% } %>
+              </datalist>
+              <button type="submit">search</button>
+            </div>
+          </form>
+        </div>
+
+        <div style="position: absolute; top: 20%" id="cont-data"></div>
+      </div>
+    </main>
+
+    <div style="display: none" id="vardiv" data-info="<%= JSON.stringify(groupedfaculty) %>" ></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+      function converTime(time) {
+        if (!time) return "";
+
+        let [hoursStr, minutesStr] = time.split(":");
+        let hours = parseInt(hoursStr, 10);
+        let minutes = minutesStr.padStart(2, "0");
+        const period = hours >= 12 ? "PM" : "AM";
+
+        hours = hours % 12 || 12;
+
+        return `${hours}:${minutes}${period}`;
+      }
+
+      let objectform1 = document.querySelector(".obj1");
+      let objectform = JSON.parse(objectform1.dataset.obj);
+      let objectformsecttion2 = document.querySelector(".obj2");
+      let objectformsecttion = JSON.parse(objectformsecttion2.dataset.obj);
+      let groupedfaculty1 = document.querySelector(".obj3");
+      let groupedfaculty = JSON.parse(groupedfaculty1.dataset.obj);
+      let facultyschedobj1 = document.querySelector(".obj4");
+      let facultyschedobj = JSON.parse(facultyschedobj1.dataset.obj);
+      let roomsAvail1 = document.querySelector(".obj5");
+      let roomsAvail = JSON.parse(roomsAvail1.dataset.obj);
+
+      let findthiss = document.querySelector("#find");
+      let condat = document.querySelector("#cont-data");
+
+      findthiss.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        let Newform = new FormData(findthiss);
+        let data = Object.fromEntries(Newform);
+
+        fetch("/findthiss", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        })
+          .then((res) => res.json())
+          .then((dat) => {
+
+          try {
+            if (dat.success) {
+              if (dat.category === "room") {
+                condat.innerHTML = `<p class="room-name">${dat.var}</p>
+<table class="sched-table" style="margin-top: 20px;">
+  <thead>
+    <tr>
+      <th>section</th>
+      <th>Instructor</th>
+      <th>subject</th>
+      <th>time</th>
+      <th>day</th>
+      <th class="dhead" id="tablehide"><p style="opacity: 0;">delete</p></th>
+      <td style="position: absolute; transition: 0.3s ease; display: flex; flex-direction: column;" class="buttontd" id="notu">
+        <button class="material-icons-outlined" id="arrow" style="border: none; background-color: white; font-size: 30px;">arrow_drop_down</button>
+        <button class="material-icons-outlined download-btn">picture_as_pdf</button>
+      </td>
+      <td style="position: absolute; border: none !important; left: -2px; top: -20px; display: none;" class="tdhad"><p class="room-name">${
+        dat.var
+      }</p></td>
+    </tr>
+  </thead>
+  <tbody>
+   ${objectform[dat.var]
+     .map((attri, index) =>
+       index === 0
+         ? ""
+         : `
+        <tr>
+          <td>${attri.section}</td>
+          <td>${attri.prof}</td>
+          <td>${attri.subject_code}</td>
+          <td>${converTime(attri.start_time)} – ${converTime(
+             attri.end_time
+           )}</td>
+          <td>${attri.day}</td>
+          <td class="dbody" id="tablehide">
+            <form class="delete-sched">
+              <button
+                class="material-icons-outlined"
+                name="deleteS"
+                value="${attri.id}"
+                type="submit"
+                style="border:none;background:white">
+                delete
+              </button>
+            </form>
+          </td>
+        </tr>`
+     )
+     .join("")}
+
+    <tr id="tr2" style="display: none;" class="tr2">
+      <form id="submitsched-form">
+      <td>
+        <input
+          type="text"
+          placeholder="BSCPE2A"
+          name="section"
+          required
+          style="border: none; outline: none; border-bottom: 1px solid black;"
+        />
+      </td>
+      <td>
+        <select
+          type="text"
+          class="facultySelect"
+          name="faculty"
+          onchange="facultysub()"
+          required
+          style="border: none; outline: none; border-bottom: 1px solid black;"
+        >
+        <option value="">SELECT FACULTY</option>
+          ${Object.keys(groupedfaculty)
+            .map((dat) => {
+              return `<option style="background-color: palevioletred; font-size: 12px; padding-top: 5px;" value="${dat}">${dat}</option>`;
+            })
+            .join("")}
+        </select>
+      </td>
+      <td>
+        <select
+          type="text"
+          placeholder="FEC1"
+          name="subject"
+          class="subjectSelect"
+          required
+          style="border: none; outline: none; border-bottom: 1px solid black;"
+        >
+        </select>
+      </td>
+      <td>
+        <select name="start" id="start" style="border: none; outline: none; border-bottom: 1px solid black;">
+          <option value="07:00:00">07:00 AM</option>
+          <option value="07:30:00">07:30 AM</option>
+          <option value="08:00:00">08:00 AM</option>
+          <option value="08:30:00">08:30 AM</option>
+          <option value="09:00:00">09:00 AM</option>
+          <option value="09:30:00">09:30 AM</option>
+          <option value="10:00:00">10:00 AM</option>
+          <option value="10:30:00">10:30 AM</option>
+          <option value="11:00:00">11:00 AM</option>
+          <option value="11:30:00">11:30 AM</option>
+          <option value="12:00:00">12:00 PM</option>
+          <option value="12:30:00">12:30 PM</option>
+          <option value="13:00:00">01:00 PM</option>
+          <option value="13:30:00">01:30 PM</option>
+          <option value="14:00:00">02:00 PM</option>
+          <option value="14:30:00">02:30 PM</option>
+          <option value="15:00:00">03:00 PM</option>
+          <option value="15:30:00">03:30 PM</option>
+          <option value="16:00:00">04:00 PM</option>
+          <option value="16:30:00">04:30 PM</option>
+          <option value="17:00:00">05:00 PM</option>
+          <option value="17:30:00">05:30 PM</option>
+          <option value="18:00:00">06:00 PM</option>
+          <option value="18:30:00">06:30 PM</option>
+          <option value="19:00:00">07:00 PM</option>
+        </select>
+        <select name="end" id="end">
+          <option value="07:00:00">07:00 AM</option>
+          <option value="07:30:00">07:30 AM</option>
+          <option value="08:00:00">08:00 AM</option>
+          <option value="08:30:00">08:30 AM</option>
+          <option value="09:00:00">09:00 AM</option>
+          <option value="09:30:00">09:30 AM</option>
+          <option value="10:00:00">10:00 AM</option>
+          <option value="10:30:00">10:30 AM</option>
+          <option value="11:00:00">11:00 AM</option>
+          <option value="11:30:00">11:30 AM</option>
+          <option value="12:00:00">12:00 PM</option>
+          <option value="12:30:00">12:30 PM</option>
+          <option value="13:00:00">01:00 PM</option>
+          <option value="13:30:00">01:30 PM</option>
+          <option value="14:00:00">02:00 PM</option>
+          <option value="14:30:00">02:30 PM</option>
+          <option value="15:00:00">03:00 PM</option>
+          <option value="15:30:00">03:30 PM</option>
+          <option value="16:00:00">04:00 PM</option>
+          <option value="16:30:00">04:30 PM</option>
+          <option value="17:00:00">05:00 PM</option>
+          <option value="17:30:00">05:30 PM</option>
+          <option value="18:00:00">06:00 PM</option>
+          <option value="18:30:00">06:30 PM</option>
+          <option value="19:00:00">07:00 PM</option>
+        </select>
+      </td>
+      <td>
+        <select name="day" id="day">
+          <option value="MONDAY">MONDAY</option>
+          <option value="TUESDAY">TUESDAY</option>
+          <option value="WEDNESDAY">WEDNESDAY</option>
+          <option value="THURSDAY">THURSDAY</option>
+          <option value="FRIDAY">FRIDAY</option>
+          <option value="SATURDAY">SATURDAY</option>
+        </select>
+      </td>
+      <td style="position: absolute; transition: 0.3s ease;">
+        <input type="hidden" name="room" value="${dat.var}">
+        <button type="submit" class="material-icons-outlined" style="border: none; background-color: white; font-size: 25px;">add_box</button>
+      </form>
+      </td>
+    </tr>
+  </tbody>
+</table>`;
+
+              dlte();
+              hidethissss()
+             setTimeout(() => {
+  if (document.querySelector("#submitsched-form")) {
+    adds();
+  } else {
+    console.warn("Form not found when adds() tried to attach listener.");
+  }
+}, 50); 
+
+              } else if (dat.category === "faculty") {
+                condat.innerHTML = `
+  <p class="room-name">${dat.var}</p>
+  <table class="sched-table" style="margin: 20px">
+    <thead>
+      <tr>
+        <th>SUBJECT</th>
+        <th>SCHEDULE</th>
+        <th>SECTION</th>
+        <th>DAY</th>
+        <th>ROOM</th>
+        <th class="dhead" id="tablehide"></th>
+        <td
+          style="position:absolute;transition:.3s ease;display:flex;flex-direction:column;"
+          class="buttontd"
+          id="notu">
+          <button
+            class="material-icons-outlined"
+            id="arrow"
+            style="border:none;background:white;font-size:30px;display:none;"
+            onclick="showadd()">
+            arrow_drop_down
+          </button>
+          <button class="material-icons-outlined download-btn">
+            picture_as_pdf
+          </button>
+        </td>
+        <td
+          style="position:absolute;border:none !important;left:-2px;top:-20px;display:none;"
+          class="tdhad">
+          <p class="room-name">${dat.var}</p>
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      ${facultyschedobj[dat.var]
+        .map(
+          (atrri) => `
+          <tr>
+            <td>${atrri.subject_code}</td>
+           <td>${converTime(atrri.start_time)} – ${converTime(
+            atrri.end_time
+          )}</td>
+            <td>${atrri.section}</td>
+            <td>${atrri.day}</td>
+            <td>${atrri.room_name}</td>
+            <td class="dbody" id="tablehide">
+              <form class="delete-sched">
+                <button
+                  class="material-icons-outlined"
+                  name="deleteS"
+                  value="${atrri.id}"
+                  type="submit"
+                  style="border:none;background:white;">
+                  delete
+                </button>
+              </form>
+            </td>
+            <td
+              style="position:absolute;border:none !important;left:-2px;top:-20px;display:none;"
+              class="tdhad">
+              <p class="room-name">${dat.var}</p>
+            </td>
+          </tr>`
+        )
+        .join("")}
+    </tbody>
+  </table>
+`;
+
+dlte();
+adds()
+hidethissss()
+              } else if (dat.category === "section") {
+                condat.innerHTML = ` <p class="room-name">${dat.var}</p>
+  <table class="sched-table" style="margin-top: 20px;">
+    <thead>
+      <tr>
+        <th>subject</th>
+        <th>day</th>
+        <th>time</th>
+        <th>professor</th>
+        <th>room</th>
+        <th class="dhead" id="tablehide"><p style="opacity: 0;">delete</p></th>
+        <td style="position: absolute; transition: 0.3s ease; display: flex; flex-direction: column;"  class="buttontd" id="notu">
+          <p name="room-section" style="display: none">${dat.var}</p>
+          <button
+            class="material-icons-outlined"
+            style="
+              border: none;
+              background-color: white;
+              font-size: 30px;
+            "
+            id="showaddroom"
+            onclick="showaddroom()"
+          >
+          arrow_drop_down
+          </button>
+          <button class="material-icons-outlined download-btn" >picture_as_pdf</button>
+        </td>
+        <td style="position: absolute; border: none !important; left: -2px; top: -20px ; display: none;" class="tdhad"><p class="room-name">${
+          dat.var
+        }</p></td>
+      </tr>
+    </thead>
+    <tbody>
+      ${objectformsecttion[dat.var]
+        .map(
+          (attri) => `
+          <tr>
+            <td>${attri.subject_code}</td>
+            <td>${attri.day}</td>
+            <td>${converTime(attri.start_time)} - ${converTime(
+            attri.end_time
+          )}</td>
+            <td>${attri.prof}</td>
+            <td>${attri.room_name}</td>
+            <td class="dbody" id="tablehide">
+              <form class="delete-sched">
+                <button
+                  class="material-icons-outlined"
+                  name="deleteS"
+                  value="${attri.id}"
+                  type="submit"
+                  style="background-color: white; border: none;"
+                >
+                  delete
+                </button>
+              </form>
+            </td>
+          </tr>
+        `
+        )
+        .join("")}
+      <tr id="tr2"  style="display: none;" class="tr2">
+        <form id="submitsched-form">
+          <td>
+            <select
+              type="text"
+              placeholder="FEC1"
+              name="subject"
+              class="subjectSelect"
+              required
+              style="border: none; outline: none; border-bottom: 1px solid black; max-width: 120px;"
+            >
+            </select>
+          </td>
+          <td>
+            <select name="day" id="day">
+              <option value="MONDAY">MONDAY</option>
+              <option value="TUESDAY">TUESDAY</option>
+              <option value="WEDNESDAY">WEDNESDAY</option>
+              <option value="THURSDAY">THURSDAY</option>
+              <option value="FRIDAY">FRIDAY</option>
+              <option value="SATURDAY">SATURDAY</option>
+            </select>
+          </td>
+          <td>
+            <select name="start" id="start" style="border: none; outline: none; border-bottom: 1px solid black;">
+              <option value="07:00:00">07:00 AM</option>
+              <option value="07:30:00">07:30 AM</option>
+              <option value="08:00:00">08:00 AM</option>
+              <option value="08:30:00">08:30 AM</option>
+              <option value="09:00:00">09:00 AM</option>
+              <option value="09:30:00">09:30 AM</option>
+              <option value="10:00:00">10:00 AM</option>
+              <option value="10:30:00">10:30 AM</option>
+              <option value="11:00:00">11:00 AM</option>
+              <option value="11:30:00">11:30 AM</option>
+              <option value="12:00:00">12:00 PM</option>
+              <option value="12:30:00">12:30 PM</option>
+              <option value="13:00:00">01:00 PM</option>
+              <option value="13:30:00">01:30 PM</option>
+              <option value="14:00:00">02:00 PM</option>
+              <option value="14:30:00">02:30 PM</option>
+              <option value="15:00:00">03:00 PM</option>
+              <option value="15:30:00">03:30 PM</option>
+              <option value="16:00:00">04:00 PM</option>
+              <option value="16:30:00">04:30 PM</option>
+              <option value="17:00:00">05:00 PM</option>
+              <option value="17:30:00">05:30 PM</option>
+              <option value="18:00:00">06:00 PM</option>
+              <option value="18:30:00">06:30 PM</option>
+              <option value="19:00:00">07:00 PM</option>
+            </select>
+            <select name="end" id="end">
+              <option value="07:00:00">07:00 AM</option>
+              <option value="07:30:00">07:30 AM</option>
+              <option value="08:00:00">08:00 AM</option>
+              <option value="08:30:00">08:30 AM</option>
+              <option value="09:00:00">09:00 AM</option>
+              <option value="09:30:00">09:30 AM</option>
+              <option value="10:00:00">10:00 AM</option>
+              <option value="10:30:00">10:30 AM</option>
+              <option value="11:00:00">11:00 AM</option>
+              <option value="11:30:00">11:30 AM</option>
+              <option value="12:00:00">12:00 PM</option>
+              <option value="12:30:00">12:30 PM</option>
+              <option value="13:00:00">01:00 PM</option>
+              <option value="13:30:00">01:30 PM</option>
+              <option value="14:00:00">02:00 PM</option>
+              <option value="14:30:00">02:30 PM</option>
+              <option value="15:00:00">03:00 PM</option>
+              <option value="15:30:00">03:30 PM</option>
+              <option value="16:00:00">04:00 PM</option>
+              <option value="16:30:00">04:30 PM</option>
+              <option value="17:00:00">05:00 PM</option>
+              <option value="17:30:00">05:30 PM</option>
+              <option value="18:00:00">06:00 PM</option>
+              <option value="18:30:00">06:30 PM</option>
+              <option value="19:00:00">07:00 PM</option>
+            </select>
+          </td>
+          <td>
+            <select
+              type="text"
+              class="facultySelect"
+              name="faculty"
+              onchange="facultysub()"
+              required
+              style="border: none; outline: none; border-bottom: 1px solid black; width: 120px;"
+            >
+              <option value="">SELECT FACULTY</option>
+              ${Object.keys(groupedfaculty)
+                .map(
+                  (dat) => `
+                  <option style="background-color: palevioletred; font-size: 12px; padding-top: 5px;" value="${dat}">${dat}</option>
+                `
+                )
+                .join("")}
+            </select>
+          </td>
+          <td>
+            <select name="room" class="rooms-select">
+              ${roomsAvail
+                .map(
+                  (room) => `
+                  <option value="${room}">${room}</option>
+                `
+                )
+                .join("")}
+            </select>
+          </td>
+          <input type="hidden" value="${dat.var}" name="section" >
+          <td style="position: absolute;  transition: 0.3s ease;">
+            <button type="submit" class="material-icons-outlined" style="border: none; background-color: white; font-size: 25px;">add_box</button>
+          </td>
+        </form>
+      </tr>
+    </tbody>
+  </table>`;
+             dlte();hidethissss() }
+
+
+
+        function facultysub() {
+        let faculties = JSON.parse(document.querySelector("#vardiv").dataset.info);
+        let prof = document.querySelectorAll(".facultySelect");
+        let subjectSe = document.querySelectorAll(".subjectSelect")
+         
+       
+        for (let i = 0; i < prof.length; i++){
+
+          let profs = prof[i].value;
+          let subs = subjectSe[i]
+          subs.innerHTML = ""
+          if(profs !== ""){
+          faculties[profs].forEach(element => {
+          subs.innerHTML += `<option style="background-color: palevioletred; font-size: 12px; padding-top: 5px;" value="${element.subject}">${element.subject}</option>`
+        
+       });
+      }
+        }
+     
+      }
+      
+      const table = document.querySelector(".sched-table");
+const downloadBtn = table.querySelector(".download-btn");
+
+if (downloadBtn) {
+  downloadBtn.addEventListener("click", () => {
+   
+
+    const message = document.createElement("div");
+    message.textContent = "Generating PDF, please wait...";
+    message.style.position = "fixed";
+    message.style.top = "50%";
+    message.style.left = "50%";
+    message.style.transform = "translate(-50%, -50%)";
+    message.style.padding = "20px";
+    message.style.backgroundColor = "rgba(0,0,0,0.7)";
+    message.style.color = "white";
+    message.style.borderRadius = "5px";
+    message.style.zIndex = "9999";
+    document.body.appendChild(message);
+
+  
+    const originalStyles = {
+      animation: table.style.animation,
+      transition: table.style.transition,
+      opacity: table.style.opacity,
+      backgroundColor: table.style.backgroundColor,
+      width: table.style.width,
+      border: table.style.border
+    };
+
+    
+    table.style.animation = "none";
+    table.style.transition = "none";
+    table.style.opacity = "1";
+    table.style.backgroundColor = "#ffffff";
+    
+
+    const buttontd = table.querySelector(".buttontd");
+    if (buttontd) buttontd.style.display = "none";
+    
+   
+    table.querySelectorAll("*").forEach(el => {
+      el.style.animation = "none";
+      el.style.transition = "none";
+      el.style.opacity = "1";
+    });
+    
+    table.querySelectorAll("th").forEach(th => {
+      th.style.border = "1px solid black";
+      th.style.backgroundColor = "white";
+    });
+    
+    table.querySelectorAll("td:not(#notu)").forEach(td => {
+      td.style.border = "1px solid black";
+      td.style.backgroundColor = "white"; 
+    });
+    
+    const firstTr = table.querySelector("tr");
+    if (firstTr) firstTr.style.border = "1px solid black";
+    
+    const firstTd = table.querySelector("td");
+    if (firstTd) firstTd.style.border = "1px solid black";
+    
+    table.style.border = "1px solid black";
+    table.style.width = "500px";
+    table.style.marginTop = "40px"
+    
+    table.querySelectorAll("#tablehide").forEach(a => {
+      a.style.display = "none";
+    });
+    
+    const tdhad = table.querySelector(".tdhad");
+    if (tdhad) {
+      tdhad.style.border = "none";
+      tdhad.style.display = "table-cell";
+      tdhad.style.margin = "0 0 10px 0"; 
+    }
+    
+    const tr2Element = table.querySelector("tr2");
+    if (tr2Element) {
+      tr2Element.style.display = "none";
+    }
+    
+ 
+    table.offsetHeight;
+    
+ 
+    setTimeout(() => {
+      html2pdf()
+        .set({
+          margin: 15,
+          filename: 'room-schedule.pdf',
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { 
+            scale: 2,
+            useCORS: true,
+            logging: true,
+            backgroundColor: '#ffffff', 
+            removeContainer: false 
+          },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+        })
+        .from(table)
+        .save()
+        .then(() => {
+   
+          document.body.removeChild(message);
+          
+         
+          setTimeout(() => {
+            location.reload(); 
+          }, 1000);
+        })
+        .catch(error => {
+          console.error("PDF generation failed:", error);
+          document.body.removeChild(message);
+          alert("PDF generation failed. See console for details.");
+        });
+    }, 700); 
+  });
+}
+
+      
+
+            } else {
+              popthis(dat.message);
+            }
+            }  catch (err){
+              console.error("d gumana", err);
+              
+            }
+          });
+      });
+
+      
+
+      function dlte(){
+          const tbody = document.querySelector(".sched-table tbody");
+
+                tbody.addEventListener("submit", async (e) => {
+                  const delForm = e.target.closest(".delete-sched");
+                  if (!delForm) return;
+
+                  e.preventDefault();
+
+                  const id = delForm.querySelector(
+                    'button[name="deleteS"]'
+                  ).value;
+
+                  try {
+                    const res = await fetch("/deletesched", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({ deleteS: id }),
+                    }).then((r) => r.json());
+
+                    if (res.success) {
+                      delForm.closest("tr").remove();
+                      popthis(res.message);
+                    } else {
+                      popthis(res.message);
+                    }
+                  } catch (err) {
+                    console.error("delete failed", err);
+                    popthis("Network error—please try again");
+                  }
+                });
+      }
+
+      function adds(){
+         let addsched = document.querySelector("#submitsched-form");
+
+        addsched.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        let Newform = new FormData(addsched);
+        let data = Object.fromEntries(Newform);
+
+        fetch("/addsched", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        })
+          .then((res) => res.json())
+          .then((dat) => {
+
+            if (dat.success){
+              popthis(dat.message);
+            let contel = document.createElement("tr");
+            let dataforsec = dat.section
+
+            let datafor = dataforsec.toUpperCase()
+            contel.innerHTML += `  <tr>
+              <td> ${datafor }</td>
+              <td> ${dat.faculty}</td>
+              <td>${dat.subject}</td>
+              <td>
+                ${dat.strt} - ${dat.ending}
+              </td>
+              <td>${dat.day}</td>
+              <td class="dbody" id="tablehide">
+                <form class="delete-sched">
+                  <button class="material-icons-outlined" name="deleteS" value="${dat.id}" type="submit" style="border: none; background-color: white;" >delete</button>
+                </form>
+              </td>  
+            </tr>`
+            let table = e.target.closest(".sched-table");
+            let tbody = table.querySelector("tbody")
+            let bottom = tbody.querySelector(".tr2")
+            tbody.insertBefore(contel, bottom)
+           
+            }else{
+              popthis(dat.message)
+            }
+           
+           
+          });
+      });
+
+      }
+      let tablehide = document.querySelectorAll("#tablehide");
+      let showadds = document.querySelectorAll("#arrow");
+      let rolecont = document.querySelector(".rolecont").textContent;
+      showadds.forEach((showadd) => {
+        if (rolecont === null || rolecont === "user") {
+          showadd.style.display = "none";
+          tablehide.forEach((tohide) => {
+            tohide.style.display = "none";
+          });
+        }
+      });
+
+      condat.addEventListener("click", (e) => {
+        if (e.target.id === "arrow") toggleRow(e.target);
+      });
+
+      function toggleRow(btn) {
+        const row = btn.closest("table").querySelector("#tr2");
+        const hidden = getComputedStyle(row).display === "none";
+        row.style.display = hidden ? "table-row" : "none";
+        btn.textContent = hidden ? "arrow_drop_up" : "arrow_drop_down";
+      }
+
+      function facultysub() {
+        let faculties = JSON.parse(
+          document.querySelector("#vardiv").dataset.info
+        );
+        let prof = document.querySelectorAll(".facultySelect");
+        let subjectSe = document.querySelectorAll(".subjectSelect");
+
+        for (let i = 0; i < prof.length; i++) {
+          let profs = prof[i].value;
+          let subs = subjectSe[i];
+          subs.innerHTML = "";
+          if (profs !== "") {
+            faculties[profs].forEach((element) => {
+              subs.innerHTML += `<option style="background-color: palevioletred; font-size: 12px; padding-top: 5px;" value="${element.subject}">${element.subject}</option>`;
+            });
+          }
+        }
+      }
+
+
+      function hidethissss(){
+       if(rolecontt === "admin"){
+
+     document.querySelectorAll(".dhead").forEach(dhe => {
+      dhe.style.display = "table-cell"
+     })
+     document.querySelectorAll(".dbody").forEach(dhe => {
+      dhe.style.display = "table-cell"
+     })
+
+  
+
+
+  }else{
+    document.querySelectorAll(".dhead").forEach(dhe => {
+      dhe.style.display = "none"
+     })
+     document.querySelectorAll(".dbody").forEach(dhe => {
+      dhe.style.display = "none"
+     })
+  }
+}
+    </script>
+  </body>
+</html>

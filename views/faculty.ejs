@@ -479,6 +479,27 @@
                 });
             });
           });
+
+           if(rolecontt === "admin"){
+
+     document.querySelectorAll(".dhead").forEach(dhe => {
+      dhe.style.display = "table-cell"
+     })
+     document.querySelectorAll(".dbody").forEach(dhe => {
+      dhe.style.display = "table-cell"
+     })
+
+  
+
+
+  }else{
+    document.querySelectorAll(".dhead").forEach(dhe => {
+      dhe.style.display = "none"
+     })
+     document.querySelectorAll(".dbody").forEach(dhe => {
+      dhe.style.display = "none"
+     })
+  }
         </script>
       </div>
     </div>

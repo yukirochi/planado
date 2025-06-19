@@ -3,6 +3,8 @@ const path = require("path");
 const express = require("./server");
 const PORT = 3000;
 
+app.setPath('userData', path.join(__dirname, 'user_data'));
+
 let win;
 
 function createWindow() {

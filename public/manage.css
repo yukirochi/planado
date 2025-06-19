@@ -450,4 +450,7 @@ option {
 input[type="text"]{
   text-transform: unset !important;
 }
+* div::-webkit-scrollbar {
+  width: 0;
+}
 

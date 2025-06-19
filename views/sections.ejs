@@ -197,7 +197,6 @@
                 </select>
               </td>
               <input type="hidden" value="<%= ObjectKey %>" name="section" >  
-
               <td style="position: absolute;  transition: 0.3s ease;">
                   <button type="submit" class="material-icons-outlined" style="border: none; background-color: white; font-size: 25px;">add_box</button>
                 </form>
@@ -205,7 +204,6 @@
             </tr>
           </tbody>
         </table>
-
         <% } %>
       </div>
     </div>
@@ -223,6 +221,20 @@
     if (downloadBtn) {
       
       downloadBtn.addEventListener("click", () => {
+
+        const message = document.createElement("div");
+    message.textContent = "Generating PDF, please wait...";
+    message.style.position = "fixed";
+    message.style.top = "50%";
+    message.style.left = "50%";
+    message.style.transform = "translate(-50%, -50%)";
+    message.style.padding = "20px";
+    message.style.backgroundColor = "rgba(0,0,0,0.7)";
+    message.style.color = "white";
+    message.style.borderRadius = "5px";
+    message.style.zIndex = "9999";
+    document.body.appendChild(message);
+
 
           table.querySelector(".buttontd").style.display ="none";
           table.querySelectorAll("th").forEach(th => {
@@ -243,6 +255,7 @@
           table.querySelector(".dbody").style.display = "none";
           table.querySelector(".tdhad").style.border = "none"
           table.querySelector(".tdhad").style.display = "table-cell"
+          table.querySelectorAll("#tablehide").forEach(a =>{ a.style.display = "none"})
         
           
          
@@ -351,6 +364,9 @@
             let tbody = table.querySelector("tbody")
             let bottom = tbody.querySelector(".tr2")
             tbody.insertBefore(contel, bottom)
+             
+            deletethishi()
+
             }else{
               popthis(dat.message)
             }
@@ -379,7 +395,12 @@
      
       }
 
-      let dels = document.querySelectorAll(".delete-sched");
+
+      function deletethishi(){
+        
+    
+
+        let dels = document.querySelectorAll(".delete-sched");
 
       dels.forEach((del) => {
         del.addEventListener("submit", (e) => {
@@ -401,7 +422,31 @@
               }
             });
         });
-      });
+      });}
+
+      deletethishi()
+      
+
+       if(rolecontt === "admin"){
+
+     document.querySelectorAll(".dhead").forEach(dhe => {
+      dhe.style.display = "table-cell"
+     })
+     document.querySelectorAll(".dbody").forEach(dhe => {
+      dhe.style.display = "table-cell"
+     })
+
+  
+
+
+  }else{
+    document.querySelectorAll(".dhead").forEach(dhe => {
+      dhe.style.display = "none"
+     })
+     document.querySelectorAll(".dbody").forEach(dhe => {
+      dhe.style.display = "none"
+     })
+  }
     </script>
   </body>
 </html>

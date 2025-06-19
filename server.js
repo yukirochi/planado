@@ -17,6 +17,9 @@ const connection = mysql
     user: "root",
     password: "",
     database: "rq1.0",
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0,
   })
   .promise();
 
@@ -63,7 +66,12 @@ app.post("/submitsignp", async (req, res) => {
     "SELECT * FROM users WHERE email =?",
     [emailSignup]
   );
-  let rolex = "user"
+  const [veri] = await connection.query(
+    "SELECT * FROM users WHERE email = ? AND password = ?",
+    [emailSignup, passwordSignup]
+  );
+
+  let rolex = "user";
   if (verify.length > 0) {
     return res.json({ emailtaken: "email is already exist" });
   } else {
@@ -71,6 +79,7 @@ app.post("/submitsignp", async (req, res) => {
       `INSERT INTO users (email, password,role) VALUES (?, ?, ?)`,
       [emailSignup, passwordSignup, rolex]
     );
+    gmail = emailSignup;
     useremail = emailSignup.split("@")[0];
     return res.json({
       success: true,
@@ -194,7 +203,6 @@ app.post("/addroom", async (req, res) => {
       message: "rooms is already existed",
     });
   } else {
-    
     await connection.query(`INSERT INTO rooms (room_name) VALUES (?)`, [
       uroomName.toUpperCase(),
     ]);
@@ -220,7 +228,7 @@ app.post("/addsched", async (req, res) => {
     `SELECT * FROM rooms WHERE room_name = ?
      AND day = ?
      AND NOT (? >= end_time OR ? <= start_time)`,
-    [room, day, start, end]
+    [room.toUpperCase(), day, start, end]
   );
 
   if (end === start) {
@@ -253,16 +261,31 @@ app.post("/addsched", async (req, res) => {
   } else {
     await connection.query(
       "INSERT INTO rooms (room_name, start_time, end_time, subject_code, section, day, prof) VALUES (?, ?, ?, ?, ?, ?, ?)",
-      [room, start, end, subject, section.toUpperCase(), day, faculty]
+      [
+        room.toUpperCase(),
+        start,
+        end,
+        subject,
+        section.toUpperCase(),
+        day,
+        faculty,
+      ]
     );
-    let [idver] = await connection.query("SELECT * FROM rooms WHERE section = ? AND room_name = ? AND start_time = ? AND end_time = ?",[section,room, start, end])
+    let [idver] = await connection.query(
+      "SELECT * FROM rooms WHERE section = ? AND room_name = ? AND start_time = ? AND end_time = ?",
+      [section, room, start, end]
+    );
 
-    let id = idver[0].ID
-    function converTime(time){ let [hours, minutes] = time.split(':'); hours =
-      parseInt(hours, 10); let period = hours >= 12? "PM" : "AM"; hours = hours %
-      12 || 12; return `${hours}:${minutes}${period}`; }
-      let strt = converTime(start)
-      let ending = converTime(end)
+    let id = idver[0].ID;
+    function converTime(time) {
+      let [hours, minutes] = time.split(":");
+      hours = parseInt(hours, 10);
+      let period = hours >= 12 ? "PM" : "AM";
+      hours = hours % 12 || 12;
+      return `${hours}:${minutes}${period}`;
+    }
+    let strt = converTime(start);
+    let ending = converTime(end);
     return res.json({
       success: true,
       message: "schedule added",
@@ -273,7 +296,7 @@ app.post("/addsched", async (req, res) => {
       section,
       day,
       faculty,
-      id
+      id,
     });
   }
 });
@@ -338,11 +361,10 @@ app.get("/faculty", async (req, res) => {
 });
 app.get("/feedback", async (req, res) => {
   return res.render("feedback", { usermail: useremail, role });
-  
 });
 app.post("/addfeed", async (req, res) => {
-  let {  feedbackcont } = req.body;
-  
+  let { feedbackcont } = req.body;
+
   if (feedbackcont === "") {
     return res.json({
       message: "pls say something before submiting",
@@ -417,16 +439,19 @@ app.post("/addprof", async (req, res) => {
       "INSERT INTO faculty (prof, subject, units) VALUES (?, ?, ?)",
       [prof, subject, unitstring]
     );
-    let [idver] = await connection.query("SELECT * FROM faculty WHERE prof = ? AND subject = ?",[prof,subject])
+    let [idver] = await connection.query(
+      "SELECT * FROM faculty WHERE prof = ? AND subject = ?",
+      [prof, subject]
+    );
 
-    let id = idver[0].ID
+    let id = idver[0].ID;
     res.json({
       success: true,
       message: "Added Successfully",
       prof,
       units,
       subject,
-      id
+      id,
     });
   }
 });
@@ -479,16 +504,19 @@ app.get("/account", async (req, res) => {
 });
 
 app.post("/accountmanage", async (req, res) => {
-  let {email,password, npassword } = req.body;
+  let { email, password, npassword } = req.body;
 
-  let [verify] = await connection.query("SELECT email FROM users WHERE password = ?",[password])
-  if(verify.length === 0){
+  let [verify] = await connection.query(
+    "SELECT email FROM users WHERE password = ?",
+    [password]
+  );
+  if (verify.length === 0) {
     res.json({
-      success:false,
-      message:"Your current Password is Wrong"
-    })
+      success: false,
+      message: "Your current Password is Wrong",
+    });
   }
-  
+
   if (npassword === null) {
     res.json({
       success: false,
@@ -503,15 +531,106 @@ app.post("/accountmanage", async (req, res) => {
       success: true,
       message: "Password changed successfully",
     });
-  } 
+  }
 });
 app.get("/feedbacks", async (req, res) => {
-  let [feeddata] = await connection.query("SELECT * FROM feedback")
+  let [feeddata] = await connection.query("SELECT * FROM feedback");
   return res.render("feedbacks", {
     usermail: useremail,
     role,
-    feeddata
+    feeddata,
   });
-})
+});
+app.get("/search", async (req, res) => {
+  /* return res.render("search", {
+    usermail: useremail,
+    role,
+  })*/
 
+  const [data] =
+    await connection.query(`SELECT * FROM rooms ORDER BY CASE day WHEN 'Sunday' THEN 1
+    WHEN 'Monday' THEN 2
+    WHEN 'Tuesday' THEN 3
+    WHEN 'Wednesday' THEN 4
+    WHEN 'Thursday' THEN 5
+    WHEN 'Friday' THEN 6
+    WHEN 'Saturday' THEN 7 END, start_time, end_time`);
+  arrayformm = data.map((dat) => dat);
+  let objectform = Object.groupBy(arrayformm, (dat) => dat.room_name);
+  objectformsecttion = Object.groupBy(
+    arrayformm.filter((dat) => dat.section),
+    (dat) => dat.section
+  );
+
+  let [roomsAvailable] = await connection.query(
+    "SELECT DISTINCT room_name From rooms"
+  );
+  const [faculty] = await connection.query("SELECT prof, subject FROM faculty");
+  let groupedfaculty = Object.groupBy(faculty, (dat) => dat.prof);
+  let roomsAvail = roomsAvailable.map((row) => row.room_name);
+
+  let [facultysched] =
+    await connection.query(`SELECT * FROM rooms ORDER BY CASE day WHEN 'Sunday' THEN 1
+    WHEN 'Monday' THEN 2
+    WHEN 'Tuesday' THEN 3
+    WHEN 'Wednesday' THEN 4
+    WHEN 'Thursday' THEN 5
+    WHEN 'Friday' THEN 6
+    WHEN 'Saturday' THEN 7 END, start_time, end_time`);
+  let facultyschedobj = Object.groupBy(facultysched, (dat) => dat.prof);
+  res.render("search", {
+    usermail: useremail,
+    objectformsecttion,
+    groupedfaculty,
+    roomsAvail,
+    roomsAvailable,
+    objectform,
+    role,
+    facultyschedobj,
+  });
+});
+
+app.post("/findthiss", async (req, res) => {
+  let { findthis } = req.body;
+
+  let [rooms] = await connection.query(
+    "SELECT * FROM rooms WHERE room_name = ?",
+    [findthis]
+  );
+
+  let [faculty] = await connection.query(
+    "SELECT * FROM faculty WHERE prof = ?",
+    [findthis]
+  );
+
+  let [section] = await connection.query(
+    "SELECT * FROM rooms WHERE section = ?",
+    [findthis]
+  );
+
+  if (rooms.length > 0) {
+    res.json({
+      success: true,
+      var: findthis,
+      category: "room",
+    });
+  } else if (faculty.length > 0) {
+    res.json({
+      success: true,
+      var: findthis,
+      category: "faculty",
+    });
+  } else if (section.length > 0) {
+    res.json({
+      success: true,
+      var: findthis,
+      category: "section",
+    });
+  } else {
+    res.json({
+      success: false,
+      message: "no result found",
+    });
+  }
+});
 module.exports = app;
