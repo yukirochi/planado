@@ -1,5 +1,5 @@
 
-![landing](./photos/image.png)
+![landing](./photos/image)
 🗓️
 PLANADO is a comprehensive schedule management system crafted specifically to address the unique needs of educational institutions. Schools often face challenges in releasing accurate and timely schedules, leading to confusion, delays, and inefficient communication between faculty, staff, and students. PLANADO was designed with these problems in mind — to provide a reliable, efficient, and user-friendly platform that accelerates schedule management while ensuring accuracy and coherence.
 
